@@ -7,7 +7,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 30vh;
     background-color: rgb(216, 230, 243);
 }
 .sectionDevider{
@@ -92,4 +91,64 @@
     display: flex;
     justify-content: center;
     transition: all 2s ease;
+}
+
+.section2TextBox1{
+    color: white;
+    margin-top: 3%;
+    height: 20vh;
+    width: 100vw;
+    background: linear-gradient(
+        135deg, 
+        rgb(175, 211, 253), 
+        rgb(135, 187, 245), 
+        rgb(175, 176, 253)
+      );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+}
+.section2TextBox1 div{
+    transition: transform 1.5s ease-in;
+}
+.section3{
+    margin-top: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .title{
+        width: 80%;
+        font-size: 33px;
+    }
+    .subTitle{
+        font-size: 22px;
+    }
+    .loginButtonContainer button{
+        font-size: 0.8em;
+        padding: 0.7em;
+    }
+    .section1List{
+        width: 100%;
+    }
+    .section1List div{
+        width: 30%;
+        font-size: 0.7em;
+        height: 50px;
+    }
+    .sectionDevider{
+        height: 150px;
+    }
+    .section1, .section2{
+        margin-top: 100px;
+    }
+    .section2TextBox1{
+        height: 15vh;
+        margin-top: 10%;
+        font-size: 1.2em;
+    }
 }

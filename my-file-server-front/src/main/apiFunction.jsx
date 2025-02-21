@@ -85,3 +85,24 @@ export const deleteFile = async (fileCode, callBack) => {
     await api.delete(`/main/file/${fileCode}`);
     callBack();
 }
+export async function uploadChunk(file, description, folderCode, callBack, setPercent, setLoading) {
+  const chunkSize = 50 * 1024 * 1024; // 50MB
+  const totalChunks = Math.ceil(file.size / chunkSize);
+  console.log(setPercent);
+  
+  for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+      const chunk = file.slice(chunkIndex * chunkSize, (chunkIndex + 1) * chunkSize);
+      const isMergeChunk = chunkIndex === totalChunks - 2;
+      const response = await api.post("/main/chunk", {chunk:chunk,chunkIndex:chunkIndex,totalChunks:totalChunks,originalFileName:file.name,description:description,fileSize:file.size,folderCode:folderCode}
+          ,{headers:{ignoreTimeout:isMergeChunk}}
+      );
+      if(response.data.fileCode){
+          callBack(response.data);
+      } else if(isMergeChunk){
+          setPercent(`병합 작업 중..`);
+      } else {
+          setLoading((p)=>({...p, upload: false}));
+          setPercent(`업로드 ${Math.floor((chunkIndex/totalChunks) * 100)}% 완료`);
+      }
+  }
+}

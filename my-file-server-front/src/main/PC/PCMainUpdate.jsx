@@ -5,9 +5,10 @@ import s from './PCMainUpdate.module.css';
 import { deleteFile } from '../function';
 import CustomModal from '../../common/CustomModal';
 import Filedetail from './Components/FileDetail/FileDetail';
+import { uploadChunk } from '../apiFunction';
+import { Loading } from '../../common/Loading';
 
-function PCMainUpdate() {
-    
+export function PCMainUpdate() {
     const [history, setHistory] = useState([]);
     const [folderCode, setFolderCode] = useState(null);
     const [isShowFileDetail, setIsShowFileDetail] = useState(false);
@@ -24,23 +25,42 @@ function PCMainUpdate() {
     const [file, setFile] = useState(null);
     const [deleteFileCode, setDeleteFileCode] = useState(0);
     const [uploadFolderCode, setUploadFolderCode] = useState(null);
+        const [loading, setLoading] = useState({upload:false});
+        const [bigFilePercent, setBigFilePercent] = useState(0);
+    
     /**모달 관리 state*/
     const [percent, setPercent] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
     const [isDeleteModal, setIsDeleteModal] = useState(false);
     const [isCreateFolderModalOpen, setIsCreateFolderModalOpen] = useState(false);
     const [isRenameFolderModalOpen, setIsRenameFolderModalOpen] = useState(false);
+    // const [modalOpenStatus, setModalOpenStatus] = useState({isUploadModalOpen: false, isDeleteModalOpen: false, isCreateFolderModalOpen: false, isRenameFolderModalOpen: false, isGroupDeleteModalOpen: false,});
+    
     //파일 업로드 모달
     const handleFormSubmit = useCallback(async (fileName) => {
-        const res = await api.post('/main/upload', { file: file, description: fileName, isPrivate: false, folderCode: uploadFolderCode }, {
+        setLoading((p)=>({...p, upload: true}));
+        if(file.size>(100 * 1024 * 1024)){
+            uploadChunk(file, fileName, folderCode, (res)=>{
+                setFiles(prev => ({ ...prev, files: [...prev.files, res] }));
+                setBigFilePercent(0);
+            },setBigFilePercent,setLoading);
+            setIsModalOpen(false);
+            alert('파일 용량이 커 분할 업로드로 전환합니다. 페이지를 전환하지 마세요.');
+        } else {
+            const res = await api.post('/main/upload', { file: file, description: fileName, isPrivate: false, folderCode: uploadFolderCode }, {
+            
             onUploadProgress: (e) => {
                 const p = Math.round((e.loaded * 100) / e.total);
                 setPercent(p);
             }
-        });
-        setFiles(prev => ({ ...prev, files: [...prev.files, res.data] }))
-        setIsModalOpen(false); setPercent(0);
+            });
+            setFiles(prev => ({ ...prev, files: [...prev.files, res.data] }))
+            setIsModalOpen(false); setPercent(0);
+            setLoading((p)=>({...p, upload: false}));
+        }
     },[file,uploadFolderCode]);
+
+    
     const closeModal = useCallback(()=>setIsModalOpen(false),[]);
     //삭제 모달
     const handleDeleteFormSubmit = useCallback(async () => {
@@ -160,6 +180,8 @@ function PCMainUpdate() {
                         <h1>개인 클라우드</h1>
                         <h5>누구도 볼 수 없습니다.<br /></h5>
                     </div>
+                    {bigFilePercent!==0&&<div style={{position:'absolute',  right:50, top: 50,display:'flex'}}><h1>{bigFilePercent}</h1><Loading type='pacman' text=''/></div>}
+                    
                     <div className={s.customFileUpload}>
                         <label htmlFor="fileInput" className={s.customUploadButton}>파일 업로드</label>
                         <input id="fileInput" type="file" onChange={openUploadModal} />

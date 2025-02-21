@@ -23,8 +23,9 @@ function Group() {
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const [selectedMenuFolderCode, setSelectedMenuFolderCode] = useState(null);
-    const [group, setGroup] = useState({});
     const [loading, setLoading] = useState({upload:false});
+
+    const [group, setGroup] = useState({});
     const [showGroupMember, setShowGroupMember] = useState(false);
     const [members, setMembers] = useState([]);
     //지금 현재 화면에 렌더링하는 데이터 state
