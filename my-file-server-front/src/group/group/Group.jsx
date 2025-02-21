@@ -66,7 +66,7 @@ function Group() {
 
 
 
-    },[file,uploadFolderCode]);
+    },[file,uploadFolderCode,code,folderCode]);
     //삭제 모달
     const handleDeleteFormSubmit = useCallback(async () => {
         await deleteFile(deleteFileCode);

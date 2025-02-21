@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import DOMPurify from 'dompurify';
 import MobileHeader from "../../main/Mobile/Component/MobileHeader";
 import { truncateString } from "../../main/function";
-import { Tooltip } from "react-tooltip";
 import axios from "axios";
 
 

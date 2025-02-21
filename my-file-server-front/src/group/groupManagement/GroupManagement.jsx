@@ -1,9 +1,7 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import s from './GroupManagement.module.css';
 
 export const GroupManagement = () => {
-    const nav = useNavigate();
   return (
     <div className={s.contianer}>
       

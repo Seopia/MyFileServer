@@ -1,6 +1,6 @@
 import QuillEditor from "./QuillEditor"
 import s from "./ForumCreate.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import MobileHeader from "../../main/Mobile/Component/MobileHeader";
 import axios from "axios";

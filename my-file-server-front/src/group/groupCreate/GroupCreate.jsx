@@ -14,7 +14,6 @@ const GroupCreate = () => {
         searchParam: '',
         groupName: '',
         description: '',
-        description: '',
     });
     const handleOnChange = (e) => {
         setInputs({
