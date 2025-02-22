@@ -141,7 +141,8 @@ public class MainPageService {
                 writtenPostCount,
                 writtenCommentCount,
                 uploadCount,
-                "/icon.png"
+                "/icon.png",
+                user.getIntroduce()
         );
     }
 
@@ -149,6 +150,7 @@ public class MainPageService {
     public void modifyUser(UserPageDTO user) {
         User userEntity = userRepository.findByUserCode(user.getUserCode());
         userEntity.setId(user.getUserId());
+        userEntity.setIntroduce(user.getIntroduce());
         userRepository.save(userEntity);
     }
 

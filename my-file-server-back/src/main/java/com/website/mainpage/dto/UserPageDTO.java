@@ -13,4 +13,5 @@ public class UserPageDTO {
     private int writtenCommentCount;
     private int uploadFileCount;
     private String profileImage;
+    private String introduce;
 }

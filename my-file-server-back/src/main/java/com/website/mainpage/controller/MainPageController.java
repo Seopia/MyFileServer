@@ -65,6 +65,7 @@ public class MainPageController {
     @PostMapping("/user")
     public ResponseEntity<?> modifyUser(UserPageDTO user){
         System.out.println(user.getUserId());
+        System.out.println(user.getIntroduce());
         try{
             mainService.modifyUser(user);
             return ResponseEntity.ok().build();

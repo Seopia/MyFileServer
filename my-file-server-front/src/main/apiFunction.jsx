@@ -85,10 +85,18 @@ export const deleteFile = async (fileCode, callBack) => {
     await api.delete(`/main/file/${fileCode}`);
     callBack();
 }
+/**
+ * 개인 클라우드 전용 파일 분할 업로드 함수
+ * @param {*} file 파일
+ * @param {*} description 파일 이름
+ * @param {*} folderCode 폴더 코드
+ * @param {*} callBack 업로드 완료 후 실행 함수
+ * @param {*} setPercent 퍼센트
+ * @param {*} setLoading 로딩 유무
+ */
 export async function uploadChunk(file, description, folderCode, callBack, setPercent, setLoading) {
   const chunkSize = 50 * 1024 * 1024; // 50MB
   const totalChunks = Math.ceil(file.size / chunkSize);
-  console.log(setPercent);
   
   for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
       const chunk = file.slice(chunkIndex * chunkSize, (chunkIndex + 1) * chunkSize);
@@ -97,12 +105,15 @@ export async function uploadChunk(file, description, folderCode, callBack, setPe
           ,{headers:{ignoreTimeout:isMergeChunk}}
       );
       if(response.data.fileCode){
+        //병합 완료 후
           callBack(response.data);
       } else if(isMergeChunk){
+        //병합 중
           setPercent(`병합 작업 중..`);
       } else {
-          setLoading((p)=>({...p, upload: false}));
-          setPercent(`업로드 ${Math.floor((chunkIndex/totalChunks) * 100)}% 완료`);
+        //업로드 중
+          setLoading((p)=>({...p, uploadPrepare: false, uploading: true}));
+          setPercent(Math.floor((chunkIndex/totalChunks) * 100));
       }
   }
 }

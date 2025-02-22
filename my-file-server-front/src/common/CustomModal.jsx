@@ -40,7 +40,7 @@ const CustomModal = React.memo(({message='Enter Data', isOpen, onClose, onSubmit
     width:'40%',
     transition:'all 0.2s ease',
     cursor:'pointer',
-}, percent, timeOut}) => {
+}, percent, timeOut, loading=false}) => {
     
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef(null);
@@ -80,10 +80,12 @@ const CustomModal = React.memo(({message='Enter Data', isOpen, onClose, onSubmit
                         style={inputStyle}
                     />
                 }
+                { !loading &&
                 <div style={{marginTop: '10px', width:'100%', display:'flex',justifyContent:'space-around'}}>
                     <button style={buttonStyle} type="submit">{submitMessage}</button>
                     <button style={buttonStyle} type="button" onClick={onClose}>{closeMessage}</button>
                 </div>
+                }
             </form>
             {percent?<div style={{marginTop:10,background:'rgb(127, 138, 157)',width:'90%',borderRadius:5}}>
                 <div style={{width:`${percent}%`,paddingLeft:10,borderRadius:5, color:'white' ,background:'rgba(161, 197, 255)', transition:'width 0.2s ease'}}>{percent}%..</div>
