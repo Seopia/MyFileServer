@@ -23,8 +23,9 @@ function Group() {
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const [selectedMenuFolderCode, setSelectedMenuFolderCode] = useState(null);
-    const [group, setGroup] = useState({});
     const [loading, setLoading] = useState({upload:false});
+
+    const [group, setGroup] = useState({});
     const [showGroupMember, setShowGroupMember] = useState(false);
     const [members, setMembers] = useState([]);
     //지금 현재 화면에 렌더링하는 데이터 state
@@ -181,34 +182,41 @@ function Group() {
     const getGroupMembers = useCallback(async () => {
         const res = await api.get(`/group/member?groupCode=${code}`);
         setMembers(res.data);
+        console.log(res.data);
+        
     },[code]);
     const removeMember = (member) => {
         console.log(member);
-        
+        alert('추방 기능 구현 중');
     }   
-    console.log('?');
     
     useEffect(()=>{
         getGroupMembers();
     },[getGroupMembers]);
+    
     return (
         <>
             {isMobile&&<MobileHeader title={group.name+' (모바일은 완전하지 않을 수 있습니다.)'}/>}
             <aside style={showGroupMember?
-                {width:'30vw',height:'100vh',top:'0px',right:'0px'}
+                {width:'30vw',height:'100vh',top:'0px',right:'0px',boxShadow:'0 0 10px 5px rgb(67, 89, 122)'}
                 :
-                {width:'50px',bottom:'10%',right:'5%',height:'50px'}
+                {width:'70px',bottom:'10%',right:'5%',height:'70px',borderRadius:10,color:'white',display:'flex',justifyContent:'center',alignItems:'center',cursor:'pointer',boxShadow:'2px 2px 4px 1px rgb(115, 149, 201)',fontSize:'0.8em'}
                     } onClick={()=>setShowGroupMember(true)} className={s.groupMemberContainer}>
-                {!showGroupMember?<div>멤버</div>:
+                {!showGroupMember?<div>Members</div>:
                 <div>
-                    <button onClick={(e)=>{e.stopPropagation();setShowGroupMember(false);}}>닫기</button>
-                    <div>함께하는 가족들입니다.</div>
+                    <div className={s.groupMemberHeader}>
+                        <button onClick={(e)=>{e.stopPropagation();setShowGroupMember(false);}}>닫기</button>
+                        <div>함께하는 가족들을 소개합니다.</div>
+                        <div style={{fontSize:'0.8em'}}>닉네임을 클릭하면 소개 페이지로 이동합니다!</div>
+                    </div>
+                    <div className={s.groupMember}>
                     {members.map((member)=>(
-                        <div key={member.userCode}>
-                            <div>{member.id}</div>
+                        <div key={member.userCode} className={s.member}>
+                            <div style={{cursor:'pointer'}} onClick={()=>nav(`/user/${member.userCode}`)}>{member.id}</div>
                             {group.manager===data?.userCode&&<button onClick={()=>removeMember(member)}>추방</button>}
                         </div>
                     ))}
+                    </div>
                 </div>
                 }
             </aside>

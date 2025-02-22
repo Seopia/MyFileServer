@@ -97,6 +97,43 @@
   .menu li:hover{
     background-color: aliceblue;
   }
+  .groupMemberHeader button, .groupMemberHeader div{
+    margin: 10px;    
+    color: rgb(255, 255, 255);
+  }
+  .groupMemberHeader button{
+    cursor: pointer;
+    background-color: #4e95d8;
+    color: whitesmoke;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .groupMember{
+    display: flex;
+    color: white;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .member{
+    margin-left: 5px;
+    background-color: rgb(116, 154, 216);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    padding-left: 20px;
+    justify-content: space-between;
+  }
+  .member button{
+    cursor: pointer;
+    background-color: #4e95d8;
+    color: whitesmoke;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+  }
 
   .groupMemberContainer{
     position: fixed;

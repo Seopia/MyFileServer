@@ -79,14 +79,16 @@
     margin-top: 10px;
     font-size: 12px;
   }
-  .find-account-container{
+
+  .login-tutorial{
     margin-top: 10px;
-    display: flex;
-  }
-  .find-account {
+    width: 20%;
+    white-space: nowrap;
+    text-decoration: underline;
+    color: rgb(94, 94, 253);
     cursor: pointer;
     border: none;
-    background-color: white;
+    background: transparent;
   }
   @media screen and (max-width: 768px) {
     .login-input-container {

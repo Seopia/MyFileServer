@@ -41,7 +41,7 @@ function UserPage() {
               <img className={s.profileImage} src={user.profileImage} onError={()=>handleUserChange({profileImage:'/icon.png'})} alt="Error" />
               <div className={s.userInfo}>
                 {isEdit?<input onChange={(e)=>handleUserChange({userId:e.target.value})} value={user.userId}/>:<h2>{user.userId}</h2>}
-                {isEdit?<input onChange={(e)=>handleUserChange({email:e.target.value})} value={user.email}/>:<p>{user.email ? user.email : "이메일이 등록되지 않았습니다."}</p>}
+                {isEdit?<input placeholder="실명을 기입해주세요." onChange={(e)=>handleUserChange({introduce:e.target.value})} value={user.introduce?user.introduce:''}/>:<p>{user.introduce ? user.introduce : '자기소개가 없습니다.'}</p>}
               </div>
             </div>
       

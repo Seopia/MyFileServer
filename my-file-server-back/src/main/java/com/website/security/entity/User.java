@@ -33,4 +33,7 @@ public class User {
 
     @Column(name = "last_login_time")
     private LocalDateTime lastLoginTime;
+
+    @Column(name = "introduce")
+    private String introduce;
 }

@@ -20,4 +20,6 @@ public class MainUserEntity {
     private String id;
     @Column(name = "user_role")
     private String userRole;
+    @Column(name = "introduce")
+    private String introduce;
 }
