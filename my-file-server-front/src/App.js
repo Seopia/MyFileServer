@@ -8,7 +8,7 @@ import ForumDetail from "./forum/pages/ForumDetail";
 import Join from "./account/join/Join";
 import ForumCreate from "./forum/pages/ForumCreate";
 import NotFound from "./common/NotFound";
-import MobilePublicMain from "./main/Mobile/mobilePublic/MobilePublicMain";
+// import MobilePublicMain from "./main/Mobile/mobilePublic/MobilePublicMain";
 import UserManagement from "./admin/UserManagement/UserManagement";
 import GroupCreate from "./group/groupCreate/GroupCreate";
 import GroupSelect from "./group/groupSelect/GroupSelect";
@@ -16,6 +16,7 @@ import Group from "./group/group/Group";
 import { GroupManagement } from "./group/groupManagement/GroupManagement";
 import { Testcomponent } from "./admin/TestFolder/Testcomponent";
 import Tutorial from "./account/tutorial/Tuturial";
+import PublicMain from "./main/public/main/PublicMain";
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
         <Route path="/tutorial" element={<Tutorial/>}/>
         <Route element={<SideBar/>}>
           <Route path="main" element={<Main/>}/>
-          <Route path="/main/public" element={<MobilePublicMain/>}/>
+          <Route path="/public" element={<PublicMain/>}/>
           <Route path="user/:id" element={<UserPage/>}/>
           <Route path="admin/user" element={<UserManagement/>}/>
           <Route path="/forum" element={<ForumMain/>} />
