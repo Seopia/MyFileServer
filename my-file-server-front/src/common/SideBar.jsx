@@ -34,7 +34,7 @@ const SideBar = () => {
                 </div>
                 <ul className={s.list}>
                     <li onClick={()=>{nav(`/main`)}}>개인 클라우드</li>
-                    <li onClick={()=>{nav('/main/public')}}>공용 클라우드</li>
+                    <li onClick={()=>{nav('/public')}}>공용 클라우드</li>
                     <li onClick={()=>nav('group/select')}>그룹 클라우드</li>
                     <li onClick={()=>nav('/forum')}>자유 게시판</li>
                     {data && data.userRole === 'ROLE_ADMIN'&&<li onClick={()=>nav('/admin/user')}>관리자 페이지</li>}

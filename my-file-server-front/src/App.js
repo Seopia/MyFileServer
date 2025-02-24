@@ -17,6 +17,8 @@ import { GroupManagement } from "./group/groupManagement/GroupManagement";
 import { Testcomponent } from "./admin/TestFolder/Testcomponent";
 import Tutorial from "./account/tutorial/Tuturial";
 import PublicMain from "./main/public/main/PublicMain";
+import PublicFileDetail from "./main/public/detail/PublicFileDetail";
+import PublicUpload from "./main/public/upload/PublicUpload";
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
         <Route element={<SideBar/>}>
           <Route path="main" element={<Main/>}/>
           <Route path="/public" element={<PublicMain/>}/>
+          <Route path="/public/upload" element={<PublicUpload/>}/>
+          <Route path="/public/file/:fileCode" element={<PublicFileDetail/>}/>
           <Route path="user/:id" element={<UserPage/>}/>
           <Route path="admin/user" element={<UserManagement/>}/>
           <Route path="/forum" element={<ForumMain/>} />

@@ -35,6 +35,41 @@ body {
   }
 }
 
+/* select 기본 스타일 */
 
+select.custom-select {
+  display: block;
+  width: 100%;
+  padding: 0.5em 2.5em 0.5em 1em; /* 오른쪽 여백은 아이콘 공간 */
+  font-size: 1em;
+  font-family: inherit;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  /* 드롭다운 아이콘 (SVG 인코딩) */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='12'%3E%3Cpath%20fill='%23333'%20d='M0,0%20L12,0%20L6,6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em center;
+  background-size: 12px;
+  /* 기본 브라우저 스타일 제거 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select.custom-select:focus {
+  border-color: #66afe9;
+  outline: none;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
+/* option 기본 스타일 (제한적 적용) */
+select.custom-select option {
+  padding: 0.5em;
+  background-color: #fff;
+  color: #333;
+}
 
 

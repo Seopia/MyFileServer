@@ -5,7 +5,7 @@ import './QuillEditor.css';
 
 import api from "../../common/api";
 
-const QuillEditor = ({newForum, setNewForum}) => {
+const QuillEditor = ({newForum, setNewForum,placeholder='작성해보세요 아무렇게나',publicFile=false}) => {
 
 
   // const [content, setContent] = useState();
@@ -42,10 +42,18 @@ const QuillEditor = ({newForum, setNewForum}) => {
         const range = quillRef.current.getEditor().getSelection(true);
 
         try {
-          const {data} = await api.post('/forum/image', {file:file}); 
-          const url = `https://www.seopia.online/download/${data}`;
-          // const url = `http://localhost:8080/download/${data}`;
+          if(publicFile){
+            const {data} = await api.post(`/public/image`,{file:file});
+            // const url = `http://localhost:8080/download/${data}`;
+            const url = `https://www.seopia.online/download/${data}`;
+            quillRef.current.getEditor().insertEmbed(range.index, "image", url);
+          } else {
+            const {data} = await api.post('/forum/image', {file:file}); 
+            const url = `https://www.seopia.online/download/${data}`;
+            // const url = `http://localhost:8080/download/${data}`;
           quillRef.current.getEditor().insertEmbed(range.index, "image", url);
+
+          }
           quillRef.current.insertText(range.index + 1, "\n");
           quillRef.current.setSelection(range.index + 2);
         } catch (e) {
@@ -78,7 +86,7 @@ const QuillEditor = ({newForum, setNewForum}) => {
           content: value
       }))}
       value={newForum.content}
-      placeholder="작성해보세요 아무렇게나"
+      placeholder={placeholder}
       />
       </div>
     );

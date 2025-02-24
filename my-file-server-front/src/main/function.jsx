@@ -58,7 +58,7 @@ export const downloadFile = async (file, setLoading) => {
 
 //시간을 이쁘게 출력해주는 함수임
 export const formattedDateTime = (createAt) => {
-
+  if(!createAt) return;
   const today = new Date();
 
   const formattedDate = `${createAt[0]}-${String(createAt[1]).padStart(2, '0')}-${String(createAt[2]).padStart(2, '0')}T${String(createAt[3]).padStart(2, '0')}:${String(createAt[4]).padStart(2, '0')}:${String(createAt[5]).padStart(2, '0')}`;
@@ -143,3 +143,15 @@ export const calcFileSize = (size) => {
     return (size / (1024 * 1024 * 1024)).toFixed(2) + " GB";
   }
 };
+
+export const prettyCategory = (category) => {
+  let result;
+  if(category==='game') return '게임';
+  if(category==='software') return '소프트웨어';
+  if(category==='music') return '음악';
+  if(category==='movie') return '영화';
+  if(category==='drama') return '드라마';
+  if(category==='tv') return 'TV 프로그램';
+  if(category==='porn') return '성인';
+  if(category==='none') return '기타';
+}
