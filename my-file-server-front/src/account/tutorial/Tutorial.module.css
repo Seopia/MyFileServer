@@ -10,19 +10,69 @@
     background-color: rgb(216, 230, 243);
 }
 .sectionDevider{
-    background-color: rgb(167, 178, 189);
-    height: 250px;
-    width: 100vw;
-    margin-top: 100px;
+    margin: 100px 0px;
+}
+.sectionDevider::before {
+    position: absolute;
+    background-color:rgb(216, 230, 243);
+    border: 5px solid;
+    border-color: #008cba;
+    border-left: 0px solid;
+    border-top: 0px solid;
+    padding: 10px;
+    transform: rotate(45deg);
+    content: "";
 }
 .title{
     width: 50%;
     text-align: center;
-    font-size: 66px;
+    font-size: 58px;
     font-weight: 700;
     line-height: 1.5em;
     white-space: pre-wrap;
 }
+.subTitle{
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    color:rgb(0, 0, 0);
+}
+.wave{
+    display: inline-block;
+    animation: wave 1.5s ease-in-out infinite;
+    animation-fill-mode: both;
+    animation-delay: 0.5s;
+    min-width: 5px;
+}
+@keyframes wave {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  
+
+  
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-15px) rotate(-10deg);
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+  }
+  
 .loginButtonContainer{
     display: flex;
     justify-content: center;
@@ -56,41 +106,54 @@
 .section1h1{
     font-size: 55px;
     transition: all 1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 .section1Text1{
     font-size: 20px;
     transition: all 0.4s ease;
     padding-bottom: 30px;
-}
-.section1List{
-    width: 90%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-}
-.section1List div{
-    box-shadow: 0px 5px 10px 1px rgb(102, 126, 165);
-    background: linear-gradient(
-        135deg, 
-        rgb(175, 211, 253), 
-        rgb(135, 187, 245), 
-        rgb(175, 176, 253)
-      );
-    display: flex;
     align-items: center;
-    border-radius: 10px;
-    justify-content: center;
-    width: 30%;
-    color: white;
-    font-size: 1.6em;
-    height: 200px;
 }
+
+.section1List{
+    display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+}
+.folderBox{
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+}
+.folderImg{
+  filter: drop-shadow(12px 8px 10px  rgba(0, 0, 0, 0.4));
+}
+
+.folderLabel {
+    position: relative;
+    z-index: 10;
+    text-align:center;
+    font-weight: bold;
+    margin-top: 110px;
+    background: #e7d7a7;
+    padding: 10px 15px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  }
+
 .img{
     display: flex;
     justify-content: center;
     transition: all 2s ease;
+
 }
 
 .section2TextBox1{
@@ -107,11 +170,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3em;
+    font-size: 2.7em;
 }
-.section2TextBox1 div{
-    transition: transform 1.5s ease-in;
-}
+
 .section3{
     margin-top: 300px;
     display: flex;
@@ -119,6 +180,38 @@
     justify-content: center;
     align-items: center;
 }
+.freeArrowContainer{
+    position: relative;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+}
+.arrow span{
+    position: absolute;
+    top:0;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 5px solid #008cba;
+    border-bottom: 5px solid #008cba;
+    transform: rotate(-45deg);
+    animation: arrow 1.5s infinite;
+    box-sizing: border-box;
+}
+@keyframes arrow {
+    0% {
+      transform: rotate(-45deg) translate(0, 0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(-45deg) translate(-20px, 20px);
+      opacity: 0;
+    }
+  }
 
 @media screen and (max-width: 768px) {
     .title{
@@ -140,15 +233,23 @@
         font-size: 0.7em;
         height: 50px;
     }
-    .sectionDevider{
-        height: 150px;
-    }
+  
     .section1, .section2{
         margin-top: 100px;
     }
     .section2TextBox1{
         height: 15vh;
         margin-top: 10%;
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
+    .folderImg{
+      width: 30vw;
+    }
+    .folderLabel{
+      margin-top: 50px;
+      width: 150%;
+      font-size: 0.5em;
+      padding: 5px;
+    }
+   
 }
