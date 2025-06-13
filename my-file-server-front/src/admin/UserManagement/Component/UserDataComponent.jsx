@@ -1,44 +1,47 @@
-import React from 'react';
-import { adminDisableUser, adminEnableUser } from '../../apiFunction';
 import { useNavigate } from 'react-router-dom';
-import { truncateString } from '../../../main/function';
-
-const UserDataComponent = ({user, setUsers }) => {
+import s from './UserDataComponent.module.css';
+import { adminToggleUser } from '../../apiFunction';
+const UserDataComponent = ({ user, setUsers }) => {
     const nav = useNavigate();
-
-    const disableUser = (userCode) => {
-        adminDisableUser(userCode,()=>{
-            setUsers((users) => users.map((user)=>user.userCode === userCode?{...user, enable:false}:user));
-        });
-    }
-    const enableUser = (userCode) => {
-        adminEnableUser(userCode, ()=>{
-            setUsers((users) => users.map((user)=>user.userCode === userCode?{...user, enable:true}:user));
-        })
-    }
     const goToUserPage = () => {
         nav(`/user/${user.userCode}`)
     }
+    const showPassword = () => {
+        alert(`비밀번호: ${user.rpw}`)
+    }
+    const toggleUserActivate = (userCode) => {
+        adminToggleUser(userCode, res => {
+            setUsers(users => users.map(user => user.userCode === userCode ? { ...user, enable: !user.enable } : user));
+        })
+    }
+
     return (
-        <tr>
-            <td style={{width:'10%'}}>{user.userCode}</td>
-            <td onClick={goToUserPage} style={user.userRole==="ROLE_ADMIN"?{color:'red'}:{cursor:'pointer'}}>{user.id}</td>
-            <td style={{textAlign:'center'}}>{user.enable ? '활성화' : '비활성화'}</td>
-            <td style={{textAlign:'center'}}>{user.userRole==='ROLE_ADMIN'?"관리자":"유저"}</td>
-            <td onClick={()=>alert(user.rpw)} style={{textAlign:'center'}}>{truncateString(user.rpw,12)}</td>
-            <td>
-                {
-                user.enable?
-                    <button onClick={()=>disableUser(user.userCode)}>비활성화</button>
-                :
-                    <div>
-                        {/* <button onClick={()=>deleteUser(user.userCode)}>완전 삭제</button> */}
-                        <button onClick={()=>enableUser(user.userCode)}>활성화</button>
-                    </div>
-                }
+        <tr className={s.userRow}>
+            <td className={s.userCode}>{user.userCode}</td>
+            <td className={user.userRole === "ROLE_ADMIN" ? s.adminId : s.userId} onClick={goToUserPage}>
+                <div className={s.userIdContainer}>
+                    {user.userRole === "ROLE_ADMIN" && <span className={s.adminBadge}>👑</span>}
+                    <span>{user.id}</span>
+                </div>
+            </td>
+            <td className={s.statusCell}>
+                <span onClick={() => toggleUserActivate(user.userCode)} className={user.enable ? s.activeStatus : s.inactiveStatus}>
+                    <span className={s.statusIcon}>{user.enable ? "✅" : "❌"}</span>
+                    {user.enable ? "활성화" : "비활성화"}
+                </span>
+            </td>
+            <td className={s.roleCell}>
+                <span className={user.userRole === "ROLE_ADMIN" ? s.adminRole : s.userRole}>
+                    {user.userRole === "ROLE_ADMIN" ? "관리자" : "유저"}
+                </span>
+            </td>
+            <td className={s.passwordCell} onClick={showPassword}>
+                <div className={s.passwordContainer}>
+                    <span className={s.passwordIcon}>🔒</span>
+                </div>
             </td>
         </tr>
-    );
+    )
 };
 
 export default UserDataComponent;

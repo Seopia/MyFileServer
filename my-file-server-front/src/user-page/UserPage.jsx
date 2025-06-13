@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import api from "../common/api";
 import s from './UserPage.module.css';
 import { useSelector } from "react-redux";
-import MobileHeader from "../main/Mobile/Component/MobileHeader";
 
 function UserPage() {
-    const isMobile = useOutletContext();
     
     const {id} = useParams();
     const nav = useNavigate();
@@ -29,62 +27,152 @@ function UserPage() {
         }))
     };
     const updateUser = () => user!==prevUser && api.post(`/main/user`,user);
+      const handleLogout = () => {
+    localStorage.removeItem("token")
+    nav("/")
+  }
+
+  const handleEditStart = () => {
+    setIsEdit(true)
+    setPrevUser(user)
+  }
+
+  const handleEditComplete = () => {
+    setIsEdit(false)
+    updateUser()
+  }
+
+  const handleEditCancel = () => {
+    setIsEdit(false)
+    setUser(prevUser)
+  }
+
+  const handleProfileImageError = () => {
+    handleUserChange({ profileImage: "/icon.png" })
+  }
     const isMe = () => data.userCode === user.userCode;
     useEffect(()=>{getUser()},[getUser]);
-    return (
-        <div className={s.container}>
-          {isMobile&&<MobileHeader title='마이페이지'/>}
-            {
-            user&&data?
-            <div className={s.myPageContainer}>
-            <div className={s.profileSection}>
-              <img className={s.profileImage} src={user.profileImage} onError={()=>handleUserChange({profileImage:'/icon.png'})} alt="Error" />
-              <div className={s.userInfo}>
-                {isEdit?<input onChange={(e)=>handleUserChange({userId:e.target.value})} value={user.userId}/>:<h2>{user.userId}</h2>}
-                {isEdit?<input placeholder="실명을 기입해주세요." onChange={(e)=>handleUserChange({introduce:e.target.value})} value={user.introduce?user.introduce:''}/>:<p>{user.introduce ? user.introduce : '자기소개가 없습니다.'}</p>}
+  return (
+    <div className={s.container}>
+      {user && data ? (
+        <div className={s.myPageContainer}>
+          {/* Profile Section */}
+          <div className={s.profileSection}>
+            <div className={s.profileImageContainer}>
+              <img
+                className={s.profileImage}
+                src={user.profileImage || "/placeholder.svg"}
+                onError={handleProfileImageError}
+                alt="프로필 이미지"
+              />
+              <div className={s.profileImageOverlay}>
+                <span className={s.cameraIcon}>📷</span>
               </div>
             </div>
-      
-            <div className={s.activitySection}>
-              <h3>{isMe()? "내":""} 활동</h3>
-              <div className={s.activityCards}>
-                <div className={s.activityCard}>
-                  <h4>게시글</h4>
-                  <p>{user.writtenPostCount}개</p>
-                </div>
-                <div className={s.activityCard}>
-                  <h4>댓글</h4>
-                  <p>{user.writtenCommentCount}개</p>
-                </div>
-                <div className={s.activityCard}>
-                  <h4>파일 개수</h4>
-                  <p>{user.uploadFileCount}</p>
-                </div>
+
+            <div className={s.userInfo}>
+              <div className={s.userNameSection}>
+                {isEdit ? (
+                  <input
+                    className={s.userNameInput}
+                    onChange={(e) => handleUserChange({ userId: e.target.value })}
+                    value={user.userId}
+                    placeholder="사용자명"
+                  />
+                ) : (
+                  <h2 className={s.userName}>
+                    <span className={s.userIcon}>👤</span>
+                    {user.userId}
+                  </h2>
+                )}
+              </div>
+
+              <div className={s.introduceSection}>
+                {isEdit ? (
+                  <input
+                    className={s.introduceInput}
+                    placeholder="자기소개를 입력해주세요."
+                    onChange={(e) => handleUserChange({ introduce: e.target.value })}
+                    value={user.introduce ? user.introduce : ""}
+                  />
+                ) : (
+                  <p className={s.introduce}>
+                    <span className={s.introduceIcon}>💭</span>
+                    {user.introduce ? user.introduce : "자기소개가 없습니다."}
+                  </p>
+                )}
               </div>
             </div>
-            {isMe()||data.userRole==='ROLE_ADMIN'?  // 내 마이페이지면?
-            <div className={s.settingsSection}>
-              <h3>설정</h3>
-              {
-              isEdit? //정보 수정 중일 때
-              <button onClick={()=>{setIsEdit(false);updateUser();}} className={s.settingsButton}>설정 완료</button>
-              : //아닐 때
-              <button onClick={()=>{setIsEdit(true);setPrevUser(user);}} className={s.settingsButton}>계정 설정</button>
-              }
-              {
-              isEdit? //계정 정보 수정 중일 때
-              <button onClick={()=>{setIsEdit(false);setUser(prevUser);}} className={s.settingsButton}>변경 취소</button>
-              : //아닐 때
-              <button onClick={()=>{localStorage.removeItem('token');nav('/');}} className={s.settingsButton}>로그아웃</button>
-              }
-            </div> : <></>
-            }
           </div>
-            :
-            <div>유저가 없습니다.</div>
-            }
+
+          {/* Activity Section */}
+          <div className={s.activitySection}>
+            <h3 className={s.sectionTitle}>
+              <span className={s.activityIcon}>📊</span>
+              {isMe() ? "내" : ""} 활동
+            </h3>
+            <div className={s.activityCards}>
+              <div className={s.activityCard}>
+                <div className={s.cardIcon}>📝</div>
+                <h4 className={s.cardTitle}>게시글</h4>
+                <p className={s.cardValue}>{user.writtenPostCount}개</p>
+              </div>
+              <div className={s.activityCard}>
+                <div className={s.cardIcon}>💬</div>
+                <h4 className={s.cardTitle}>댓글</h4>
+                <p className={s.cardValue}>{user.writtenCommentCount}개</p>
+              </div>
+              <div className={s.activityCard}>
+                <div className={s.cardIcon}>📁</div>
+                <h4 className={s.cardTitle}>파일 개수</h4>
+                <p className={s.cardValue}>{user.uploadFileCount}개</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Settings Section */}
+          {(isMe() || data.userRole === "ROLE_ADMIN") && (
+            <div className={s.settingsSection}>
+              <h3 className={s.sectionTitle}>
+                <span className={s.settingsIcon}>⚙️</span>
+                설정
+              </h3>
+              <div className={s.settingsButtons}>
+                {isEdit ? (
+                  <>
+                    <button onClick={handleEditComplete} className={s.primaryButton}>
+                      <span className={s.buttonIcon}>✅</span>
+                      설정 완료
+                    </button>
+                    <button onClick={handleEditCancel} className={s.secondaryButton}>
+                      <span className={s.buttonIcon}>❌</span>
+                      변경 취소
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button onClick={handleEditStart} className={s.primaryButton}>
+                      <span className={s.buttonIcon}>✏️</span>
+                      계정 설정
+                    </button>
+                    <button onClick={handleLogout} className={s.logoutButton}>
+                      <span className={s.buttonIcon}>🚪</span>
+                      로그아웃
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </div>
-    )
+      ) : (
+        <div className={s.errorContainer}>
+          <div className={s.errorIcon}>😕</div>
+          <div className={s.errorMessage}>유저가 없습니다.</div>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default UserPage

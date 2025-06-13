@@ -1,0 +1,490 @@
+/* 모달 오버레이 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+}
+
+/* 모달 컨테이너 */
+.modalContainer {
+  background-color: rgba(40, 40, 40, 0.95);
+  border: 1px solid #555;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 모달 헤더 */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #7965c1, #6b5bb3);
+  color: white;
+}
+
+.modalTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.titleIcon {
+  font-size: 1.5rem;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.closeButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.closeIcon {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+/* 모달 콘텐츠 */
+.modalContent {
+  padding: 1.5rem;
+  color: #ffffff;
+  overflow-y: auto;
+  max-height: calc(90vh - 80px);
+}
+
+/* 미리보기 섹션 */
+.previewSection {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.previewInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background-color: rgba(121, 101, 193, 0.1);
+  border: 1px solid rgba(121, 101, 193, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.infoIcon {
+  font-size: 1.25rem;
+  color: #7965c1;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.infoText {
+  font-size: 0.875rem;
+  color: #bbb;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.filePreviewContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.fileIconWrapper {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.fileIconWrapper:hover {
+  transform: scale(1.05);
+}
+
+.fileIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.previewOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(121, 101, 193, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px;
+}
+
+.fileIconWrapper:hover .previewOverlay {
+  opacity: 1;
+}
+
+.previewIcon {
+  font-size: 1.5rem;
+}
+
+.previewText {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* 액션 섹션 */
+.actionSection {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.downloadButton,
+.deleteButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.downloadButton {
+  background: linear-gradient(135deg, #7965c1, #6b5bb3);
+  color: white;
+  box-shadow: 0 4px 12px rgba(121, 101, 193, 0.3);
+}
+
+.downloadButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(121, 101, 193, 0.4);
+}
+
+.downloadButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.deleteButton {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.deleteButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.buttonIcon {
+  font-size: 1.125rem;
+}
+
+/* 로딩 컴포넌트 */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  font-size: 0.875rem;
+}
+
+/* 정보 섹션 */
+.infoSection {
+  background-color: rgba(60, 60, 60, 0.5);
+  border: 1px solid #555;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+}
+
+.sectionIcon {
+  font-size: 1.25rem;
+  color: #7965c1;
+}
+
+.infoTable {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: rgba(80, 80, 80, 0.5);
+  border: 1px solid #666;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.infoRow:hover {
+  background-color: rgba(121, 101, 193, 0.1);
+}
+
+.infoLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #bbb;
+  font-size: 0.875rem;
+}
+
+.labelIcon {
+  font-size: 1rem;
+  color: #7965c1;
+}
+
+.infoValue {
+  color: #ffffff;
+  font-weight: 500;
+  text-align: right;
+  word-break: break-all;
+  max-width: 60%;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 768px) {
+  .modalContainer {
+    max-width: 95vw;
+    margin: 0.5rem;
+  }
+
+  .modalHeader {
+    padding: 1rem;
+  }
+
+  .modalTitle {
+    font-size: 1.125rem;
+  }
+
+  .modalContent {
+    padding: 1rem;
+  }
+
+  .previewInfo {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .infoText {
+    text-align: center;
+  }
+
+  .actionSection {
+    flex-direction: column;
+  }
+
+  .downloadButton,
+  .deleteButton {
+    width: 100%;
+  }
+
+  .infoRow {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .infoLabel {
+    justify-content: center;
+  }
+
+  .infoValue {
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modalContainer {
+    max-width: 98vw;
+    max-height: 95vh;
+  }
+
+  .modalHeader {
+    padding: 0.75rem;
+  }
+
+  .modalTitle {
+    font-size: 1rem;
+  }
+
+  .titleIcon {
+    font-size: 1.25rem;
+  }
+
+  .modalContent {
+    padding: 0.75rem;
+  }
+
+  .fileIcon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .previewInfo {
+    padding: 0.75rem;
+  }
+
+  .infoText {
+    font-size: 0.8rem;
+  }
+
+  .downloadButton,
+  .deleteButton {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+
+  .infoSection {
+    padding: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1rem;
+  }
+
+  .infoRow {
+    padding: 0.5rem;
+  }
+
+  .infoLabel {
+    font-size: 0.8rem;
+  }
+
+  .infoValue {
+    font-size: 0.875rem;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .fileIconWrapper:hover {
+    transform: none;
+  }
+
+  .fileIconWrapper:hover .previewOverlay {
+    opacity: 0;
+  }
+
+  .fileIconWrapper:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  .fileIconWrapper:active .previewOverlay {
+    opacity: 1;
+  }
+
+  .downloadButton:hover:not(:disabled),
+  .deleteButton:hover {
+    transform: none;
+  }
+
+  .downloadButton:active:not(:disabled),
+  .deleteButton:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  .closeButton:hover {
+    transform: none;
+    background-color: transparent;
+  }
+
+  .closeButton:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(0.9);
+  }
+}

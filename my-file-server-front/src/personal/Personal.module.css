@@ -1,0 +1,582 @@
+/* 메인 컨테이너 */
+.mainContainer {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #242424;
+  color: #ffffff;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* 헤더 섹션 */
+.header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.titleSection {
+  flex: 1;
+}
+
+.pageTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+.titleIcon {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 10px rgba(121, 101, 193, 0.5));
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #bbb;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.lockIcon {
+  font-size: 1.25rem;
+  color: #7965c1;
+}
+
+/* 액션 버튼들 */
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.uploadButton,
+.folderButton,
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.uploadButton {
+  background: linear-gradient(135deg, #7965c1, #6b5bb3);
+  color: white;
+  box-shadow: 0 4px 12px rgba(121, 101, 193, 0.3);
+}
+
+.uploadButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(121, 101, 193, 0.4);
+}
+
+.folderButton {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.folderButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+.backButton {
+  background-color: transparent;
+  color: #bbb;
+  border: 2px solid #555;
+}
+
+.backButton:hover {
+  background-color: rgba(85, 85, 85, 0.3);
+  border-color: #777;
+  color: white;
+}
+
+.buttonIcon {
+  font-size: 1.125rem;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+/* 구분선 */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #7965c1, transparent);
+  margin: 2rem 0;
+  opacity: 0.5;
+}
+
+/* 콘텐츠 섹션 */
+.contentSection {
+  min-height: 400px;
+}
+
+.allFilesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section {
+  background-color: rgba(40, 40, 40, 0.5);
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(5px);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.sectionIcon {
+  font-size: 1.5rem;
+  color: #7965c1;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* 폴더와 파일 컨테이너 */
+.foldersContainer,
+.filesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1.5rem;
+}
+
+.itemWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.folderContainer,
+.fileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(135deg, rgba(121, 101, 193, 0.1), rgba(121, 101, 193, 0.05));
+  border: 1px solid rgba(121, 101, 193, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+  width: 100%;
+  max-width: 140px;
+}
+
+.folderContainer:hover,
+.fileContainer:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(121, 101, 193, 0.3);
+  border-color: #7965c1;
+}
+
+.folderContainer:hover .folderGlow,
+.fileContainer:hover .fileGlow {
+  opacity: 1;
+}
+
+.iconContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.folderIcon {
+  font-size: 3rem;
+  color: #7965c1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.fileIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.folderGlow,
+.fileGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(121, 101, 193, 0.3), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.itemName {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+  word-break: break-word;
+  line-height: 1.3;
+  max-width: 100%;
+}
+
+/* 빈 상태 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  color: #888;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 2rem;
+  opacity: 0.5;
+}
+
+.emptyText {
+  font-size: 0.875rem;
+}
+
+.emptyCloudState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: rgba(40, 40, 40, 0.3);
+  border: 2px dashed #555;
+  border-radius: 16px;
+  margin: 2rem 0;
+}
+
+.emptyCloudIcon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+  filter: drop-shadow(0 0 20px rgba(121, 101, 193, 0.3));
+}
+
+.emptyCloudTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.75rem 0;
+}
+
+.emptyCloudText {
+  font-size: 1.125rem;
+  color: #bbb;
+  margin: 0 0 2rem 0;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.emptyCloudActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.emptyActionButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #7965c1, #6b5bb3);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.emptyActionButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(121, 101, 193, 0.4);
+}
+
+/* 컨텍스트 메뉴 */
+.contextMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.contextMenu {
+  position: absolute;
+  background-color: rgba(40, 40, 40, 0.95);
+  border: 1px solid #555;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+.menuList {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.menuItem:hover {
+  background-color: rgba(121, 101, 193, 0.2);
+}
+.head{
+    display: flex;
+    margin-bottom: 30px;
+}
+.menuIcon {
+  font-size: 1rem;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .head{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .actionButtons {
+    justify-content: center;
+  }
+
+  .foldersContainer,
+  .filesContainer {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .header {
+    padding: 1.5rem;
+  }
+
+  .pageTitle {
+    font-size: 2rem;
+  }
+
+  .titleIcon {
+    font-size: 2.5rem;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .uploadButton,
+  .folderButton,
+  .backButton {
+    width: 90%;
+    justify-content: center;
+  }
+  .uploadButton{
+    padding: 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+
+  .foldersContainer,
+  .filesContainer {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .folderContainer,
+  .fileContainer {
+    padding: 1rem 0.5rem;
+    max-width: 100px;
+    min-height: 100px;
+  }
+
+  .folderIcon {
+    font-size: 2.5rem;
+  }
+
+  .fileIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .itemName {
+    font-size: 0.75rem;
+  }
+
+  .emptyCloudState {
+    padding: 2rem 1rem;
+  }
+
+  .emptyCloudIcon {
+    font-size: 4rem;
+  }
+
+  .emptyCloudTitle {
+    font-size: 1.5rem;
+  }
+
+  .emptyCloudText {
+    font-size: 1rem;
+  }
+
+  .emptyCloudActions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .emptyActionButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .foldersContainer,
+  .filesContainer {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+
+  .folderContainer,
+  .fileContainer {
+    max-width: 80px;
+    min-height: 90px;
+    padding: 0.75rem 0.25rem;
+  }
+
+  .folderIcon {
+    font-size: 2rem;
+  }
+
+  .fileIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .itemName {
+    font-size: 0.7rem;
+  }
+
+  .section {
+    padding: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.125rem;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .folderContainer:hover,
+  .fileContainer:hover {
+    transform: none;
+  }
+
+  .folderContainer:active,
+  .fileContainer:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  .uploadButton:hover,
+  .folderButton:hover,
+  .backButton:hover,
+  .emptyActionButton:hover {
+    transform: none;
+  }
+
+  .uploadButton:active,
+  .folderButton:active,
+  .backButton:active,
+  .emptyActionButton:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+}

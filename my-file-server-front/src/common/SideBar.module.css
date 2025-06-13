@@ -1,63 +1,130 @@
-.sidebarContainer{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: #edf2ff;
-    width: 250px;
-    padding-top: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 auto;
+.faker {
+  position: relative;
+  background-color: red;
+  left: 0;
+  width: 240px;
+  padding: 24px 20px;
+  height: 1px;
+  justify-self: flex-start;
+  align-self: center;
 }
-.faker{
-    position: relative;
-    background-color: red;
-    left: 0;
-    min-width: 250px;
-    height: 100%;
-    justify-self: flex-start;
-    align-self: center;
+
+.sidebarContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  padding: 24px 20px;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1000;
 }
-.logout{
-    background-color: rgb(192, 216, 255);
-    border-radius: 8px;
-    margin: 10%;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 40px;
+  color: #ffffff;
+  transition: opacity 0.2s ease;
 }
-.logout:hover{
-    background-color: rgb(139, 184, 255);
-    box-shadow: 0 5px 8px 3px rgba(0, 0, 0, 0.1);
-    transform: translateY(-10%);
+
+.title:hover {
+  opacity: 0.8;
 }
-.title{
-    font-size: 35px;
-    user-select: none;
-    cursor: pointer;
-    font-weight: bold;
-    align-self: center;
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
 }
-.list{
-    /* padding-left: 10%; */
-    padding-top: 10%;
-    cursor: pointer;
+
+.login,
+.logout {
+  background-color: transparent;
+  color: #ccc;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.login:hover,
+.logout:hover {
+  background-color: #7965c1;
+  color: #fff;
+  border-color: #9b88e5;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.list li {
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.list li:hover {
+  background-color: #2f2f2f;
+  color: #ffffff;
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background-color: rgba(121, 101, 193, 0.3);
+  border: none;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  z-index: 1001;
 
 }
-.list li {
-    padding-left: 10%;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    font-size: 20px;
-    transition: all 0.3s ease;
-}
-.list li:hover {
-    /* background-color: rgb(213, 221, 236); */
-    border-radius: 20px;
-    box-shadow: 0 5px 8px 3px rgba(0, 0, 0, 0.1);
-    transform: translateY(-10%);
+
+@media (max-width: 768px) {
+  .sidebarContainer {
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+
+  .sidebarContainer.open {
+    transform: translateX(0);
+  }
+
+  .faker {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+  }
+  .hamburger span{
+    font-size: 0.7em;
+  }
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { groupGetMyGroup } from '../apiGroupFunction';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import s from './GroupSelect.module.css';
-import MobileHeader from '../../main/Mobile/Component/MobileHeader';
 //사용자의 그룹을 가져오고, 만약 그룹이 없으면
 //그룹을 만들어보세요를 출력한다.
 //그룹이 있다면 그룹을 선택할 수 있게 하고,
@@ -27,7 +26,6 @@ const GroupSelect = () => {
     },[])
     return (
         <>
-        {isMobile&&<MobileHeader title='그룹 클라우드 (모바일은 완전하지 않을 수 있습니다.)'/>}
         <div className={s.mainContainer}>
             <div>
                 <div>

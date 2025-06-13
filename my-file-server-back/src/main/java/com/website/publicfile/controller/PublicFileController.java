@@ -1,8 +1,11 @@
 package com.website.publicfile.controller;
 
 import com.website.common.Tool;
+import com.website.publicfile.dto.PublicFileCommentDto;
 import com.website.publicfile.dto.PublicFileDetailDTO;
+import com.website.publicfile.dto.PublicFileMainDto;
 import com.website.publicfile.dto.PublicFileUploadDTO;
+import com.website.publicfile.entity.PublicFileCommentEntity;
 import com.website.publicfile.entity.PublicFileEntity;
 import com.website.publicfile.service.PublicFileService;
 import com.website.security.dto.CustomUserDetails;
@@ -23,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,11 +40,7 @@ public class PublicFileController {
         this.publicFileService = publicFileService;
         this.tool = tool;
     }
-    @GetMapping
-    public ResponseEntity<?> getPublicFile(@RequestParam String category, @RequestParam(defaultValue = "") String searchWord, @RequestParam int page){
-        Page<PublicFileEntity> res = publicFileService.getPublicFile(category,searchWord,page);
-        return ResponseEntity.ok().body(res);
-    }
+
     @PostMapping
     public ResponseEntity<?> uploadPublicFile(PublicFileUploadDTO publicFileUploadDTO,@AuthenticationPrincipal CustomUserDetails user){
         try {
@@ -92,8 +92,12 @@ public class PublicFileController {
     public ResponseEntity<String> uploadEditorImage(@RequestParam MultipartFile file){
         return ResponseEntity.ok().body(tool.upload(file,"public"));
     }
-
-    @GetMapping("/detail")
+    @GetMapping("/open")
+    public ResponseEntity<Page<PublicFileMainDto>> getPublicFile(@RequestParam String category, @RequestParam(defaultValue = "") String searchWord, @RequestParam int page){
+        Page<PublicFileMainDto> res = publicFileService.getPublicFile(category,searchWord,page);
+        return ResponseEntity.ok().body(res);
+    }
+    @GetMapping("/open/detail")
     public ResponseEntity<?> getFileDetail(@RequestParam Long fileCode){
         try {
             PublicFileDetailDTO publicFile = publicFileService.getFileDetail(fileCode);
@@ -101,6 +105,10 @@ public class PublicFileController {
         } catch (EntityNotFoundException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @GetMapping("/open/comment")
+    public ResponseEntity<List<PublicFileCommentEntity>> getComment(@RequestParam Long fileCode){
+        return ResponseEntity.ok().body(publicFileService.getComment(fileCode));
     }
     @GetMapping("/download")
     public ResponseEntity<?> getDownloadLog(@AuthenticationPrincipal CustomUserDetails user){
@@ -110,19 +118,16 @@ public class PublicFileController {
             return ResponseEntity.badRequest().body("잘못된 접근입니다.");
         }
     }
-    @PostMapping("/download")
-    private void writeDownloadLog(@AuthenticationPrincipal CustomUserDetails user, @RequestParam Long fileCode){
-        publicFileService.writeLog(user.getUserCode(),fileCode);
+    @PostMapping("/open/download")
+    private void writeDownloadLog(@RequestParam Long fileCode){
+        publicFileService.writeLog(fileCode);
     }
     @PostMapping("/recommend")
     public ResponseEntity<Boolean> recommendPublicFile(@AuthenticationPrincipal CustomUserDetails user, @RequestParam Long fileCode){
         return ResponseEntity.ok().body(publicFileService.recommendPublicFile(user,fileCode));
     }
 
-    @GetMapping("/comment")
-    public ResponseEntity<?> getComment(@RequestParam Long fileCode){
-        return ResponseEntity.ok().body(publicFileService.getComment(fileCode));
-    }
+
     @PostMapping("/comment")
     public ResponseEntity<?> writeComment(@RequestParam Long fileCode, @RequestParam String content, @AuthenticationPrincipal CustomUserDetails user){
         return ResponseEntity.ok().body(publicFileService.writeComment(fileCode, content, user.getUserCode()));

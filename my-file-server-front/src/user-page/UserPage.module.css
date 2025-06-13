@@ -1,155 +1,884 @@
-
-.container{
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* 메인 컨테이너 */
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #242424;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
 }
 
 /* 마이페이지 컨테이너 */
 .myPageContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    color: #333;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  color: #ffffff;
+}
+
+/* 프로필 섹션 */
+.profileSection {
+  display: flex;
+  align-items: center;
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.profileSection:hover {
+  transform: translateY(-2px);
+}
+
+.profileImageContainer {
+  position: relative;
+  margin-right: 2rem;
+}
+
+.profileImage {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  border: 4px solid #7965c1;
+  box-shadow: 0 0 20px rgba(121, 101, 193, 0.3);
+  transition: all 0.3s ease;
+}
+
+.profileImage:hover {
+  box-shadow: 0 0 30px rgba(121, 101, 193, 0.5);
+  transform: scale(1.05);
+}
+
+.profileImageOverlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #7965c1;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #242424;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profileImageOverlay:hover {
+  background-color: #6b5bb3;
+  transform: scale(1.1);
+}
+
+.cameraIcon {
+  font-size: 1rem;
+}
+
+.userInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.userNameSection {
+  display: flex;
+  align-items: center;
+}
+
+.userName {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.userIcon {
+  font-size: 1.5rem;
+  color: #7965c1;
+}
+
+.userNameInput {
+  background-color: #333;
+  border: 2px solid #7965c1;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.userNameInput:focus {
+  outline: none;
+  border-color: #6b5bb3;
+  box-shadow: 0 0 0 3px rgba(121, 101, 193, 0.3);
+  background-color: #3a3a3a;
+}
+
+.introduceSection {
+  display: flex;
+  align-items: center;
+}
+
+.introduce {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #bbb;
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.introduceIcon {
+  font-size: 1.125rem;
+  color: #7965c1;
+}
+
+.introduceInput {
+  background-color: #333;
+  border: 2px solid #555;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: white;
+  width: 100%;
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+.introduceInput:focus {
+  outline: none;
+  border-color: #7965c1;
+  box-shadow: 0 0 0 3px rgba(121, 101, 193, 0.3);
+  background-color: #3a3a3a;
+}
+
+.introduceInput::placeholder {
+  color: #888;
+}
+
+/* 활동 섹션 */
+.activitySection {
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.activityIcon,
+.settingsIcon {
+  font-size: 1.5rem;
+  color: #7965c1;
+}
+
+.activityCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.activityCard {
+  background: linear-gradient(135deg, rgba(121, 101, 193, 0.1), rgba(121, 101, 193, 0.05));
+  border: 1px solid rgba(121, 101, 193, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.activityCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(121, 101, 193, 0.2);
+  border-color: #7965c1;
+}
+
+.cardIcon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #bbb;
+  margin: 0 0 0.5rem 0;
+}
+
+.cardValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #7965c1;
+  margin: 0;
+}
+
+/* 설정 섹션 */
+.settingsSection {
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.settingsButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.primaryButton,
+.secondaryButton,
+.logoutButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.primaryButton {
+  background: linear-gradient(135deg, #7965c1, #6b5bb3);
+  color: white;
+  box-shadow: 0 4px 12px rgba(121, 101, 193, 0.3);
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(121, 101, 193, 0.4);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: #bbb;
+  border: 2px solid #555;
+}
+
+.secondaryButton:hover {
+  background-color: rgba(85, 85, 85, 0.3);
+  border-color: #777;
+  color: white;
+}
+
+.logoutButton {
+  background: linear-gradient(135deg, #e53935, #c62828);
+  color: white;
+  box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+}
+
+.logoutButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4);
+}
+
+.buttonIcon {
+  font-size: 1.125rem;
+}
+
+/* 에러 컨테이너 */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.errorIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.errorMessage {
+  font-size: 1.25rem;
+  color: #bbb;
+  text-align: center;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1rem 0;
   }
-  
-  /* 프로필 섹션 */
+
+  .myPageContainer {
+    max-width: 95vw;
+    padding: 0.5rem;
+  }
+
   .profileSection {
-    display: flex;
-    align-items: center;
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
   }
-  
+
+  .profileImageContainer {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
   .profileImage {
-    border-radius: 50%;
     width: 100px;
     height: 100px;
-    margin-right: 20px;
   }
-  
-  .userInfo {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-  }
-  .userInfo input{
-    border-color: rgb(192, 216, 255);
-    border-style: solid;
-    border-radius: 10px;
-    transition: all 0.3s ease;
 
-  }
-  .userInfo input:focus{
-    outline: none;
-    border-color: rgb(139, 184, 255);
-    box-shadow: inset 0 0 4px 2px rgb(139, 184, 255);
-  }
-  .userInfo input:first-child{
-    height: 40px;
-    width: 70px;
-    margin-bottom: 30px;
-    margin-top: 20px;
-    font-size: 23px;
-    font-weight: bold;
-  }
-  .userInfo input:last-child{
-    height: 20px;
-    margin-bottom: 15px;
-  }
-  
-  .editButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .editButton:hover {
-    background-color: #0056b3;
-  }
-  
-  /* 활동 섹션 */
-  .activitySection {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .activityCards {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-  }
-  
-  .activityCard {
-    text-align: center;
-    padding: 10px;
-    flex: 1;
-    margin: 0 10px;
-    background-color: #f1f3f5;
-    border-radius: 8px;
-    transition: transform 0.3s;
-  }
-  
-  /* .activityCard:hover {
-    transform: translateY(-5px);
-  } */
-  
-  /* 설정 섹션 */
-  .settingsSection {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .settingsButton {
-    display: block;
+  .userInfo {
     width: 100%;
-    background-color: rgb(192, 216, 255);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    align-items: center;
   }
-  
-  .settingsButton:hover {
-    background-color: rgb(139, 184, 255);
-    box-shadow: 0 5px 8px 3px rgba(0, 0, 0, 0.1);
-    transform: translateY(-10%);
+
+  .userName {
+    font-size: 1.5rem;
+    justify-content: center;
   }
-  @media screen and (max-width: 768px) {
-    .myPageContainer {
-      max-width: 90vw;
-      margin: 0 auto;
-      padding: 20px;
-      color: #333;
-    }
-    .profileImage {
-      border-radius: 50%;
-      width: 70px;
-      height: 70px;
-      margin-right: 20px;
-    }
-    .activityCard h4{
-      font-size: 0.9em;
-    }
-    .activityCards p{
-      font-size: 1em;
-    }
+
+  .userNameInput {
+    width: 100%;
+    max-width: 250px;
+    font-size: 1.25rem;
   }
+
+  .introduce {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .introduceInput {
+    max-width: 100%;
+  }
+
+  .activityCards {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .activityCard {
+    padding: 1rem;
+  }
+
+  .cardTitle {
+    font-size: 0.9rem;
+  }
+
+  .cardValue {
+    font-size: 1.25rem;
+  }
+
+  .settingsSection {
+    padding: 1.5rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .myPageContainer {
+    max-width: 90vw;
+    padding: 1rem;
+  }
+
+  .profileSection {
+    padding: 1.75rem;
+  }
+
+  .activityCards {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* 태블릿 (768px 이하) */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1rem 0;
+  }
+
+  .myPageContainer {
+    max-width: 95vw;
+    padding: 0.75rem;
+  }
+
+  .profileSection {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .profileImageContainer {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .profileImage {
+    width: 100px;
+    height: 100px;
+  }
+
+  .userInfo {
+    width: 100%;
+    align-items: center;
+  }
+
+  .userName {
+    font-size: 1.5rem;
+    justify-content: center;
+  }
+
+  .userNameInput {
+    width: 100%;
+    max-width: 280px;
+    font-size: 1.25rem;
+  }
+
+  .introduce {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .introduceInput {
+    max-width: 100%;
+  }
+
+  .activityCards {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .activityCard {
+    padding: 1.25rem;
+  }
+
+  .cardTitle {
+    font-size: 0.95rem;
+  }
+
+  .cardValue {
+    font-size: 1.25rem;
+  }
+
+  .settingsSection {
+    padding: 1.5rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+    justify-content: center;
+  }
+}
+
+/* 큰 모바일 (480px 이하) */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 0.5rem 0;
+  }
+
+  .myPageContainer {
+    max-width: 98vw;
+    padding: 0.5rem;
+  }
+
+  .profileSection,
+  .activitySection,
+  .settingsSection {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+  }
+
+  .profileImage {
+    width: 80px;
+    height: 80px;
+    border-width: 3px;
+  }
+
+  .profileImageOverlay {
+    width: 28px;
+    height: 28px;
+    border-width: 2px;
+  }
+
+  .cameraIcon {
+    font-size: 0.875rem;
+  }
+
+  .userName {
+    font-size: 1.25rem;
+  }
+
+  .userIcon,
+  .introduceIcon {
+    font-size: 1rem;
+  }
+
+  .userNameInput {
+    max-width: 200px;
+    font-size: 1.125rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .introduceInput {
+    font-size: 0.9rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.125rem;
+  }
+
+  .activityIcon,
+  .settingsIcon {
+    font-size: 1.25rem;
+  }
+
+  .cardIcon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cardTitle {
+    font-size: 0.875rem;
+  }
+
+  .cardValue {
+    font-size: 1.125rem;
+  }
+
+  .primaryButton,
+  .secondaryButton,
+  .logoutButton {
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .buttonIcon {
+    font-size: 1rem;
+  }
+}
+
+/* 작은 모바일 (375px 이하) */
+@media screen and (max-width: 375px) {
+  .myPageContainer {
+    padding: 0.25rem;
+  }
+
+  .profileSection,
+  .activitySection,
+  .settingsSection {
+    padding: 0.875rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .profileImage {
+    width: 70px;
+    height: 70px;
+  }
+
+  .profileImageOverlay {
+    width: 24px;
+    height: 24px;
+  }
+
+  .cameraIcon {
+    font-size: 0.75rem;
+  }
+
+  .userName {
+    font-size: 1.125rem;
+  }
+
+  .userNameInput {
+    max-width: 180px;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .introduceInput {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .sectionTitle {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .activityCard {
+    padding: 0.875rem;
+  }
+
+  .cardIcon {
+    font-size: 1.25rem;
+  }
+
+  .cardTitle {
+    font-size: 0.8rem;
+  }
+
+  .cardValue {
+    font-size: 1rem;
+  }
+
+  .primaryButton,
+  .secondaryButton,
+  .logoutButton {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  .settingsButtons {
+    gap: 0.75rem;
+  }
+}
+
+/* 매우 작은 모바일 (320px 이하) */
+@media screen and (max-width: 320px) {
+  .container {
+    padding: 0.25rem 0;
+  }
+
+  .myPageContainer {
+    padding: 0.125rem;
+  }
+
+  .profileSection,
+  .activitySection,
+  .settingsSection {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+  }
+
+  .profileImage {
+    width: 60px;
+    height: 60px;
+    border-width: 2px;
+  }
+
+  .profileImageOverlay {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cameraIcon {
+    font-size: 0.625rem;
+  }
+
+  .userName {
+    font-size: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .userIcon,
+  .introduceIcon {
+    font-size: 0.875rem;
+  }
+
+  .userNameInput {
+    max-width: 160px;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .introduceInput {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  .introduce {
+    font-size: 0.875rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sectionTitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .activityIcon,
+  .settingsIcon {
+    font-size: 1rem;
+  }
+
+  .activityCard {
+    padding: 0.75rem;
+  }
+
+  .cardIcon {
+    font-size: 1.125rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .cardTitle {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .cardValue {
+    font-size: 0.9rem;
+  }
+
+  .primaryButton,
+  .secondaryButton,
+  .logoutButton {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .buttonIcon {
+    font-size: 0.875rem;
+  }
+
+  .settingsButtons {
+    gap: 0.5rem;
+  }
+
+  .errorContainer {
+    padding: 2rem 1rem;
+  }
+
+  .errorIcon {
+    font-size: 3rem;
+  }
+
+  .errorMessage {
+    font-size: 1rem;
+  }
+}
+
+/* 가로 모드 모바일 (세로 길이가 짧을 때) */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .container {
+    padding: 0.5rem 0;
+  }
+
+  .profileSection {
+    flex-direction: row;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .profileImageContainer {
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
+
+  .profileImage {
+    width: 60px;
+    height: 60px;
+  }
+
+  .userInfo {
+    align-items: flex-start;
+  }
+
+  .userName {
+    font-size: 1.125rem;
+    justify-content: flex-start;
+  }
+
+  .introduce {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .activityCards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .activityCard {
+    padding: 0.75rem;
+  }
+
+  .cardIcon {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .settingsSection {
+    padding: 1rem;
+  }
+
+  .settingsButtons {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .activityCard:hover {
+    transform: none;
+  }
+
+  .profileImage:hover {
+    transform: none;
+  }
+
+  .primaryButton:hover,
+  .secondaryButton:hover,
+  .logoutButton:hover {
+    transform: none;
+  }
+
+  .profileImageOverlay:hover {
+    transform: none;
+  }
+
+  /* 터치 시 피드백 */
+  .activityCard:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  .primaryButton:active,
+  .secondaryButton:active,
+  .logoutButton:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}

@@ -21,8 +21,7 @@ public class PublicDownloadLogEntity {
     @JoinColumn(name = "public_file_code")
     private PublicFileEntity file;
 
-    public PublicDownloadLogEntity(PublicFileUserEntity user, PublicFileEntity file) {
-        this.user = user;
+    public PublicDownloadLogEntity(PublicFileEntity file) {
         this.file = file;
     }
 }

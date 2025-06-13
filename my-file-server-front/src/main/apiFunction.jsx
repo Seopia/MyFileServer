@@ -92,9 +92,11 @@ export const deleteFile = async (fileCode, callBack) => {
  * @param {*} folderCode 폴더 코드
  * @param {*} callBack 업로드 완료 후 실행 함수
  * @param {*} setPercent 퍼센트
- * @param {*} setLoading 로딩 유무
  */
-export async function uploadChunk(file, description, folderCode, callBack, setPercent, setLoading) {
+export async function uploadChunk(file, description, folderCode, setPercent, setUploadState, callBack) {
+  console.log('진입');
+  
+  setUploadState(p=>({...p, loading:true}));
   const chunkSize = 50 * 1024 * 1024; // 50MB
   const totalChunks = Math.ceil(file.size / chunkSize);
   
@@ -110,9 +112,10 @@ export async function uploadChunk(file, description, folderCode, callBack, setPe
       } else if(isMergeChunk){
         //병합 중
           setPercent(`병합 작업 중..`);
+          setUploadState(p=>({...p, merging: true}));
       } else {
         //업로드 중
-          setLoading((p)=>({...p, uploadPrepare: false, uploading: true}));
+          setUploadState(p=>({...p, uploading: true}));
           setPercent(Math.floor((chunkIndex/totalChunks) * 100));
       }
   }

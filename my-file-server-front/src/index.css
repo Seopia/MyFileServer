@@ -1,38 +1,67 @@
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
 }
+
 body {
   margin: 0;
 }
-.root{
+
+.root {
   font-family: 'Pretendard-Regular';
   display: flex;
-  background-color: aliceblue;
+  background-color: #242424;
 }
+
 /* 스크롤바 전체 영역 */
 ::-webkit-scrollbar {
   width: 12px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #f0f0f0;
   border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(45deg, rgb(192, 216, 255), rgb(139, 184, 255));
   border-radius: 10px;
   border: 2px solid #f0f0f0;
 }
+
 ::-webkit-scrollbar-corner {
   background: #f0f0f0;
 }
+
 @media screen and (max-width: 768px) {
-  .ReactModal__Content--after-open{
-    width: 80vw!important;
+  .ReactModal__Content--after-open {
+    width: 80vw !important;
   }
+}
+
+/* 에디터 글씨들 */
+.ql-size-small {
+  font-size: 12px;
+}
+
+.ql-size-large {
+  font-size: 20px;
+}
+
+.ql-size-huge {
+  font-size: 25px;
+}
+
+pre {
+  background-color: #333;
+  padding: 10px;
+}
+
+blockquote {
+  margin: 1em 0;
 }
 
 /* select 기본 스타일 */
@@ -40,13 +69,14 @@ body {
 select.custom-select {
   display: block;
   width: 100%;
-  padding: 0.5em 2.5em 0.5em 1em; /* 오른쪽 여백은 아이콘 공간 */
+  padding: 0.5em 2.5em 0.5em 1em;
+  /* 오른쪽 여백은 아이콘 공간 */
   font-size: 1em;
   font-family: inherit;
-  color: #333;
-  border: 1px solid #ccc;
+  color: white;
+  border: 1px solid #333;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: #1e1e1e;
   /* 드롭다운 아이콘 (SVG 인코딩) */
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='12'%3E%3Cpath%20fill='%23333'%20d='M0,0%20L12,0%20L6,6z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -60,7 +90,7 @@ select.custom-select {
 }
 
 select.custom-select:focus {
-  border-color: #66afe9;
+  border-color: #7965c1;
   outline: none;
   box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
 }
@@ -72,4 +102,26 @@ select.custom-select option {
   color: #333;
 }
 
+input {
+  padding: 12px 16px 12px 15px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s ease, background-color 0.2s ease;
+}
 
+input:focus {
+  border-color: #7965c1;
+  background-color: #262626;
+}
+
+button {
+  cursor: pointer;
+  background-color: #7965c1;
+  color: white;
+  border-radius: 5px;
+  border: none;
+}

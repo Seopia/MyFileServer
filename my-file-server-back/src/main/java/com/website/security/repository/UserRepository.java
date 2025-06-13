@@ -21,4 +21,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query("UPDATE User u SET u.lastLoginTime = :now WHERE u.userCode = :userCode")
     void updateUserLoginTime(Long userCode, LocalDateTime now);
+
+
+    Boolean existsByMemo(String value);
 }

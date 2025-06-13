@@ -1,207 +1,460 @@
-.forumCreate{
-    background-color: aliceblue;
-    width: 100%;
-    margin-right: 10rem;
-    margin-left: 10rem;
-    transition: all 0.8s ease-out;
-    min-height: 100vh;
-}
-.fileContainer{
-    width: 60%;
-    max-height: 10vh;
-    display: flex;
-    gap: 10px;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.files{
-    border-radius: 10px;
-    padding-left: 2%;
-    padding-right: 2%;
-    width: 50%;
-    max-height: 100%;
-    background-color: rgb(224, 236, 255);
-}
-.loading{
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-.itemTitle{
-    color: rgb(127, 176, 255);
-    padding-bottom: 10px;
-}
-
-.explain{
-    font-size: 15px;
-    color: #393939;
-    margin-bottom: 10px;
-}
-
-.letterLength{
-    display: flex;
-    justify-content: space-between;
-    width: 81%;
-    margin-top: 5px;
-    font-size: 13px;
-    color: rgba(127, 176, 255, 0.657);
-}
-
-.forumCreate input{
-    width: 80%;
-    font-size: 16px;
-    border-radius: 8px;
-    border: none;
-    padding: 0.5em 0.5em;
-    outline-color: transparent;
-    transition: outline-color 0.3s ease;
-}
-
-.forumCreate input:focus {
-    outline-color: rgb(161, 197, 255);
-}
-
-.fileText{
-    white-space: nowrap;
-}
-.files button{
-    border: none;
-    transition: all 0.3s ease;
-    background-color: transparent;
-}
-.file{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-.containerHeader{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: rgb(127, 176, 255);
-}
-
-.submitBtn{
-    padding: 0.5rem 1.5rem;
-    height: 40px;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(161, 197, 255);
-    color: white;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    letter-spacing: 2px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-}
-.fileName{
-    display: flex;
-    align-items: center;
-}
-.deleteIcon{
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border-radius: 5px;
-    padding: 5px;
-}
-.deleteIcon:hover{
-    background-color: rgb(139, 184, 255);
-}
-.forumCreate button:hover{
-    
-    background-color: rgb(139, 184, 255);
-    box-shadow: 0 5px 8px 3px rgba(0, 0, 0, 0.1);
-    transform: translateY(-10%);
+/* 메인 컨테이너 */
+.forumCreate {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #242424;
+  padding: 2rem 0;
+  color: #ffffff;
+  margin-bottom: 400px;
 
 }
 
-
-.fileUploadBtn, .fileEarlyUploadButton{
-    border: none;
-    margin-bottom: 10px;
-    cursor: pointer;
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: rgb(192, 216, 255);
-    color: white;
-    font-weight: bold;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    text-align: center;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-.uploadInput{
-    width: 0% !important;
+/* 헤더 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
 }
-.fileEarlyUploadButton{
-    white-space: nowrap;
+
+.pageTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
 }
 
+.titleIcon {
+  font-size: 2rem;
+}
 
+.submitBtn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(121, 101, 193, 0.3);
+}
 
+.submitBtn:hover {
+  background-color: #6b5bb3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(121, 101, 193, 0.4);
+}
 
-  .fileUploadBtn:hover{
-    background-color: rgb(139, 184, 255);
-    box-shadow: 0 5px 8px 3px rgba(0, 0, 0, 0.1);
-    transform: translateY(-10%);
+.buttonIcon {
+  font-size: 1.125rem;
+}
+
+/* 섹션 */
+.section {
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sectionIcon {
+  font-size: 1.5rem;
+  color: #7965c1;
+}
+
+.itemTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.explain {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* 제목 입력 */
+.titleInput {
+  width: 90%;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  margin-bottom: 0.75rem;
+}
+
+.titleInput:focus {
+  outline: none;
+  border-color: #7965c1;
+  box-shadow: 0 0 0 3px rgba(121, 101, 193, 0.2);
+  background-color: #3a3a3a;
+}
+
+.titleInput::placeholder {
+  color: #888;
+}
+
+.letterLength {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ff6b6b;
+  font-weight: 500;
+}
+
+.errorIcon {
+  font-size: 1rem;
+}
+
+.charCount {
+  color: #bbb;
+}
+
+.charCountNormal {
+  color: #7965c1;
+  font-weight: 600;
+}
+
+.charCountWarning {
+  color: #ff9500;
+  font-weight: 600;
+}
+
+/* 파일 업로드 영역 */
+.uploadArea {
+  margin-bottom: 1rem;
+}
+
+.fileUploadBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 120px;
+  background: linear-gradient(135deg, rgba(121, 101, 193, 0.1), rgba(121, 101, 193, 0.05));
+  border: 2px dashed #7965c1;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #7965c1;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.fileUploadBtn:hover {
+  background: linear-gradient(135deg, rgba(121, 101, 193, 0.2), rgba(121, 101, 193, 0.1));
+  border-color: #6b5bb3;
+  transform: translateY(-2px);
+}
+
+.uploadBtnIcon {
+  font-size: 2rem;
+}
+
+.uploadHint {
+  font-size: 0.875rem;
+  color: #bbb;
+  font-weight: 400;
+}
+
+.uploadInput {
+  display: none;
+}
+
+/* 카테고리 선택 */
+.categorySelect {
+  width: 100%;
+  padding: 1rem;
+  background-color: #333;
+  border: 2px solid #555;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.categorySelect:focus {
+  outline: none;
+  border-color: #7965c1;
+  box-shadow: 0 0 0 3px rgba(121, 101, 193, 0.2);
+}
+
+.categorySelect option {
+  background-color: #333;
+  color: white;
+  padding: 0.5rem;
+}
+
+/* 파일 컨테이너 */
+.fileContainer {
+  background-color: rgba(60, 60, 60, 0.5);
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.fileHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: #bbb;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.fileIcon {
+  font-size: 1rem;
+  color: #7965c1;
+}
+
+.fileText {
+  color: #bbb;
+}
+
+.fileItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(80, 80, 80, 0.5);
+  border: 1px solid #666;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.fileInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.fileName {
+  color: white;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  word-break: break-all;
+}
+
+.fileSize {
+  color: #bbb;
+  font-size: 0.75rem;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteBtn:hover {
+  background-color: rgba(255, 107, 107, 0.2);
+}
+
+/* 업로드 상태 */
+.uploadStatus {
+  margin-top: 1rem;
+}
+
+.fileEarlyUploadButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #7965c1, #6b5bb3);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fileEarlyUploadButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(121, 101, 193, 0.4);
+}
+
+.uploadIcon {
+  font-size: 1rem;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: rgba(121, 101, 193, 0.1);
+  border: 1px solid rgba(121, 101, 193, 0.3);
+  border-radius: 6px;
+  color: #7965c1;
+  font-weight: 500;
+}
+
+.loadingText {
+  font-size: 0.875rem;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(121, 101, 193, 0.3);
+  border-top: 2px solid #7965c1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  @media screen and (max-width: 768px) {
-    .forumCreate{
-        margin-right: 0;
-        margin-left: 0;
-        padding-top: 5vh;
-        padding-bottom: 0;
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-    .container{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2em;
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .pageTitle{
-        display: none;
-    }
-    .forumCreate input{
-        width: 90vw;
-    }
-    .itemTitle, .explain{
-        padding-left: 4vw;
-        align-self: flex-start;
-    }
-    .submitBtn{
-        z-index: 1000;
-        position: fixed;
-        bottom: 1vh;
-        left: 50vw;
-        transform: translateX(-50%);
-    }
-    .fileContainer{
-        width: 100%;
-    }
-    .files{
-        overflow-y: scroll;
-        width: 100%;
-        max-height: 100%;
-    }
-    .fileText{
-
-    }
-    .files button{
-        border: none;
-        transition: all 0.3s ease;
-        background-color: transparent;
-    }
-    .file{
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
+  100% {
+    transform: rotate(360deg);
   }
+}
+
+.progressBar {
+  width: 100px;
+  height: 6px;
+  background-color: rgba(121, 101, 193, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #7965c1, #9b87d4);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.pulseLoader {
+  display: flex;
+  gap: 4px;
+}
+
+.pulseLoader div {
+  width: 8px;
+  height: 8px;
+  background-color: #7965c1;
+  border-radius: 50%;
+  animation: pulse 1.4s ease-in-out infinite both;
+}
+
+.pulseLoader div:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.pulseLoader div:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes pulse {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.successMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 6px;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.successIcon {
+  font-size: 1.125rem;
+}
+
+/* 에디터 컨테이너 */
+.editorContainer {
+  background-color: rgba(60, 60, 60, 0.3);
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 200px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+
+  .submitBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .letterLength {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .fileItem {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+}

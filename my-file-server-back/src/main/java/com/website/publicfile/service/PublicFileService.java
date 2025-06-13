@@ -2,6 +2,7 @@ package com.website.publicfile.service;
 
 import com.website.common.Tool;
 import com.website.publicfile.dto.PublicFileDetailDTO;
+import com.website.publicfile.dto.PublicFileMainDto;
 import com.website.publicfile.dto.PublicFileUploadDTO;
 import com.website.publicfile.entity.*;
 import com.website.publicfile.repository.*;
@@ -9,13 +10,11 @@ import com.website.security.dto.CustomUserDetails;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,25 +36,34 @@ public class PublicFileService {
         this.publicFileCommentRepository = publicFileCommentRepository;
     }
 
-    public Page<PublicFileEntity> getPublicFile(String category, String searchWord, int page) {
+    public Page<PublicFileMainDto> getPublicFile(String category, String searchWord, int page) {
         Pageable pageable = PageRequest.of(page,9, Sort.by("uploadedAt").descending());
-        System.out.println(searchWord);
         Page<PublicFileEntity> entities;
         if(category.equals("all")){
             entities = publicFileRepository.getPublicFile(searchWord,pageable);
         } else {
             entities = publicFileRepository.getPublicFileByCategory(category,searchWord,pageable);
         }
-        return entities;
+        List<PublicFileMainDto> dtoList = entities.getContent().stream().map(entity -> new PublicFileMainDto(
+                entity.getFileCode(),
+                entity.getUploadedAt(),
+                entity.getDownloadCount(),
+                entity.getCategory(),
+                entity.getTitle(),
+                entity.getUser().getId(),
+                entity.getUser().getUserCode(),
+                entity.getSize()
+        )).toList();
+        Page<PublicFileMainDto> dtoPage = new PageImpl<>(dtoList, entities.getPageable(), entities.getTotalPages());
+        return dtoPage;
 
     }
 
     @Transactional
-    public void writeLog(Long userCode, Long fileCode) {
+    public void writeLog(Long fileCode) {
         PublicFileEntity publicFileEntity = publicFileRepository.findById(fileCode).orElseThrow();
         publicFileEntity.setDownloadCount(publicFileEntity.getDownloadCount() + 1);
-        PublicFileUserEntity publicFileUserEntity = publicFileUserRepository.findById(userCode).orElseThrow();
-        publicDownloadLogRepository.save(new PublicDownloadLogEntity(publicFileUserEntity,publicFileEntity));
+        publicFileRepository.save(publicFileEntity);
     }
 
     public List<PublicDownloadLogEntity> getDownloadLog() {
@@ -66,7 +74,6 @@ public class PublicFileService {
         PublicFileEntity e =  publicFileRepository.findById(fileCode).orElseThrow(
                 ()->new EntityNotFoundException("파일을 찾을 수 없습니다."));
         int recommendCount = publicFileRecommendRepository.countByPublicFileCode(fileCode);
-        System.out.println("@@@@@@@@@@@@@"+fileCode+"가 "+recommendCount+"개");
         return new PublicFileDetailDTO(
             e.getFileCode(),
                 e.getChangedName(),
@@ -81,7 +88,6 @@ public class PublicFileService {
                 e.getUser(),
                 recommendCount
         );
-
     }
 
     @Transactional
@@ -101,8 +107,7 @@ public class PublicFileService {
     }
 
     public List<PublicFileCommentEntity> getComment(Long fileCode) {
-        List<PublicFileCommentEntity> comments = publicFileCommentRepository.findByFileCodeOrderByCreateAtDesc(fileCode);
-        return comments;
+        return publicFileCommentRepository.findByFileCodeOrderByCreateAtDesc(fileCode);
     }
 
     @Transactional

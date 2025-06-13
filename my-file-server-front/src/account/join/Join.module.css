@@ -1,0 +1,867 @@
+/* 기본 스타일은 login-page.module.css와 동일하므로 차이점만 정의 */
+
+/* 메인 컨테이너 */
+.signupContainer {
+    width: 100%;
+  background: linear-gradient(135deg, #242424 0%, #1a1a1a 50%, #2d2d2d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 배경 장식 요소들 - 로그인과 동일 */
+.backgroundDecorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floatingShape1,
+.floatingShape2,
+.floatingShape3 {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(121, 101, 193, 0.1), rgba(121, 101, 193, 0.05));
+  animation: float 6s ease-in-out infinite;
+}
+
+.floatingShape1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floatingShape2 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.floatingShape3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+.gradientOrb1,
+.gradientOrb2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.gradientOrb1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(121, 101, 193, 0.3), transparent);
+  top: -150px;
+  right: -150px;
+  animation-delay: 0s;
+}
+
+.gradientOrb2 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(107, 91, 179, 0.2), transparent);
+  bottom: -125px;
+  left: -125px;
+  animation-delay: 2s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+/* 메인 회원가입 카드 */
+.signupCard {
+  background: rgba(40, 40, 40, 0.95);
+  border: 1px solid rgba(121, 101, 193, 0.3);
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 80px rgba(121, 101, 193, 0.1);
+  backdrop-filter: blur(20px);
+  position: relative;
+  z-index: 10;
+  animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 헤더 */
+.signupHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logoContainer {
+  margin-bottom: 1.5rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.logoIcon {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 20px rgba(121, 101, 193, 0.5));
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(121, 101, 193, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(121, 101, 193, 0.8));
+  }
+}
+
+.logoText {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #7965c1, #9b87d4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(121, 101, 193, 0.3);
+}
+
+.logoSubtext {
+  color: #bbb;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* 진행률 표시 */
+.progressContainer {
+  margin-bottom: 1rem;
+}
+
+.progressLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #bbb;
+  margin-bottom: 0.5rem;
+}
+
+.progressIcon {
+  font-size: 1rem;
+  color: #7965c1;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(85, 85, 85, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #7965c1, #9b87d4);
+  border-radius: 3px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* 환영 텍스트 */
+.welcomeText {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.welcomeTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+.welcomeSubtitle {
+  color: #bbb;
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 폼 스타일 */
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #bbb;
+}
+
+.labelIcon {
+  font-size: 1rem;
+  color: #7965c1;
+}
+
+.required {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+/* 중복 확인이 있는 입력 필드 */
+.inputWithButton {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: rgba(60, 60, 60, 0.5);
+  border: 2px solid rgba(85, 85, 85, 0.5);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  flex: 1;
+}
+
+.inputWrapper.focused {
+  border-color: #7965c1;
+  box-shadow: 0 0 0 4px rgba(121, 101, 193, 0.2);
+  background-color: rgba(70, 70, 70, 0.7);
+}
+
+.inputWrapper.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+}
+
+.inputWrapper.success {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+}
+
+.inputIcon {
+  padding: 0 1rem;
+  font-size: 1.125rem;
+  color: #7965c1;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  padding: 1rem 0;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #888;
+  font-size: 0.875rem;
+}
+
+.passwordToggle {
+  background: none;
+  border: none;
+  padding: 0 1rem;
+  cursor: pointer;
+  color: #7965c1;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.passwordToggle:hover {
+  color: #9b87d4;
+  transform: scale(1.1);
+}
+
+.toggleIcon {
+  font-size: 1.125rem;
+}
+
+.successIcon {
+  padding: 0 1rem;
+  font-size: 1.125rem;
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+/* 중복 확인 버튼 */
+.duplicateButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background-color: rgba(60, 60, 60, 0.7);
+  border: 2px solid #555;
+  border-radius: 8px;
+  color: #bbb;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 100px;
+  height: 56px;
+}
+
+.duplicateButton:hover:not(:disabled) {
+  background-color: rgba(80, 80, 80, 0.7);
+  border-color: #7965c1;
+  color: white;
+}
+
+.duplicateButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.duplicateButton.success {
+  background-color: rgba(34, 197, 94, 0.2);
+  border-color: #22c55e;
+  color: #22c55e;
+}
+
+.duplicateButton.error {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.checkIcon,
+.errorIcon {
+  font-size: 1rem;
+}
+
+/* 비밀번호 강도 표시 */
+.passwordStrength {
+  margin-top: 0.5rem;
+}
+
+.strengthLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #bbb;
+  margin-bottom: 0.25rem;
+}
+
+.strengthIcon {
+  font-size: 0.875rem;
+  color: #7965c1;
+}
+
+.strengthBar {
+  width: 100%;
+  height: 4px;
+  background-color: rgba(85, 85, 85, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.strengthFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* 에러 메시지 */
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.errorMessage .errorIcon {
+  font-size: 0.875rem;
+}
+
+/* 약관 동의 */
+.termsSection {
+  margin: 1rem 0;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #bbb;
+  line-height: 1.5;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkboxCustom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkbox:checked + .checkboxCustom {
+  background-color: #7965c1;
+  border-color: #7965c1;
+}
+
+.checkbox:checked + .checkboxCustom::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.checkboxLabel {
+  user-select: none;
+}
+
+.termsLink {
+  background: none;
+  border: none;
+  color: #7965c1;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.termsLink:hover {
+  color: #9b87d4;
+}
+
+/* 버튼 스타일 */
+.signupButton,
+.loginButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.signupButton {
+  background: linear-gradient(135deg, #7965c1, #6b5bb3);
+  color: white;
+  box-shadow: 0 8px 24px rgba(121, 101, 193, 0.4);
+}
+
+.signupButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(121, 101, 193, 0.5);
+}
+
+.signupButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loginButton {
+  background: transparent;
+  color: #7965c1;
+  border: 2px solid #7965c1;
+}
+
+.loginButton:hover {
+  background-color: rgba(121, 101, 193, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(121, 101, 193, 0.2);
+}
+
+.buttonIcon {
+  font-size: 1.125rem;
+}
+
+/* 로딩 스타일 */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 구분선 */
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #555, transparent);
+}
+
+.dividerText {
+  background-color: rgba(40, 40, 40, 0.95);
+  color: #888;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* 푸터 */
+.signupFooter {
+  margin-top: 2rem;
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(85, 85, 85, 0.3);
+}
+
+.footerText {
+  color: #888;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.footerLink {
+  background: none;
+  border: none;
+  color: #7965c1;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.footerLink:hover {
+  color: #9b87d4;
+}
+
+/* 보안 정보 카드 */
+.securityCard {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(40, 40, 40, 0.9);
+  border: 1px solid rgba(121, 101, 193, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  width: 280px;
+  backdrop-filter: blur(10px);
+  z-index: 5;
+  animation: slideInRight 1s ease-out 0.5s both;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.securityTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+}
+
+.securityIcon {
+  font-size: 1.25rem;
+  color: #7965c1;
+}
+
+.securityList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.securityItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #bbb;
+  font-size: 0.875rem;
+}
+
+.securityItemIcon {
+  font-size: 1rem;
+  color: #7965c1;
+  flex-shrink: 0;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 1024px) {
+  .securityCard {
+    display: none;
+  }
+
+  .signupContainer {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .signupContainer {
+    padding: 0.5rem;
+  }
+
+  .signupCard {
+    padding: 2rem;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .logoText {
+    font-size: 1.75rem;
+  }
+
+  .logoIcon {
+    font-size: 2.5rem;
+  }
+
+  .welcomeTitle {
+    font-size: 1.25rem;
+  }
+
+  .inputWithButton {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .duplicateButton {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .termsSection {
+    margin: 1.5rem 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .signupCard {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .logoText {
+    font-size: 1.5rem;
+  }
+
+  .logoIcon {
+    font-size: 2rem;
+  }
+
+  .welcomeTitle {
+    font-size: 1.125rem;
+  }
+
+  .welcomeSubtitle {
+    font-size: 0.8rem;
+  }
+
+  .inputWrapper {
+    border-radius: 8px;
+  }
+
+  .input {
+    padding: 0.875rem 0;
+    font-size: 0.9rem;
+  }
+
+  .signupButton,
+  .loginButton {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .duplicateButton {
+    padding: 0.875rem 1rem;
+    font-size: 0.8rem;
+    height: 50px;
+  }
+
+  .floatingShape1,
+  .floatingShape2,
+  .floatingShape3 {
+    display: none;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .signupButton:hover:not(:disabled),
+  .loginButton:hover,
+  .duplicateButton:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .signupButton:active:not(:disabled),
+  .loginButton:active,
+  .duplicateButton:active:not(:disabled) {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  .passwordToggle:hover {
+    transform: none;
+  }
+
+  .passwordToggle:active {
+    transform: scale(0.9);
+  }
+}
+
+/* 접근성 향상 */
+@media (prefers-reduced-motion: reduce) {
+  .floatingShape1,
+  .floatingShape2,
+  .floatingShape3,
+  .gradientOrb1,
+  .gradientOrb2,
+  .logoIcon {
+    animation: none;
+  }
+
+  .signupCard {
+    animation: none;
+  }
+
+  .securityCard {
+    animation: none;
+  }
+}
+
+/* 포커스 스타일 향상 */
+.signupButton:focus-visible,
+.loginButton:focus-visible,
+.duplicateButton:focus-visible,
+.termsLink:focus-visible,
+.footerLink:focus-visible {
+  outline: 2px solid #7965c1;
+  outline-offset: 2px;
+}
+
+.input:focus-visible {
+  outline: none;
+}
+
+.passwordToggle:focus-visible {
+  outline: 2px solid #7965c1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

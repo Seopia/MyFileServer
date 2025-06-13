@@ -1,129 +1,496 @@
-.container{
-    width: calc(100vw - 250px);
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 2vh;
-    min-height: 98vh;
-    overflow: auto;
+.pageContainer {
+  min-height: 100vh;
+  width: 100vw;
+  padding: 2rem 0;
+  color: #ffffff;
 }
-.downloadButton{
-    position: fixed;
-    right: 5%;
-    top: 10%;
+
+.contentContainer {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
-.headerBottom{
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2%;
+
+.card {
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
-.informationContainer{
-    display: flex;
-    flex-direction: column;
+
+.cardHeader {
+  padding: 1.5rem;
 }
-.information{
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    gap: 30px;
-    margin-bottom: 10px;
+
+.cardContent {
+  padding: 0 1.5rem 1.5rem;
 }
-.buttonBox{
-    display: flex;
-    justify-content: space-between;
-    width: 12vw;    
-    white-space: nowrap;
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
-.deleteButton{
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: none;
-    border-radius: 6px;
-    padding: 5px;
-    margin-bottom: 10px;
+
+.titleContainer {
+  flex: 1;
 }
-.buttonBox button, .commentWriteContainer button{
-    cursor: pointer;
-    display: inline-block;
-    padding: 1vh 1vw;
-    font-size: 0.8em;
-    border: none;
-    background-color: rgb(192, 216, 255);
-    color: white;
-    font-weight: bold;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    text-align: center;
-    margin-bottom: 10px;
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
-.buttonBox button:hover, .commentWriteContainer button:hover{
-    background-color: rgb(139, 184, 255);
-    box-shadow: 0 5px 8px 3px rgba(0, 0, 0, 0.1);
-    transform: translateY(-10%);
+
+.recommendStatus {
+  margin-bottom: 1.5rem;
+}
+
+.recommendEmpty,
+.recommendFilled {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
+
+.heartIcon {
+  font-size: 1rem;
+}
+
+.deleteButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #7965c1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.deleteButton:hover {
+  background-color: #493d74;
+}
+
+/* 업로드 정보 */
+.uploadInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  color: #bbb;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.calendarIcon,
+.userIcon {
+  opacity: 0.8;
+}
+
+/* 파일 정보 그리드 */
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .infoGrid {
+    grid-template-columns: 1fr 1fr;
   }
-.hr{
-    height: 2px;
-    background: linear-gradient(to right, rgba(127, 176, 255, 1), rgba(127, 176, 255, 0));
 }
-.body{
-    margin-top: 30px;
-    min-height: 50vh;
+
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
-.commentWriteContainer{
-    margin-top: 20px;
-    width: 60%;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
 }
-.commentWriteContainer input{
-    border: 2px solid rgb(192, 216, 255);
-    border-radius: 8px;
-    padding-left: 10px;
-    outline: none;
-    width: 87%;
-    transition: all 0.3s ease-in-out;
+
+.fileIcon,
+.sizeIcon,
+.downloadIcon {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  color: rgb(126, 195, 255);
 }
-.commentWriteContainer input:focus{
-    border-color: rgb(192, 216, 255);
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+
+.categoryDot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  margin-top: 0.25rem;
 }
-.commentWriteContainer button{
-    height: 100%;
-    width: 10%;
+
+.infoLabel {
+  font-weight: 600;
+  color: #bbb;
+  margin-right: 0.5rem;
 }
-.commentContainer{
-    margin-bottom: 10vh;
+
+.infoValue {
+  color: white;
+  word-break: break-all;
 }
-.comment{
-    display: flex;
+
+.adultCategory,
+.normalCategory {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.adultCategory {
+  background-color: #e53935;
+  color: white;
+}
+
+.normalCategory {
+  background-color: #7965c1;
+  color: white;
+}
+
+/* 버튼 스타일 */
+.buttonBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 140px;
+}
+
+.primaryButton {
+  background-color: #7965c1;
+  color: white;
+  border: none;
+}
+
+.primaryButton:hover {
+  background-color: #6b5bb3;
+  box-shadow: 0 0 12px rgba(121, 101, 193, 0.5);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: #bbb;
+  border: 1px solid #7965c1;
+}
+
+.secondaryButton:hover {
+  background-color: rgba(121, 101, 193, 0.15);
+  color: white;
+}
+
+.buttonIcon {
+  font-size: 1.125rem;
+}
+
+/* 구분선 */
+.hr {
+  height: 1px;
+  background-color: #444;
+  margin: 1.5rem 0;
+}
+
+/* 섹션 제목 */
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.sectionTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.commentIcon {
+  font-size: 1.25rem;
+  color: #7965c1;
+}
+
+/* 설명 영역 */
+.description {
+  color: #ddd;
+  line-height: 1.6;
+}
+
+.description a {
+  color: #7965c1;
+  text-decoration: underline;
+}
+
+.description h1,
+.description h2,
+.description h3 {
+  color: white;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* 댓글 영역 */
+.commentWriteContainer {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.commentInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: white;
+  font-size: 1rem;
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: #7965c1;
+  box-shadow: 0 0 0 2px rgba(121, 101, 193, 0.3);
+}
+
+.commentInput::placeholder {
+  color: #888;
+}
+
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.emptyComments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  color: #888;
+  text-align: center;
+}
+
+.bigCommentIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.comment {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: rgba(60, 60, 60, 0.5);
+  border: 1px solid #444;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.comment:hover {
+  background-color: rgba(70, 70, 70, 0.5);
+}
+
+.commentAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #7965c1;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.commentBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.commentId {
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.commentActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.commentDate {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.commentDeleteButton {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: #ff6b6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.commentDeleteButton:hover {
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.commentContent {
+  color: #ddd;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+/* 에디터 사진! */
+.description img {
+  max-width: 80%;
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .recommendStatus {
+    margin-bottom: 1rem;
+  }
+
+  .headerTop {
     flex-direction: column;
-    gap: 10px;
-    width: 60%;
-    border-bottom: 1px solid #ccc;
-}
-.commentId{
-    margin-top: 10px;
-    font-size: 1.1em;
-    font-weight: bolder;
-}
-.commentBody{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    gap: 10px;
-}
-.commentFooter{
-    display: flex;
-    gap: 10px;
-}
-.commentDeleteButton{
-    border: none;
-    background-color: transparent;
-    transition: scale 0.3s ease-in-out;
-}
-.commentDeleteButton:hover{
-    scale: 1.1;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .deleteButton {
+    align-self: flex-end;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .uploadInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .infoRow {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .buttonBox {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    min-width: auto;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+  }
+
+  .commentWriteContainer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .commentInput {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .comment {
+    flex-direction: column;
+  }
+
+  .commentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .commentAvatar {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+
+  .description img {
+    max-width: 100%;
+  }
 }

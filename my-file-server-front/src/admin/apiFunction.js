@@ -16,3 +16,7 @@ export const adminDisableUser = async (userCode, callBack) => {
     const res = await api.post(`/admin/user-disable/${userCode}`);
     callBack(res.data);
 }
+export const adminToggleUser = async (usercode, callBack) => {
+    const res = await api.post(`/admin/user-status-toggle/${usercode}`);
+    callBack(res.data);
+}

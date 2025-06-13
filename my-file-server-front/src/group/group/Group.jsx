@@ -2,14 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import CustomModal from '../../common/CustomModal';
 import api from '../../common/api';
 import { deleteFile } from '../../main/function';
-import ShowDatas from '../../main/PC/ShowDatas';
+// import ShowDatas from '../../main/PC/ShowDatas';
 import s from './Group.module.css';
-import Filedetail from '../../main/PC/Components/FileDetail/FileDetail';
+import Filedetail from '../../personal/components/FileDetail';
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { groupDeleteGroup, groupGetThisGroup, groupUploadChunk } from '../apiGroupFunction';
 import { useSelector } from 'react-redux';
 import { Loading } from '../../common/Loading';
-import MobileHeader from '../../main/Mobile/Component/MobileHeader';
 
 function Group() {
     const {code} = useParams();
@@ -196,7 +195,6 @@ function Group() {
     
     return (
         <>
-            {isMobile&&<MobileHeader title={group.name+' (모바일은 완전하지 않을 수 있습니다.)'}/>}
             <aside style={showGroupMember?
                 {width:'30vw',height:'100vh',top:'0px',right:'0px',boxShadow:'0 0 10px 5px rgb(67, 89, 122)'}
                 :
@@ -243,7 +241,7 @@ function Group() {
                                 files &&
                                 files.folders.map((folder) => (
                                     <div key={folder.folderCode}>
-                                        <ShowDatas folder={folder} intoFolder={intoFolder} file={null} handleContextMenu={handleContextMenu} />
+                                        {/* <ShowDatas folder={folder} intoFolder={intoFolder} file={null} handleContextMenu={handleContextMenu} /> */}
                                     </div>
                                 ))
                             }
@@ -254,7 +252,7 @@ function Group() {
                                 files &&
                                 files.files.map((file) => (
                                     <div key={file.fileCode}>
-                                        <ShowDatas folder={null} intoFolder={null} file={file} showDetailOfFile={showDetailOfFile} setSelectedFile={setSelectedFile} />
+                                        {/* <ShowDatas folder={null} intoFolder={null} file={file} showDetailOfFile={showDetailOfFile} setSelectedFile={setSelectedFile} /> */}
                                     </div>
                                 ))
                             }

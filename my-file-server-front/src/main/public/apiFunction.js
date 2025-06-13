@@ -2,16 +2,19 @@ import axios from "axios";
 import api from "../../common/api"
 
 export const getPublicFileByCategoryAndSearchWord = async (category, searchWord, page,callBack) => {    
-    const res = await api.get(`/public?category=${category||'all'}&searchWord=${searchWord||''}&page=${page||0}`);
+    const res = await api.get(`/public/open?category=${category||'all'}&searchWord=${searchWord||''}&page=${page||0}`);
+    
     callBack(res.data);
 }
 export const writeLog = async (fileCode) => {
-    await api.post(`/public/download?fileCode=${fileCode}`);
+    await api.post(`/public/open/download?fileCode=${fileCode}`);
 }
 
 export const getFileByFileCode = async (fileCode, callBack) => {
     try{
-        const res = await api.get(`/public/detail?fileCode=${fileCode}`);
+        const res = await api.get(`/public/open/detail?fileCode=${fileCode}`);
+        console.log(res.data.description);
+        
         callBack(res.data);
     } catch(err){
         alert(err.response.data);
@@ -37,7 +40,9 @@ export const recommendPublicFile = async (fileCode, callBack) => {
 }
 
 export const getCommentPublicFile = async (fileCode, callBack) => {
-    const res = await api.get(`/public/comment?fileCode=${fileCode}`);
+    const res = await api.get(`/public/open/comment?fileCode=${fileCode}`);
+    console.log(res.data);
+    
     callBack(res.data);
 } 
 export const writeCommentPublicFile = async (fileCode, commentInput, callBack) =>{

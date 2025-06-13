@@ -36,7 +36,7 @@ public class JWTFilter extends OncePerRequestFilter {
      */
     private boolean checkUrl(String path){
 
-        String[] needAuthUrl = {"/login","/download","/join"};
+        String[] needAuthUrl = {"/login","/download","/join","/public/open"};
 
         for (String s : needAuthUrl) {
             if (path.startsWith(s)) {

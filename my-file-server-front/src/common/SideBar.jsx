@@ -1,50 +1,61 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import s from './SideBar.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../reducer/UserDataSlice';
+import { loginUrl, mainUrl } from './url';
 const SideBar = () => {
-    
+
     const nav = useNavigate();
     const dispatch = useDispatch();
-    const {data, state} = useSelector((state)=>state.user);
-    const [isMobile, setIsMobile] = useState();
-    
+    const { data, state } = useSelector((state) => state.user);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const location = useLocation();
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location.pathname]);
     const logout = () => {
         localStorage.removeItem('token');
-        nav('/');
+        nav(loginUrl);
     }
-    useEffect(()=>{
-        setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-        if(!data && state !== 'loading' && state !== 'success'){  
+    useEffect(() => {
+        if (!data && state !== 'loading' && state !== 'success') {
             dispatch(getUser());
-        }        
-    },[data, dispatch, state])
-    return(
+        }
+    }, [data, dispatch, state])
+    return (
         <>
-            {!isMobile && 
-            (
-            <>   
-            <div className={s.faker}></div>
-            <div className={s.sidebarContainer}>
-                <div onClick={()=>nav('/main')} className={s.title}><img alt='Error' style={{marginRight:20}} width={50} src='/icon.png'/>Cloud</div>
-                <div>
-                    <button onClick={logout} className={s.logout}>Logout</button>
-                    <button onClick={()=>nav(`/user/${data.userCode}`)} className={s.logout}>My Page</button>
+            <button className={s.hamburger} onClick={() => setIsOpen(p => !p)}>
+                ☰
+                <span>{isOpen ? 'Close':'Menu'}</span>
+            </button>
+            <nav className={`${s.sidebar} ${isOpen ? s.open : ''}`}>
+                <div className={s.faker}></div>
+                <div className={`${s.sidebarContainer} ${isOpen ? s.open : ''}`}>
+                    <div onClick={() => nav(mainUrl)} className={s.title}><img alt='Error' style={{ marginRight: 20 }} width={50} src='/icon.png' />Cloud</div>
+                    <div className={s.buttonContainer}>
+                        {data ?
+                            <>
+                                <button onClick={logout} className={s.logout}>Logout</button>
+                                <button onClick={() => nav(`/user/${data.userCode}`)} className={s.logout}>My Page</button>
+                            </>
+                            :
+                            <button onClick={() => nav(loginUrl)} className={s.login}>Login</button>
+                        }
+                    </div>
+                    <ul className={s.list}>
+                        <li onClick={() => { nav(`/personal`) }}>개인 클라우드</li>
+                        <li onClick={() => { nav(mainUrl) }}>공용 클라우드</li>
+                        <li onClick={() => nav('group/select')}>그룹 클라우드 (임시 제거)</li>
+                        {/* <li onClick={() => nav('/forum')}>자유 게시판</li> */}
+                        {data && data.userRole === 'ROLE_ADMIN' && <li onClick={() => nav('/admin/user')}>관리자 페이지</li>}
+                        {/* {data && data.userRole === 'ROLE_ADMIN'&&<li onClick={()=>nav('/t')}>테스트 페이지</li>} */}
+                    </ul>
                 </div>
-                <ul className={s.list}>
-                    <li onClick={()=>{nav(`/main`)}}>개인 클라우드</li>
-                    <li onClick={()=>{nav('/public')}}>공용 클라우드</li>
-                    <li onClick={()=>nav('group/select')}>그룹 클라우드</li>
-                    <li onClick={()=>nav('/forum')}>자유 게시판</li>
-                    {data && data.userRole === 'ROLE_ADMIN'&&<li onClick={()=>nav('/admin/user')}>관리자 페이지</li>}
-                    {/* {data && data.userRole === 'ROLE_ADMIN'&&<li onClick={()=>nav('/t')}>테스트 페이지</li>} */}
-                </ul>
-                </div>
-            </>
-            )}  
-            <Outlet context={isMobile}/>
-      </>
+            </nav>
+            <Outlet context={false} />
+        </>
     )
 }
 

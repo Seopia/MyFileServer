@@ -34,6 +34,12 @@ public class AdminController {
         adminService.enableUser(userCode);
         return ResponseEntity.ok().body("활성화 성공");
     }
+    @PostMapping("/user-status-toggle/{userCode}")
+    public ResponseEntity<String> toggleUser(@PathVariable Long userCode){
+        adminService.toggleUser(userCode);
+        return ResponseEntity.ok().body("변환 성공");
+    }
+
 
     @GetMapping("/user")
     public ResponseEntity<Page<AdminUserEntity>> getAllUser(@AuthenticationPrincipal CustomUserDetails user,@RequestParam int page){

@@ -36,4 +36,13 @@ public class JoinService {
             throw new Exception("회원가입 중 알 수 없는 에러가 발생했습니다. : "+e.getMessage());
         }
     }
+
+    public Boolean checkId(String id) {
+        return userRepository.existsById(id);
+    }
+
+    public Boolean checkNickname(String value) {
+        System.out.println(value);
+        return userRepository.existsByMemo(value);
+    }
 }

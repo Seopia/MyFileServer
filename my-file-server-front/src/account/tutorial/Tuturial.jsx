@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import s from './Tutorial.module.css';
 import { useNavigate } from 'react-router-dom';
+import { loginUrl } from '../../common/url';
 
 const Tutorial = () => {
   const nav = useNavigate();
@@ -16,9 +17,7 @@ const Tutorial = () => {
       window.removeEventListener("scroll",handleScroll);
     }
   },[]);
-  const goService = (e) => {
-    nav(`/${e.target.name}`);
-  }
+
 
   useEffect(()=>{
     console.log(scroll);
@@ -29,8 +28,8 @@ const Tutorial = () => {
         <h1 className={s.subTitle}> 돈 걱정 없이 자유롭게</h1>
         <h4>아래로 스크롤해보세요.</h4>
         <div style={scroll > (isMobile?100:300) ? {position:'fixed', top:10, right:20}:{}} className={s.loginButtonContainer}>
-          <button name='' onClick={goService}>Login</button>
-          <button name='join' onClick={goService}>Join</button>
+          <button name='' onClick={()=>nav(loginUrl)}>Login</button>
+          <button name='join' onClick={()=>nav('/join')}>Join</button>
         </div>
         <section className={s.section1}>
         <h1 className={s.section1h1} style={{transform: scroll > (isMobile?100:300) ? `translateX(0)`:`translateX(-1000%)`}}>개인 클라우드</h1>
@@ -108,8 +107,8 @@ const Tutorial = () => {
         </div>
         <h1>무료로 이용해보세요!</h1>
         <div style={{paddingBottom:100}} className={s.loginButtonContainer}>
-          <button name='' onClick={goService}>Login</button>
-          <button name='join' onClick={goService}>Join</button>
+          <button name='' onClick={()=>nav(loginUrl)}>Login</button>
+          <button name='join' onClick={()=>nav('/join')}>Join</button>
         </div>
       </section>
     </div>

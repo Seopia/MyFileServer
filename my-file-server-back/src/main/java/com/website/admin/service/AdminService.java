@@ -57,4 +57,11 @@ public class AdminService {
             return false;
         }
     }
+    @Transactional
+    public void toggleUser(Long userCode) {
+        AdminUserEntity user = adminUserRepository.findById(userCode).orElseThrow();
+        user.setEnable(!user.isEnable());
+        adminUserRepository.save(user);
+    }
+
 }

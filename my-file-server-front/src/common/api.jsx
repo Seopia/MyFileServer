@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const apiUrl = '/api';
-// export const apiUrl = 'http://localhost:8080';
+// export const apiUrl = '/api';
+export const apiUrl = 'http://localhost:8080';
 
 const api = axios.create({
     baseURL: apiUrl,
@@ -56,9 +56,9 @@ api.interceptors.response.use(
                 localStorage.removeItem('token');
                 window.location.href = '/';
             } else if (error.response.status === 401) { // JWT 토큰이 없을 때
-                alert('로그인이 만료되었습니다.');
+                // alert('로그인이 만료되었습니다.');
                 localStorage.removeItem('token');
-                window.location.href = '/';
+                // window.location.href = '/';
             } else if (error.response.status === 400) {
                 console.log(error.response);
                 

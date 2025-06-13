@@ -1,0 +1,51 @@
+.modal {
+  transition: opacity 0.3s ease;
+}
+.modal.close{
+  opacity: 0;
+}
+.modal.open{
+  z-index: 999;
+  opacity: 1;
+
+}
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+  align-items: center;
+}
+
+.modalContent {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 24px;
+  border-radius: 12px;
+  width:90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.termsText {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.closeButton {
+  margin-top: 16px;
+  padding: 10px 16px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  float: right;
+}

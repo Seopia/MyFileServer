@@ -7,6 +7,7 @@ const CustomModal = React.memo(({message='Enter Data', isOpen, onClose, onSubmit
         backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
     content: {
+        zIndex:999,
         display:'flex',
         flexDirection:'column',
         justifyContent:'center',
