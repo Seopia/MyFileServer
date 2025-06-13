@@ -81,7 +81,9 @@
   transition: all 0.3s ease;
   text-decoration: none;
   white-space: nowrap;
+  justify-self: center;
 }
+
 
 .uploadButton {
   background: linear-gradient(135deg, #7965c1, #6b5bb3);
@@ -388,10 +390,12 @@
 .menuItem:hover {
   background-color: rgba(121, 101, 193, 0.2);
 }
-.head{
-    display: flex;
-    margin-bottom: 30px;
+
+.head {
+  display: flex;
+  margin-bottom: 30px;
 }
+
 .menuIcon {
   font-size: 1rem;
 }
@@ -407,11 +411,13 @@
     gap: 1.5rem;
     align-items: stretch;
   }
-  .head{
+
+  .head {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
+
   .actionButtons {
     justify-content: center;
   }
@@ -426,6 +432,10 @@
 @media screen and (max-width: 768px) {
   .container {
     padding: 0.5rem;
+  }
+
+  .backButton {
+    margin-bottom: 20px;
   }
 
   .header {
@@ -450,7 +460,8 @@
     width: 90%;
     justify-content: center;
   }
-  .uploadButton{
+
+  .uploadButton {
     padding: 0;
     padding-top: 1em;
     padding-bottom: 1em;
@@ -554,6 +565,7 @@
 
 /* 터치 디바이스 최적화 */
 @media (hover: none) and (pointer: coarse) {
+
   .folderContainer:hover,
   .fileContainer:hover {
     transform: none;

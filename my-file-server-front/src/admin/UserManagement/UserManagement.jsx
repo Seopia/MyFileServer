@@ -139,7 +139,7 @@ const UserManagement = () => {
 
             {/* Pagination */}
             {!isSearch && pageStatus.totalElements > 10 && (
-                <div className={s.paginationSection}>
+                <div style={{justifySelf:'center'}} className={s.paginationSection}>
                     <div className={s.paginationContainer}>
                         <Pagination
                             activePage={pageStatus.page}

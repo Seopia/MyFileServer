@@ -8,6 +8,7 @@ import DOMPurify from 'dompurify';
 import { useSelector } from "react-redux";
 import CustomModal from "../../../common/CustomModal";
 import { loginUrl } from "../../../common/url";
+import { FileMinus, FileX, Trash2 } from "lucide-react";
 
 
 const PublicFileDetail = () => {
@@ -89,7 +90,7 @@ const PublicFileDetail = () => {
 
                             {isOwner && (
                                 <button onClick={() => setModalState((p) => ({ ...p, deleteModal: true }))} className={s.deleteButton}>
-                                    <img width={20} src="/deleteIcon.png" alt="삭제" />
+                                    <FileX/>
                                     삭제하기
                                 </button>
                             )}
@@ -202,7 +203,7 @@ const PublicFileDetail = () => {
                                                     <span className={s.commentDate}>{formattedDateTime(comment.createAt)}</span>
                                                     {data?.userCode === comment.user.userCode && (
                                                         <button onClick={() => deleteComment(comment)} className={s.commentDeleteButton}>
-                                                            <img width={20} src="/deleteIcon.png" alt="삭제" />
+                                                            <Trash2 size={20}/>
                                                         </button>
                                                     )}
                                                 </div>

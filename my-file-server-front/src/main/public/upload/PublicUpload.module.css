@@ -51,6 +51,16 @@
   box-shadow: 0 4px 12px rgba(121, 101, 193, 0.3);
 }
 
+.submitBottomBtn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(121, 101, 193, 0.3);
+}
+
 .submitBtn:hover {
   background-color: #6b5bb3;
   transform: translateY(-2px);
@@ -350,6 +360,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -386,17 +397,20 @@
 .pulseLoader div:nth-child(1) {
   animation-delay: -0.32s;
 }
+
 .pulseLoader div:nth-child(2) {
   animation-delay: -0.16s;
 }
 
 @keyframes pulse {
+
   0%,
   80%,
   100% {
     transform: scale(0);
     opacity: 0.5;
   }
+
   40% {
     transform: scale(1);
     opacity: 1;
@@ -420,13 +434,31 @@
   font-size: 1.125rem;
 }
 
+.editorSection {
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
 /* 에디터 컨테이너 */
 .editorContainer {
   background-color: rgba(60, 60, 60, 0.3);
   border: 1px solid #555;
   border-radius: 8px;
-  padding: 1rem;
   min-height: 200px;
+}
+
+.editorContainer span {
+  color: white;
+}
+
+.editorContainer svg {
+  background-color: white !important;
+  border-radius: 4px;
 }
 
 /* 반응형 */
@@ -445,7 +477,10 @@
     width: 100%;
     justify-content: center;
   }
-
+  .submitBottomBtn {
+    width: 100%;
+    justify-content: center;
+  }
   .letterLength {
     flex-direction: column;
     gap: 0.5rem;

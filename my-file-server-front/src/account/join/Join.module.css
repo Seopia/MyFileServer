@@ -718,7 +718,12 @@
   .signupContainer {
     padding: 0.5rem;
   }
-
+  .inputWrapper{
+    width: 100%;
+  }
+  .input{
+    width: 100%;
+  }
   .signupCard {
     padding: 2rem;
     max-width: 100%;

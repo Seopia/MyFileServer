@@ -54,18 +54,29 @@ body {
 .ql-size-huge {
   font-size: 25px;
 }
-
+.ql-syntax{
+}
 pre {
-  background-color: #333;
+  background-color: #202020;
   padding: 10px;
 }
 
 blockquote {
-  margin: 1em 0;
+
 }
 
+@media screen and (max-width: 768px) {
+  .ql-syntax{
+  margin: 1em 0;
+  word-break: break-word;
+  white-space: normal;
+  font-family: 'Pretendard-Regular';
+}
+}
 /* select 기본 스타일 */
-
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 select.custom-select {
   display: block;
   width: 100%;

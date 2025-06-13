@@ -8,7 +8,7 @@ const TermsModal = ({ isOpen, setIsOpen }) => {
                 <div className={s.modalContent} onClick={(e) => e.stopPropagation()}>
                     <h2>이용약관</h2>
                     <div className={s.termsText}>
-                        <button onClick={() => setIsOpen(false)}>약관 닫기</button>
+                        <button style={{padding:10}} onClick={() => setIsOpen(false)}>약관 닫기</button>
                         <p><strong>제1조 (목적)</strong><br />
                             이 약관은 Seopia Cloud (이하 "서비스")가 제공하는 클라우드 기반 파일 공유 및 보관 서비스(이하 "서비스")의 이용과 관련하여, 이용자와 서비스 제공자 간의 권리·의무 및 책임사항 등을 규정함을 목적으로 합니다.</p>
 
@@ -81,6 +81,7 @@ const TermsModal = ({ isOpen, setIsOpen }) => {
                             본 약관은 2025년 6월 12일부터 적용됩니다.</p>
 
                     </div>
+                    <button style={{padding:10}} onClick={() => setIsOpen(false)}>약관 닫기</button>
                 </div>
             </div>
         </div>

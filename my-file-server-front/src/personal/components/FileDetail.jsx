@@ -4,6 +4,7 @@ import { calcFileSize, canOpenFile, downloadFile, formattedDateTime, getFileIcon
 import { Tooltip } from 'react-tooltip';
 import { Loading } from '../../common/Loading';
 import { useOutletContext } from 'react-router-dom';
+import { DownloadCloud, Trash2 } from 'lucide-react';
 
 const Filedetail = ({isShowFileDetail,setIsShowFileDetail,selectedFile, handleDeleteFormSubmit}) => {
     const isMobile = useOutletContext();
@@ -80,13 +81,13 @@ const Filedetail = ({isShowFileDetail,setIsShowFileDetail,selectedFile, handleDe
                 <Loading text="" />
               ) : (
                 <>
-                  <span className={s.buttonIcon}>⬇️</span>
+                  <DownloadCloud/>
                   다운로드
                 </>
               )}
             </button>
             <button onClick={() => handleDeleteFormSubmit(selectedFile.fileCode)} className={s.deleteButton}>
-              <span className={s.buttonIcon}>🗑️</span>
+              <Trash2/>
               삭제하기
             </button>
           </div>

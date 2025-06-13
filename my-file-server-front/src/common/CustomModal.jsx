@@ -1,4 +1,5 @@
 
+import { color } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import Modal from 'react-modal';
 
@@ -20,9 +21,10 @@ const CustomModal = React.memo(({message='Enter Data', isOpen, onClose, onSubmit
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         borderRadius:'1vw',
-        background:'aliceblue',
+        background:'#242424',
         boxShadow: "10px 10px 20px rgba(0, 0, 0, 0.2)",
         border:'none',
+        color:'white'
     }
 }, inputStyle={
     border:'none',
@@ -34,7 +36,7 @@ const CustomModal = React.memo(({message='Enter Data', isOpen, onClose, onSubmit
 }, buttonStyle={
     whiteSpace:'nowrap',
     padding:10,
-    background:'rgba(161, 197, 255, 0.699)',
+    background:'#7965c1',
     border:'none',
     borderRadius:7,
     color:'white',

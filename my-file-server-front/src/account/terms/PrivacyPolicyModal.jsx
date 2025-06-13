@@ -8,7 +8,7 @@ const PrivacyPolicyModal = ({ isOpen, setIsOpen }) => {
                 <div className={s.modalContent} onClick={(e) => e.stopPropagation()}>
                     <h2>개인정보 처리방침</h2>
                     <div className={s.termsText}>
-                        <button onClick={() => setIsOpen(false)}>약관 닫기</button>
+                        <button style={{padding:10}} onClick={() => setIsOpen(false)}>약관 닫기</button>
                         <p><strong>최종 개정일: 2025년 6월 12일</strong></p>
                         <p>Seopia Cloud (이하 “회사” 또는 “서비스”)는 『개인정보 보호법』 등 관련 법령에 따라 이용자의 개인정보를 보호하며,
                             아래와 같이 개인정보 처리방침을 수립하여 이용자 권익을 보호하고 있습니다.</p>
@@ -88,6 +88,8 @@ const PrivacyPolicyModal = ({ isOpen, setIsOpen }) => {
                             본 약관은 2025년 6월 12일부터 적용됩니다.</p>
 
                     </div>
+
+                    <button style={{padding:10}} onClick={() => setIsOpen(false)}>약관 닫기</button>
                 </div>
             </div>
         </div>

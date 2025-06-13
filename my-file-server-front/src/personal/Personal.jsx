@@ -220,12 +220,6 @@ export function Personal() {
                                     </div>
                                 </div>
                                 <div className={s.actionButtons}>
-                                    {history.length !== 0 && (
-                                        <button onClick={back} className={s.backButton}>
-                                            <span className={s.buttonIcon}>⬅️</span>
-                                            뒤로가기
-                                        </button>
-                                    )}
                                     <button onClick={() => setIsCreateFolderModalOpen(true)} className={s.folderButton}>
                                         <span className={s.buttonIcon}>📁</span>새 폴더
                                     </button>
@@ -238,7 +232,12 @@ export function Personal() {
                     </div>
 
                     <div className={s.divider}></div>
-
+                    {history.length !== 0 && (
+                        <button onClick={back} className={s.backButton}>
+                            <span className={s.buttonIcon}>⬅️</span>
+                            뒤로가기
+                        </button>
+                    )}
                     {/* Files and Folders Container */}
                     <div className={s.contentSection}>
                         {files && (files.folders.length > 0 || files.files.length > 0) ? (

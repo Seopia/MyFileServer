@@ -255,7 +255,7 @@ const PublicUpload = () => {
                 </div>
 
                 {/* Description Section */}
-                <div className={s.section}>
+                <div className={s.editorSection}>
                     <div className={s.sectionHeader}>
                         <span className={s.sectionIcon}>✍️</span>
                         <div className={s.explain}>파일의 설명을 작성해주세요!</div>
@@ -268,6 +268,10 @@ const PublicUpload = () => {
                             publicFile={true}
                         />
                     </div>
+                    <button className={s.submitBottomBtn} onClick={registForum}>
+                        <span className={s.buttonIcon}>🚀</span>
+                        업로드 하기
+                    </button>
                 </div>
             </div>
         </div>

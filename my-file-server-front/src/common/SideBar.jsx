@@ -26,7 +26,7 @@ const SideBar = () => {
     }, [data, dispatch, state])
     return (
         <>
-            <button className={s.hamburger} onClick={() => setIsOpen(p => !p)}>
+            <button className={`${s.hamburger} ${isOpen ? s.open : ''}`} onClick={() => setIsOpen(p => !p)}>
                 ☰
                 <span>{isOpen ? 'Close':'Menu'}</span>
             </button>

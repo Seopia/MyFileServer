@@ -20,17 +20,19 @@ import PublicUpload from "./main/public/upload/PublicUpload";
 import { loginUrl, mainUrl, personalUrl } from "./common/url";
 import Personal from "./personal/Personal";
 import PublicMain from "./main/public/PublicMain";
+import ScrollRestoration from "./common/ScrollRestoration";
 
 
 function App() {
   return (
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <ScrollRestoration />
       <Routes>
         <Route path={loginUrl} element={<Login />} />
         <Route path="/join" element={<Join />} />
         <Route path="/tutorial" element={<Tutorial />} />
         <Route element={<SideBar />}>
-          <Route path={personalUrl} element={<Personal/>}/>
+          <Route path={personalUrl} element={<Personal />} />
           <Route path={mainUrl} element={<PublicMain />} />
           <Route path="/public/upload" element={<PublicUpload />} />
           <Route path="/public/file/:fileCode" element={<PublicFileDetail />} />
