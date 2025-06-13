@@ -121,7 +121,7 @@ logging:
 - 다른 유저 마이페이지 활동 관찰 기능 출시
 - 회원 가입 요청 추가
 - 회원 가입 아이디, 비밀번호 검사 로직 추가
-
+### 프로젝트에 도움을 준 SongMinQQ, Yunha-Cha 감사합니다.
 ### Ver 0.5.5
 - 사이트 소개 페이지 생성
 - 개인 클라우드 대용량 파일 UI, 기능 업데이트
@@ -130,6 +130,10 @@ logging:
 
 ### Ver 2.0
 UI 업데이트
+![image](https://github.com/user-attachments/assets/053994c4-dcea-4695-bcd3-526445c71ef3)
+![image](https://github.com/user-attachments/assets/05bf3ff4-ec84-4dc4-8532-7663fc7a9b78)
+![image](https://github.com/user-attachments/assets/7616b71b-adec-4c86-bbae-4b950cf977ed)
+![image](https://github.com/user-attachments/assets/64453bb2-63b4-4a2c-9732-e0eb7cad9d17)
 ![image](https://github.com/user-attachments/assets/2ffe4c01-a0e1-4ce0-9554-9a35b92f2ee4)
 
-### 프로젝트에 도움을 준 SongMinQQ, Yunha-Cha 감사합니다.
+
