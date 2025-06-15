@@ -1,17 +1,11 @@
 package com.website.mainpage.service;
 
 import com.website.common.Tool;
-import com.website.forum.repository.CommentRepository;
-import com.website.forum.repository.ForumRepository;
-import com.website.mainpage.dto.UserFolderDTO;
-import com.website.mainpage.dto.UserPageDTO;
-import com.website.mainpage.dto.UserUploadFileDTO;
+import com.website.mainpage.dto.*;
 import com.website.mainpage.entity.FileEntity;
 import com.website.mainpage.entity.FolderEntity;
-import com.website.mainpage.entity.MainUserEntity;
 import com.website.mainpage.repository.FileRepository;
 import com.website.mainpage.repository.FolderRepository;
-import com.website.mainpage.repository.MainUserRepository;
 import com.website.security.dto.CustomUserDetails;
 import com.website.security.entity.User;
 import com.website.security.repository.UserRepository;
@@ -25,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -35,18 +30,12 @@ public class MainPageService {
     private String downloadUrl;
     private final Tool tool;
     private final UserRepository userRepository;
-    private final MainUserRepository mainUserRepository;
     private final FileRepository fileRepository;
-    private final ForumRepository forumRepository;
-    private final CommentRepository commentRepository;
     private final FolderRepository folderRepository;
-    public MainPageService(Tool tool, UserRepository userRepository, MainUserRepository mainUserRepository, FileRepository fileRepository, ForumRepository forumRepository, CommentRepository commentRepository, FolderRepository folderRepository) {
+    public MainPageService(Tool tool, UserRepository userRepository, FileRepository fileRepository, FolderRepository folderRepository) {
         this.tool = tool;
         this.userRepository = userRepository;
-        this.mainUserRepository = mainUserRepository;
         this.fileRepository = fileRepository;
-        this.forumRepository = forumRepository;
-        this.commentRepository = commentRepository;
         this.folderRepository = folderRepository;
     }
 
@@ -58,7 +47,7 @@ public class MainPageService {
         fileEntity.setPrivate(isPrivate);
         fileEntity.setSize(file.getSize());
         fileEntity.setFileFullPath(downloadUrl+fileEntity.getChangedName());
-        fileEntity.setUploadedByUser(mainUserRepository.findById(user.getUserCode()).orElseThrow());
+        fileEntity.setUser(userRepository.findById(user.getUserCode()).orElseThrow());
         fileEntity.setDownload_count(0);
         if(file.getOriginalFilename() != null){
             fileEntity.setOriginalName(StringUtils.cleanPath(file.getOriginalFilename()));
@@ -86,7 +75,7 @@ public class MainPageService {
         f.setUploadedAt(LocalDateTime.now());
         f.setDescription(description+"."+tool.getFileEx(originalFileName));
         f.setFileFullPath(downloadUrl+finalFileName);
-        f.setUploadedByUser(mainUserRepository.findById(user.getUserCode()).orElseThrow());
+        f.setUser(userRepository.findById(user.getUserCode()).orElseThrow());
         f.setDownload_count(0);
         f.setOriginalName(originalFileName);
         f.setSize(fileSize);
@@ -126,24 +115,18 @@ public class MainPageService {
         }
     }
 
-    public MainUserEntity getUser(CustomUserDetails user) {
-        return mainUserRepository.findById(user.getUserCode()).orElseThrow();
+    public UserDto getUser(CustomUserDetails user) {
+        User userEntity = userRepository.findById(user.getUserCode()).orElseThrow();
+        return new UserDto(userEntity.getUserCode(),userEntity.getId(),userEntity.getUserRole(),userEntity.getIntroduce());
     }
 
     public UserPageDTO getOtherUser(Long userCode) {
-        MainUserEntity user = mainUserRepository.findById(userCode).orElseThrow();
-        int writtenPostCount = forumRepository.getUserWrittenPostCount(userCode);
-        int writtenCommentCount = commentRepository.getUserWrittenCommentCount(userCode);
-        int uploadCount = fileRepository.getUserFileUploadCount(userCode);
-        return new UserPageDTO(
-                user.getUserCode(),
-                user.getId(),
-                writtenPostCount,
-                writtenCommentCount,
-                uploadCount,
-                "/icon.png",
-                user.getIntroduce()
-        );
+        try {
+            return userRepository.findUserPageData(userCode);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     @Transactional
@@ -208,9 +191,20 @@ public class MainPageService {
         folderRepository.save(folder);
     }
 
-    public List<MainUserEntity> getUsers(String id) {
-        return mainUserRepository.findAllByUserId("%"+id+"%");
+    public FileDTO getFile(String onlyUUID) throws FileNotFoundException {
+        FileEntity e = fileRepository.findByChangedName(onlyUUID);
+        if(e == null){
+            throw new FileNotFoundException("파일을 찾을 수 없습니다.");
+        } else {
+            return new FileDTO(
+                    e.getFileCode(),
+                    e.getUploadedAt(),
+                    e.getDescription(),
+                    e.getFileFullPath(),
+                    e.getUser().getMemo(),
+                    e.getDownload_count(),
+                    e.getSize()
+            );
+        }
     }
-
-
 }

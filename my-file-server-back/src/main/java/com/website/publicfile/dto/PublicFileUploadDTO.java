@@ -12,4 +12,5 @@ public class PublicFileUploadDTO {
     private String title;
     private String category;
     private String description;
+    private Boolean isPrivate;
 }

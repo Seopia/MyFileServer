@@ -6,10 +6,12 @@ import { truncateString } from "../../function";
 import QuillEditor from "../../../common/QuillEditor";
 import { useEffect } from "react";
 import { uploadEarly, uploadEarlyWithSmallFile } from "../apiFunction";
+import { useSelector } from "react-redux";
 
 const PublicUpload = () => {
     const nav = useNavigate();
     const [msg, setMsg] = useState(false);
+    const {data} = useSelector((state)=>state.user);
 
     const [uploadFiles, setUploadFiles] = useState({});
     const [uploadState, setUploadState] = useState({ loading: false, uploadLoading: false, mergeLoading: false, uploadPercent: 0, complete: false });
@@ -36,7 +38,12 @@ const PublicUpload = () => {
             if (newPublicFilePost.title.trim() !== '' && newPublicFilePost.content.trim() !== '' && category !== '') {
                 const res = await api.post(`/public`, ob);
                 if (res.data) {
-                    nav(-1);
+                    
+                    if(newPublicFilePost.isPrivate){
+                        nav(`/user/${data.userCode}`)
+                    } else {
+                        nav(-1);
+                    }
                 } else {
                     alert('Error 발생! 콘솔 확인');
                     console.log(res);
@@ -51,8 +58,6 @@ const PublicUpload = () => {
     const earlyUpload = () => {
         setUploadState(p => ({ ...p, loading: true })); //로딩 true
         if (uploadFiles.size < 10 * 1024 * 1024) {
-            console.log('ss');
-
             uploadEarlyWithSmallFile(uploadFiles, (res) => {
                 setUploadState({ loading: true, uploadLoading: true, mergeLoading: true, uploadPercent: 100, complete: true });
                 setUploadedFileName(res);

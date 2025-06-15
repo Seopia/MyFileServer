@@ -9,29 +9,51 @@ import { useSelector } from "react-redux";
 import CustomModal from "../../../common/CustomModal";
 import { loginUrl } from "../../../common/url";
 import { FileMinus, FileX, Trash2 } from "lucide-react";
-
+import { useInView } from 'react-intersection-observer';
 
 const PublicFileDetail = () => {
-    const { fileCode } = useParams();
+    const { fileUUID } = useParams();
     const nav = useNavigate();
     const { data } = useSelector((state) => state.user);
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
     const [modalState, setModalState] = useState({
         deleteModal: false,
     })
+    const [totalElements, setTotalElements] = useState(0);
 
-
-    const [file, setFile] = useState({ category: '', changedName: '', description: '', downloadCount: 0, fileCode: fileCode, fileFullPath: '', originalName: '', size: '', title: '', uploadedAt: [], user: { userCode: 0, id: '' }, recommendCount: 0 });
+    const [file, setFile] = useState({ category: '', changedName: '', description: '', downloadCount: 0, fileCode: 0, fileFullPath: '', originalName: '', size: '', title: '', uploadedAt: [], user: { userCode: 0, id: '' }, recommendCount: 0 });
     const [comments, setComments] = useState([]);
     const [commentInput, setCommentInput] = useState('');
-    const isOwner = data?.userCode === file.user.userCode;
+    const isOwner = data?.userCode === file.userCode;
     const isAdult = file.category === "porn"
     const getFile = async () => {
-        getFileByFileCode(fileCode, (res) => {
+        await getFileByFileCode(fileUUID, (res) => {
             setFile(res);
+            getComment(res.fileCode);
+
         });
     }
+    const { ref, inView } = useInView({
+        threshold: 0.1,
+        triggerOnce: false,
+    });
+    useEffect(() => {
+        if (inView && hasMore) {
+            getComment(file.fileCode);
+        }
+    }, [inView]);
+    const getComment = async (fileCode) => getCommentPublicFile(fileCode, page, data => {
+        if (data.last) {
+            setHasMore(false);
+        }
+        setPage((prev) => prev + 1);
+        setTotalElements(data.totalElements)
+        setComments(p => [...p, ...data.content]);
+
+    });
     const recommend = () => {
-        recommendPublicFile(fileCode, () => {
+        recommendPublicFile(file.fileCode, () => {
             setFile((p) => ({ ...p, recommendCount: file.recommendCount + 1 }));
         })
     }
@@ -41,7 +63,6 @@ const PublicFileDetail = () => {
         });
     }
     const download = () => {
-        writeLog(file.fileCode);
         setFile(p => ({ ...p, downloadCount: file.downloadCount + 1 }));
         downloadPublicFile(file);
     }
@@ -49,22 +70,20 @@ const PublicFileDetail = () => {
         const cleanHTML = DOMPurify.sanitize(content);
         return <div dangerouslySetInnerHTML={{ __html: cleanHTML }} />;
     }
-    const getComment = async () => getCommentPublicFile(fileCode, res => setComments(res));
     const writeComment = () => {
-        writeCommentPublicFile(fileCode, commentInput, (res) => { setComments((p) => ([res, ...p])); setCommentInput('') });
+        if (commentInput.trim() === "") {
+            return;
+        }
+        writeCommentPublicFile(file.fileCode, commentInput, (res) => { setComments((p) => ([res, ...p])); setCommentInput(''); setTotalElements(p=>p+1) });
     }
     const deleteComment = (comment) => {
         deleteCommentPublicFile(comment, (res) => {
             setComments(prev => prev.filter(i => i.publicFileCommentCode !== comment.publicFileCommentCode));
+            setTotalElements(p=>p-1);
         });
 
     }
-    useEffect(() => { getComment() }, []);
-    useEffect(() => { getFile(); }, []);
-    useEffect(() => {
-        console.log(comments);
-
-    }, [comments])
+    useEffect(() => { getFile() }, []);
     return (
         <div className={s.pageContainer}>
             <div className={s.contentContainer}>
@@ -77,7 +96,7 @@ const PublicFileDetail = () => {
                                     {file.recommendCount === 0 ? (
                                         <div className={s.recommendEmpty}>
                                             <span className={s.heartIcon}>♥</span>
-                                            <span>이 파일이 마음에 든다면 {!data&&'로그인 후'} 추천 버튼을 눌러주세요</span>
+                                            <span>이 파일이 마음에 든다면 {!data && '로그인 후'} 추천 버튼을 눌러주세요</span>
                                         </div>
                                     ) : (
                                         <div className={s.recommendFilled}>
@@ -90,7 +109,7 @@ const PublicFileDetail = () => {
 
                             {isOwner && (
                                 <button onClick={() => setModalState((p) => ({ ...p, deleteModal: true }))} className={s.deleteButton}>
-                                    <FileX/>
+                                    <FileX />
                                     삭제하기
                                 </button>
                             )}
@@ -103,14 +122,14 @@ const PublicFileDetail = () => {
                             </div>
                             <div className={s.infoItem}>
                                 <span className={s.userIcon}>👤</span>
-                                <span>업로드: {file.user.id}</span>
+                                <span>업로드: {file.id}</span>
                             </div>
                         </div>
 
                         <div className={s.infoGrid}>
                             <div className={s.infoColumn}>
                                 <div className={s.infoRow}>
-                                    <span className={s.infoLabel}>파일 이름: {truncateString(file.originalName,15, true)}</span>
+                                    <span className={s.infoLabel}>파일 이름: {truncateString(file.originalName, 15, true)}</span>
                                 </div>
                                 <div className={s.infoRow}>
                                     <span className={s.infoLabel}>용량: {calcFileSize(file.size)}</span>
@@ -140,7 +159,7 @@ const PublicFileDetail = () => {
                                 <span className={s.buttonIcon}>⬇️</span>
                                 다운로드
                             </button>
-                            { data&&
+                            {data &&
                                 <button onClick={recommend} className={s.secondaryButton}>
                                     <span className={s.buttonIcon}>♥</span>
                                     추천하기
@@ -163,7 +182,7 @@ const PublicFileDetail = () => {
                     <div className={s.cardHeader}>
                         <div className={s.sectionTitleContainer}>
                             <span className={s.commentIcon}>💬</span>
-                            <h2 className={s.sectionTitle}>댓글 ({comments.length})</h2>
+                            <h2 className={s.sectionTitle}>댓글 ({totalElements})</h2>
                         </div>
                     </div>
                     <div className={s.cardContent}>
@@ -181,7 +200,7 @@ const PublicFileDetail = () => {
                                     작성
                                 </button>
                             </div> :
-                            <div><span onClick={()=>nav(loginUrl)} style={{textDecoration:'underline', cursor:'pointer', color:'rgb(126, 195, 255)'}}>로그인</span> 하고 댓글을 남겨보세요.</div>
+                            <div><span onClick={() => nav(loginUrl)} style={{ textDecoration: 'underline', cursor: 'pointer', color: 'rgb(126, 195, 255)' }}>로그인</span> 하고 댓글을 남겨보세요.</div>
                         }
 
                         <div className={s.hr}></div>
@@ -195,15 +214,15 @@ const PublicFileDetail = () => {
                             ) : (
                                 comments.map((comment) => (
                                     <div key={comment.publicFileCommentCode} className={s.comment}>
-                                        <div className={s.commentAvatar}>{comment.user.id.charAt(0).toUpperCase()}</div>
+                                        <div className={s.commentAvatar}>{comment.id.charAt(0).toUpperCase()}</div>
                                         <div className={s.commentBody}>
                                             <div className={s.commentHeader}>
-                                                <h4 className={s.commentId}>{comment.user.id}</h4>
+                                                <h4 className={s.commentId}>{comment.id}</h4>
                                                 <div className={s.commentActions}>
                                                     <span className={s.commentDate}>{formattedDateTime(comment.createAt)}</span>
-                                                    {data?.userCode === comment.user.userCode && (
+                                                    {data?.userCode === comment.userCode && (
                                                         <button onClick={() => deleteComment(comment)} className={s.commentDeleteButton}>
-                                                            <Trash2 size={20}/>
+                                                            <Trash2 size={20} />
                                                         </button>
                                                     )}
                                                 </div>
@@ -213,6 +232,7 @@ const PublicFileDetail = () => {
                                     </div>
                                 ))
                             )}
+                            {hasMore && <div ref={ref}>불러오는 중...</div>}
                         </div>
                     </div>
                 </div>

@@ -19,4 +19,5 @@ public class PublicFileMainDto {
     private String id;
     private Long userCode;
     private Long fileSize;
+    private String fileUUID;
 }

@@ -98,29 +98,17 @@ public class PublicFileController {
         return ResponseEntity.ok().body(res);
     }
     @GetMapping("/open/detail")
-    public ResponseEntity<?> getFileDetail(@RequestParam Long fileCode){
+    public ResponseEntity<?> getFileDetail(@RequestParam String fileName){
         try {
-            PublicFileDetailDTO publicFile = publicFileService.getFileDetail(fileCode);
+            PublicFileDetailDTO publicFile = publicFileService.getFileDetail(fileName);
             return ResponseEntity.ok().body(publicFile);
         } catch (EntityNotFoundException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     @GetMapping("/open/comment")
-    public ResponseEntity<List<PublicFileCommentEntity>> getComment(@RequestParam Long fileCode){
-        return ResponseEntity.ok().body(publicFileService.getComment(fileCode));
-    }
-    @GetMapping("/download")
-    public ResponseEntity<?> getDownloadLog(@AuthenticationPrincipal CustomUserDetails user){
-        if(isAdmin(user.getAuthorities())){
-            return ResponseEntity.ok().body(publicFileService.getDownloadLog());
-        } else {
-            return ResponseEntity.badRequest().body("잘못된 접근입니다.");
-        }
-    }
-    @PostMapping("/open/download")
-    private void writeDownloadLog(@RequestParam Long fileCode){
-        publicFileService.writeLog(fileCode);
+    public ResponseEntity<Page<PublicFileCommentDto>> getComment(@RequestParam Long fileCode, @RequestParam int page){
+        return ResponseEntity.ok().body(publicFileService.getComment(fileCode, page));
     }
     @PostMapping("/recommend")
     public ResponseEntity<Boolean> recommendPublicFile(@AuthenticationPrincipal CustomUserDetails user, @RequestParam Long fileCode){

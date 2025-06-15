@@ -3,7 +3,7 @@ import { useLocation, useNavigationType } from 'react-router-dom';
 
 const scrollMap = new Map();
 
-export default function ScrollRestoration() {
+function ScrollRestoration() {
   const location = useLocation();
   const navType = useNavigationType();
   const path = location.pathname + location.search;
@@ -20,9 +20,7 @@ useLayoutEffect(() => {
   if (navType === 'POP') {
     const y = scrollMap.get(path) ?? 0;
 
-    // 렌더 끝난 뒤로 한 프레임 밀어서 실행
     setTimeout(() => {
-      console.log('📌 실제 스크롤 복원 실행됨:', y);
       window.scrollTo(0, y);
     }, 50);
   } else {
@@ -32,3 +30,5 @@ useLayoutEffect(() => {
 
   return null;
 }
+
+export default ScrollRestoration;

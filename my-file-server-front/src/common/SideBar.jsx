@@ -33,7 +33,7 @@ const SideBar = () => {
             <nav className={`${s.sidebar} ${isOpen ? s.open : ''}`}>
                 <div className={s.faker}></div>
                 <div className={`${s.sidebarContainer} ${isOpen ? s.open : ''}`}>
-                    <div onClick={() => nav(mainUrl)} className={s.title}><img alt='Error' style={{ marginRight: 20 }} width={50} src='/icon.png' />Cloud</div>
+                    <div onClick={() => nav(mainUrl)} className={s.title}><img alt='Error' style={{ marginRight: 20 }} width={50} src='/icon.png' />Seopia Cloud</div>
                     <div className={s.buttonContainer}>
                         {data ?
                             <>

@@ -4,18 +4,29 @@ import { calcFileSize, canOpenFile, downloadFile, formattedDateTime, getFileIcon
 import { Tooltip } from 'react-tooltip';
 import { Loading } from '../../common/Loading';
 import { useOutletContext } from 'react-router-dom';
-import { DownloadCloud, Trash2 } from 'lucide-react';
+import { DownloadCloud, Share2, Trash2 } from 'lucide-react';
 
-const Filedetail = ({isShowFileDetail,setIsShowFileDetail,selectedFile, handleDeleteFormSubmit}) => {
-    const isMobile = useOutletContext();
-    const [loading, setLoading] = useState(false);
-    const openImage = (fileImage) => {        
-        if(canOpenFile(selectedFile)){
-            console.log(fileImage);
-            
-            window.open(selectedFile.fileFullPath, "_blank",'width=500,height=500,menubar=no,toolbar=no,location=no,status=no');
-        }
+const Filedetail = ({ isShowFileDetail, setIsShowFileDetail, selectedFile, handleDeleteFormSubmit }) => {
+  const isMobile = useOutletContext();
+  const [loading, setLoading] = useState(false);
+  const openImage = (fileImage) => {
+    if (canOpenFile(selectedFile)) {
+      console.log(fileImage);
+
+      window.open(selectedFile.fileFullPath, "_blank", 'width=500,height=500,menubar=no,toolbar=no,location=no,status=no');
     }
+  }
+  const handleShare = () => {
+    const uuid = selectedFile.changedName.split("-").slice(0, 5).join("-");
+    // navigator.clipboard.writeText('https://www.seopia.online/private/file/' + uuid)
+    navigator.clipboard.writeText('http://localhost:3000/private/file/' + uuid)
+      .then(() => {
+        alert("클립보드에 복사되었습니다!");
+      })
+      .catch(err => {
+        alert("복사에 실패했습니다: " + err);
+      });
+  }
 
   return (
     <div className={s.modalOverlay}>
@@ -81,13 +92,17 @@ const Filedetail = ({isShowFileDetail,setIsShowFileDetail,selectedFile, handleDe
                 <Loading text="" />
               ) : (
                 <>
-                  <DownloadCloud/>
+                  <DownloadCloud />
                   다운로드
                 </>
               )}
             </button>
+            <button onClick={() => handleShare(selectedFile.fileCode)} className={s.downloadButton}>
+              <Share2 size={20} />
+              공유하기
+            </button>
             <button onClick={() => handleDeleteFormSubmit(selectedFile.fileCode)} className={s.deleteButton}>
-              <Trash2/>
+              <Trash2 />
               삭제하기
             </button>
           </div>

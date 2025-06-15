@@ -1,5 +1,6 @@
 package com.website.publicfile.entity;
 
+import com.website.security.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class PublicFileCommentEntity {
     private LocalDateTime createAt;
     @OneToOne
     @JoinColumn(name = "user_code")
-    private PublicFileUserEntity user;
+    private User user;
     @Column(name = "public_file_code")
     private Long fileCode;
 //    @OneToMany
@@ -34,7 +35,7 @@ public class PublicFileCommentEntity {
     @Column(name = "comment_comment_code")
     private Long parentCommentCode;
 
-    public PublicFileCommentEntity(String content, LocalDateTime createAt, PublicFileUserEntity user, Long fileCode) {
+    public PublicFileCommentEntity(String content, LocalDateTime createAt, User user, Long fileCode) {
         this.content = content;
         this.createAt = createAt;
         this.user = user;

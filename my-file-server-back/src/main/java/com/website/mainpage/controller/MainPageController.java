@@ -1,10 +1,7 @@
 package com.website.mainpage.controller;
-import com.website.mainpage.dto.UserFolderDTO;
-import com.website.mainpage.dto.UserPageDTO;
-import com.website.mainpage.dto.UserUploadFileDTO;
+import com.website.mainpage.dto.*;
 import com.website.mainpage.entity.FileEntity;
 import com.website.mainpage.entity.FolderEntity;
-import com.website.mainpage.entity.MainUserEntity;
 import com.website.mainpage.service.MainPageService;
 import com.website.security.dto.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,13 +12,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.OutputStream;
-import java.util.List;
 import java.util.Objects;
 import java.nio.file.Paths;
 import java.nio.file.Path;
@@ -51,7 +48,7 @@ public class MainPageController {
         return ResponseEntity.ok().body(fileEntities);
     }
     @GetMapping("/user")
-    public ResponseEntity<MainUserEntity> getUser(@AuthenticationPrincipal CustomUserDetails user){
+    public ResponseEntity<UserDto> getUser(@AuthenticationPrincipal CustomUserDetails user){
         return ResponseEntity.ok().body(mainService.getUser(user));
     }
     @GetMapping("/other-user/{userCode}")
@@ -98,6 +95,15 @@ public class MainPageController {
         } catch (Exception e){
             //에러 내용 상세 응답이기 때문에 나중에 수정할 것!!
             return ResponseEntity.badRequest().body(new UserFolderDTO(e.getMessage()));
+        }
+    }
+    @GetMapping("/open/file")
+    public ResponseEntity<?> getFile(@RequestParam String uuid){
+        System.out.println(uuid);
+        try {
+            return ResponseEntity.ok().body(mainService.getFile(uuid));
+        } catch (FileNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     @PostMapping("/folder")
@@ -182,9 +188,4 @@ public class MainPageController {
         mainService.modifyFolderName(folderCode,description);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/users")
-    private ResponseEntity<List<MainUserEntity>> getUsers(@RequestParam String id){
-        return ResponseEntity.ok().body(mainService.getUsers(id));
-    }
-
 }

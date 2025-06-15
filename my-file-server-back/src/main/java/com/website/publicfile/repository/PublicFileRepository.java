@@ -12,4 +12,6 @@ public interface PublicFileRepository extends JpaRepository<PublicFileEntity, Lo
     Page<PublicFileEntity> getPublicFileByCategory(String category, String searchWord, Pageable pageable);
     @Query("SELECT p FROM PublicFileEntity p WHERE p.title LIKE CONCAT('%',:searchWord,'%')")
     Page<PublicFileEntity> getPublicFile(String searchWord, Pageable pageable);
+
+    PublicFileEntity findByChangedName(String fileName);
 }

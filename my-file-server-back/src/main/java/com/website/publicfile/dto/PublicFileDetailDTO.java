@@ -19,7 +19,8 @@ public class PublicFileDetailDTO {
     private String fileFullPath;
     private String category;
     private String description;
-    private PublicFileUserEntity user;
+    private Long userCode;
+    private String id;
     //좋아요 수
     private int recommendCount;
 }

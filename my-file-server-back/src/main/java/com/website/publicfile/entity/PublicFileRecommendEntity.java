@@ -1,5 +1,6 @@
 package com.website.publicfile.entity;
 
+import com.website.security.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,13 +20,13 @@ public class PublicFileRecommendEntity {
     private Long publicFileRecommendCode;
     @OneToOne
     @JoinColumn(name = "user_code")
-    private PublicFileUserEntity user;
+    private User user;
     @Column(name = "public_file_code")
     private Long publicFileCode;
     @Column(name = "recommend_date")
     private LocalDateTime recommendDate;
 
-    public PublicFileRecommendEntity(PublicFileUserEntity user, Long publicFileCode, LocalDateTime recommendDate) {
+    public PublicFileRecommendEntity(User user, Long publicFileCode, LocalDateTime recommendDate) {
         this.user = user;
         this.publicFileCode = publicFileCode;
         this.recommendDate = recommendDate;

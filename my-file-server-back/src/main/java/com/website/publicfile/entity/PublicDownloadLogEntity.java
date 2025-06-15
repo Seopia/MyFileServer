@@ -1,5 +1,6 @@
 package com.website.publicfile.entity;
 
+import com.website.security.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,7 @@ public class PublicDownloadLogEntity {
     private Long publicDownLogCode;
     @OneToOne
     @JoinColumn(name = "user_code")
-    private PublicFileUserEntity user;
+    private User user;
     @OneToOne
     @JoinColumn(name = "public_file_code")
     private PublicFileEntity file;

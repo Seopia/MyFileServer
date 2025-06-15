@@ -12,8 +12,7 @@ export const writeLog = async (fileCode) => {
 
 export const getFileByFileCode = async (fileCode, callBack) => {
     try{
-        const res = await api.get(`/public/open/detail?fileCode=${fileCode}`);
-        console.log(res.data.description);
+        const res = await api.get(`/public/open/detail?fileName=${fileCode}`);
         
         callBack(res.data);
     } catch(err){
@@ -39,10 +38,10 @@ export const recommendPublicFile = async (fileCode, callBack) => {
     }
 }
 
-export const getCommentPublicFile = async (fileCode, callBack) => {
-    const res = await api.get(`/public/open/comment?fileCode=${fileCode}`);
-    console.log(res.data);
-    
+export const getCommentPublicFile = async (fileCode, page, callBack) => {
+    const res = await api.get(`/public/open/comment?fileCode=${fileCode}&page=${page}`);   
+     console.log(res.data);
+     
     callBack(res.data);
 } 
 export const writeCommentPublicFile = async (fileCode, commentInput, callBack) =>{
@@ -74,7 +73,6 @@ export const uploadEarly = async (file, uploadingFunction, mergeringFunction, co
             originalFileName: file.name,
         },{headers:{ignoreTimeout:isMergeChunk}});
         if(typeof res.data === 'string'){
-            console.log(res.data);
             completeFunction(res.data);
         } else if(isMergeChunk){
             mergeringFunction();

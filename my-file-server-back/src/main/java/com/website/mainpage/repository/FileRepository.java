@@ -11,12 +11,12 @@ import java.util.List;
 
 public interface FileRepository extends JpaRepository<FileEntity, Long> {
 
-    @Query("SELECT f FROM FileEntity f WHERE f.uploadedByUser.userCode=:userCode")
+    @Query("SELECT f FROM FileEntity f WHERE f.user.userCode=:userCode")
     Page<FileEntity> getMyFile(Long userCode, Pageable pageable);
 
     @Query("SELECT f FROM FileEntity f WHERE f.isPrivate=false")
     Page<FileEntity> getPublicFile(Pageable pageable);
-    @Query("SELECT COUNT(f) FROM FileEntity f WHERE f.uploadedByUser.userCode=:userCode")
+    @Query("SELECT COUNT(f) FROM FileEntity f WHERE f.user.userCode=:userCode")
     int getUserFileUploadCount(Long userCode);
 
     /**
@@ -25,11 +25,14 @@ public interface FileRepository extends JpaRepository<FileEntity, Long> {
      * @param folderCode 폴더 기본 키
      * @return 파일 List
      */
-    @Query("SELECT f FROM FileEntity f WHERE f.uploadedByUser.userCode = :userCode AND f.folder.folderCode = :folderCode AND f.isPrivate=true")
+    @Query("SELECT f FROM FileEntity f WHERE f.user.userCode = :userCode AND f.folder.folderCode = :folderCode AND f.isPrivate=true")
     List<FileEntity> getFileInFolder(Long userCode, Long folderCode);
 
     @Query("SELECT f FROM FileEntity f WHERE f.folder.folderCode=:folderCode")
     List<FileEntity> getFileInGroupFolder(Long folderCode);
 
     List<FileEntity> findAllByFolderIn(List<FolderEntity> folderCodes);
+
+    @Query("SELECT f FROM FileEntity f WHERE f.changedName LIKE CONCAT('%',:onlyUUID,'%')")
+    FileEntity findByChangedName(String onlyUUID);
 }

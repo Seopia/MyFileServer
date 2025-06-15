@@ -1,6 +1,7 @@
 package com.website.mainpage.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.website.security.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,11 +16,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Setter@Getter
 public class FileEntity {
-    public FileEntity(String changedName, LocalDateTime uploadedAt, String description, MainUserEntity uploadedByUser, int download_count, long size, boolean isPrivate, FolderEntity folder) {
+    public FileEntity(String changedName, LocalDateTime uploadedAt, String description, User user, int download_count, long size, boolean isPrivate, FolderEntity folder) {
         this.changedName = changedName;
         this.uploadedAt = uploadedAt;
         this.description = description;
-        this.uploadedByUser = uploadedByUser;
+        this.user = user;
         this.download_count = download_count;
         this.size = size;
         this.isPrivate = isPrivate;
@@ -40,7 +41,7 @@ public class FileEntity {
     private String fileFullPath;
     @JoinColumn(name = "uploaded_by")
     @ManyToOne
-    private MainUserEntity uploadedByUser;
+    private User user;
     @Column(name = "download_count")
     private int download_count;
     @Column(name = "original_name")

@@ -1,5 +1,6 @@
 package com.website.publicfile.entity;
 
+import com.website.security.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +34,7 @@ public class PublicFileEntity {
     @Column(name = "file_full_path")
     private String fileFullPath;
 
-    public PublicFileEntity(String changedName, LocalDateTime uploadedAt, int downloadCount, String originalName, long size, String title, String fileFullPath, String category, String description, PublicFileUserEntity user) {
+    public PublicFileEntity(String changedName, LocalDateTime uploadedAt, int downloadCount, String originalName, long size, String title, String fileFullPath, String category, String description, User user) {
         this.changedName = changedName;
         this.uploadedAt = uploadedAt;
         this.downloadCount = downloadCount;
@@ -52,5 +53,5 @@ public class PublicFileEntity {
     private String description;
     @OneToOne
     @JoinColumn(name = "uploaded_by")
-    private PublicFileUserEntity user;
+    private User user;
 }

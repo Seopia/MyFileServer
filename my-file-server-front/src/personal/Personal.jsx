@@ -8,8 +8,9 @@ import { uploadChunk } from '../main/apiFunction';
 import { useNavigate } from 'react-router-dom';
 import { loginUrl } from '../common/url';
 import UploadComponent from './components/upload/UploadComponent';
+import ShowDatas from './components/ShowDatas';
 
-export function Personal() {
+function Personal() {
     const nav = useNavigate();
     useEffect(() => {
         if (!localStorage.getItem('token')) {
@@ -32,39 +33,8 @@ export function Personal() {
     const [uploadFolderCode, setUploadFolderCode] = useState(null);
 
     /**모달 관리 state*/
-    const [isDeleteModal, setIsDeleteModal] = useState(false);
     const [isCreateFolderModalOpen, setIsCreateFolderModalOpen] = useState(false);
     const [isRenameFolderModalOpen, setIsRenameFolderModalOpen] = useState(false);
-
-    // //파일 업로드 모달
-    // const handleFormSubmit = useCallback(async (fileName) => {
-
-    //     setLoading((p) => ({ ...p, uploadPrepare: true })); //업로드 준비 시작
-
-    //     if (file.size > (100 * 1024 * 1024)) {
-
-    //         uploadChunk(file, fileName, folderCode, (res) => {
-    //             setFiles(prev => ({ ...prev, files: [...prev.files, res] }));
-    //             setBigFilePercent(0);
-    //             setLoading((p) => ({ ...p, uploadPrepare: false, uploading: false })); //무조건 로딩 시키고 끝내
-    //             setIsModalOpen(false);
-    //         }, setBigFilePercent, setLoading);
-    //     } else {
-    //         setLoading((p) => ({ ...p, uploading: true }));
-    //         const res = await api.post('/main/upload', { file: file, description: fileName, isPrivate: false, folderCode: uploadFolderCode }, {
-    //             onUploadProgress: (e) => {
-    //                 const p = Math.round((e.loaded * 100) / e.total);
-    //                 setBigFilePercent(p);
-    //             }
-    //         });
-    //         setLoading((p) => ({ ...p, uploadPrepare: false, uploading: false })); //무조건 로딩 시키고 끝내
-    //         setFiles(prev => ({ ...prev, files: [...prev.files, res.data] }))
-    //         setIsModalOpen(false);
-    //         setBigFilePercent(0);
-    //     }
-
-    // }, [file, uploadFolderCode, folderCode]);
-
 
     //파일 삭제
     const handleDeleteFormSubmit = useCallback(async (fileCode) => {
@@ -72,7 +42,6 @@ export function Personal() {
         setFiles((prev) => ({ ...prev, files: prev.files.filter(file => file.fileCode !== fileCode), }));
         setIsShowFileDetail(false);
     }, []);
-    const closeDeleteModal = useCallback(() => setIsDeleteModal(false), []);
     //폴더 이름 바꾸기 모달
 
     const handleRenameFormSubmit = useCallback(async (data) => {
@@ -216,7 +185,7 @@ export function Personal() {
                                     </h1>
                                     <div className={s.subtitle}>
                                         <span className={s.lockIcon}>🔒</span>
-                                        누구도 볼 수 없습니다.
+                                        누구도 볼 수 없습니다. 원하는 파일만 링크로 공유하세요.
                                     </div>
                                 </div>
                                 <div className={s.actionButtons}>
@@ -293,13 +262,6 @@ export function Personal() {
                                 <h3 className={s.emptyCloudTitle}>클라우드가 비어있습니다</h3>
                                 <p className={s.emptyCloudText}>파일을 업로드하거나 새 폴더를 만들어 시작해보세요.</p>
                                 <div className={s.emptyCloudActions}>
-                                    {/* <label htmlFor="fileInput" className={s.emptyActionButton}>
-                                        <span className={s.buttonIcon}>📤</span>첫 파일 업로드
-                                    </label>
-                                    <button onClick={() => setIsCreateFolderModalOpen(true)} className={s.emptyActionButton}>
-                                        <span className={s.buttonIcon}>📁</span>
-                                        폴더 만들기
-                                    </button> */}
                                 </div>
                             </div>
                         )}
@@ -334,22 +296,6 @@ export function Personal() {
                     </div>
                 )}
             </div>
-            {/* {isModalOpen && <CustomModal
-                message={loading.uploadPrepare ? '업로드 준비 중. 배경을 클릭하지마세요.' : loading.uploading ? '업로드 중. 배경을 클릭하지마세요.' : '파일 이름을 입력하세요.'}
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                onSubmit={handleFormSubmit}
-                isInput={!loading.uploading || !loading.uploading}
-                percent={bigFilePercent}
-                loading={loading.uploadPrepare || loading.uploading}
-            />} */}
-            {isDeleteModal && <CustomModal
-                message="삭제하시겠습니까?"
-                isOpen={isDeleteModal}
-                onClose={closeDeleteModal}
-                onSubmit={handleDeleteFormSubmit}
-                isInput={false}
-            />}
             {isCreateFolderModalOpen && <CustomModal
                 message="폴더 이름을 입력하세요."
                 isOpen={isCreateFolderModalOpen}
@@ -367,53 +313,5 @@ export function Personal() {
         </>
     );
 }
-const ShowDatas = ({ folder, intoFolder, file, showDetailOfFile, handleContextMenu, getFileIconByExtension }) => {
-    if (folder) {
-        const { folderCode, folderName } = folder
-        return (
-            <div key={folderCode} className={s.itemWrapper}>
-                <div
-                    onContextMenu={(e) => handleContextMenu(e, folderCode)}
-                    className={s.folderContainer}
-                    onClick={() => intoFolder(folderCode)}
-                >
-                    <div className={s.iconContainer}>
-                        <div className={s.folderIcon}><img width={64} alt='error' src='/folder.png' /></div>
-                        <div className={s.folderGlow}></div>
-                    </div>
-                    <div className={s.itemName}>{folderName}</div>
-                </div>
-            </div>
-        )
-    }
 
-    if (file) {
-        const { fileCode, description } = file
-        return (
-            <div key={fileCode} className={s.itemWrapper}>
-                <div onClick={() => showDetailOfFile(file)} className={s.fileContainer}>
-                    <div className={s.iconContainer}>
-                        <img
-                            src={getFileIconByExtension(file.fileFullPath) || "/placeholder.svg"}
-                            className={s.fileIcon}
-                            alt="파일 아이콘"
-                            onError={(e) => {
-                                e.target.src = "/placeholder.svg?height=64&width=64"
-                            }}
-                        />
-                        <div className={s.fileGlow}></div>
-                    </div>
-                    <div className={s.itemName}>{description}</div>
-                </div>
-            </div>
-        )
-    }
-
-    return (
-        <div className={s.emptyState}>
-            <span className={s.emptyIcon}>📂</span>
-            <span className={s.emptyText}>폴더 또는 파일이 존재하지 않습니다.</span>
-        </div>
-    )
-}
 export default Personal;

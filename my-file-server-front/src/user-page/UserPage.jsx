@@ -33,6 +33,7 @@ function UserPage() {
   }
 
   const handleEditStart = () => {
+    window.scrollTo(0 , 0);
     setIsEdit(true)
     setPrevUser(user)
   }
@@ -65,9 +66,9 @@ function UserPage() {
                 onError={handleProfileImageError}
                 alt="프로필 이미지"
               />
-              <div className={s.profileImageOverlay}>
+              {/* <div className={s.profileImageOverlay}>
                 <span className={s.cameraIcon}>📷</span>
-              </div>
+              </div> */}
             </div>
 
             <div className={s.userInfo}>
@@ -114,8 +115,8 @@ function UserPage() {
             <div className={s.activityCards}>
               <div className={s.activityCard}>
                 <div className={s.cardIcon}>📝</div>
-                <h4 className={s.cardTitle}>게시글</h4>
-                <p className={s.cardValue}>{user.writtenPostCount}개</p>
+                <h4 className={s.cardTitle}>공용 파일 개수</h4>
+                <p className={s.cardValue}>{user.uploadPublicFileCount}개</p>
               </div>
               <div className={s.activityCard}>
                 <div className={s.cardIcon}>💬</div>
@@ -124,7 +125,7 @@ function UserPage() {
               </div>
               <div className={s.activityCard}>
                 <div className={s.cardIcon}>📁</div>
-                <h4 className={s.cardTitle}>파일 개수</h4>
+                <h4 className={s.cardTitle}>개인 파일 개수</h4>
                 <p className={s.cardValue}>{user.uploadFileCount}개</p>
               </div>
             </div>

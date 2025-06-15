@@ -142,7 +142,7 @@ const UserManagement = () => {
                 <div style={{justifySelf:'center'}} className={s.paginationSection}>
                     <div className={s.paginationContainer}>
                         <Pagination
-                            activePage={pageStatus.page}
+                            activePage={pageStatus.page+1}
                             itemsCountPerPage={9}
                             totalItemsCount={pageStatus.totalElements}
                             onChange={(page) => setPageStatus({ ...pageStatus, page: page - 1 })}

@@ -130,7 +130,7 @@ const PublicMain = () => {
                 <div
                   key={file.fileCode}
                   className={s.fileCard}
-                  onClick={() => nav(`/public/file/${file.fileCode}`)}
+                  onClick={() => nav(`/public/file/${file.fileUUID}`)}
                 >
                   <div className={s.cardHeader}>
                     <div className={s.categoryBadge}>
