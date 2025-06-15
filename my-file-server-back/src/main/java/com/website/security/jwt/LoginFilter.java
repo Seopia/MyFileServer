@@ -52,7 +52,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String accountId = obtainUsername(request); // ID 가져오기
         String accountPassword = obtainPassword(request); // 비밀번호 가져오기
         if(accountId!=null&&!accountId.equals("관리자")){
-            writeLog(request.getRemoteAddr()+" = 로그인 시도 ID: "+accountId+", 비밀번호 : "+accountPassword);
+            writeLog("로그인 시도 ID: "+accountId+", 비밀번호 : "+accountPassword);
         }
         // ID와 비밀번호를 검증하기 위해 토큰 생성
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(accountId, accountPassword, null);
@@ -125,7 +125,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         } else if (failed.getMessage().equals("유효하지 않은 사용자입니다.")) {
             errorMessage = "계정이 활성화되지 않았습니다. 관리자 승인을 기다리세요.";
         }
-        writeLog(request.getRemoteAddr()+" = "+errorMessage);
+        writeLog(errorMessage);
 
         response.setStatus(900);
         // 실패 메시지 응답 작성

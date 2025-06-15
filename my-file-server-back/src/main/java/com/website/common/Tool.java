@@ -2,13 +2,21 @@ package com.website.common;
 
 import com.website.mainpage.dto.UserUploadFileDTO;
 import com.website.mainpage.entity.FileEntity;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
@@ -17,6 +25,12 @@ public class Tool {
     private String uploadDir;
     @Value("${file.upload-public-file-image-url}")
     private String publicFileImageUploadDir;
+    private final JavaMailSender mailSender;
+
+    public Tool(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
     /**
      * 파일을 업로드하는 메서드 파일은 C:\project-files-bu200ServerFile 에 저장된다.
      * 경로가 없다면 생성한다. 에러가 나면 메세지 출력 후 null 을 응답한다. 윈도우에서만 사용 가능.
@@ -133,5 +147,51 @@ public class Tool {
                 savedEntity.getFolder().getFolderCode(),
                 "업로드 성공!"
         );
+    }
+    public boolean sendEmail(String subject, String title, String content){
+        try{
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setFrom(new InternetAddress("wjdwltjq7289@naver.com", "Seopia Cloud", "UTF-8"));
+            helper.setTo("wjdwltjq7289@gmail.com");
+            helper.setSubject(subject);
+            String html = """
+            <!DOCTYPE html>
+            <html lang="ko">
+            <head>
+              <meta charset="UTF-8">
+              <title>Email</title>
+            </head>
+            <body style="font-family: Arial, sans-serif; padding: 20px;">
+              <h1 style="color: #333;">%s</h1>
+              <p style="font-size: 16px; color: #555;">%s</p>
+            </body>
+            </html>
+            """.formatted(title, content);
+
+            helper.setText(html, true);
+            mailSender.send(message);
+            return true;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    private void writeLog(String message){
+        try {
+            File file = new File("C:\\uploads\\my-file-server\\log\\log.txt");
+//            File file = new File("/mnt/ssd/uploads/my-file-server/log/log.txt");
+            if (!file.exists()) {
+                if(file.createNewFile()){
+                    System.out.println("파일 생성");
+                }
+            }
+            FileWriter fileWriter = new FileWriter(file, true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println("[" + LocalDateTime.now() + "]: " + message);
+            printWriter.close();
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

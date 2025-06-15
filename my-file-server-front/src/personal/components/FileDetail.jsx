@@ -18,8 +18,8 @@ const Filedetail = ({ isShowFileDetail, setIsShowFileDetail, selectedFile, handl
   }
   const handleShare = () => {
     const uuid = selectedFile.changedName.split("-").slice(0, 5).join("-");
-    // navigator.clipboard.writeText('https://www.seopia.online/private/file/' + uuid)
-    navigator.clipboard.writeText('http://localhost:3000/private/file/' + uuid)
+    navigator.clipboard.writeText('https://www.seopia.online/private/file/' + uuid)
+    // navigator.clipboard.writeText('http://localhost:3000/private/file/' + uuid)
       .then(() => {
         alert("클립보드에 복사되었습니다!");
       })

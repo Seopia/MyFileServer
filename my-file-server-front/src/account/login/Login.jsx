@@ -22,6 +22,7 @@ const Login = () => {
             dispatch(getUser());
             navigate(mainUrl);
         }catch(err){
+          
             setMessage(err.response.data.error);
             
         }
@@ -52,6 +53,9 @@ const Login = () => {
   const handleInputChange = (e) => {
     setLoginData(p=>({...p, [e.target.name]:e.target.value}));
   }
+  const handleForgotPassword = () => {
+    window.location.href = 'https://open.kakao.com/o/sfwXg1Bh'
+  }
 
   return (
     <div className={s.loginContainer}>
@@ -81,7 +85,7 @@ const Login = () => {
         <form className={s.loginForm} onSubmit={handleSubmit}>
           <div className={s.welcomeText}>
             <h2 className={s.welcomeTitle}>환영합니다!</h2>
-            <p className={s.welcomeSubtitle}>계정에 로그인하여 개인 파일에 액세스하세요</p>
+            {message?<p style={{color:'red'}} className={s.welcomeSubtitle}>{message}</p>:<p className={s.welcomeSubtitle}>계정에 로그인하여 개인 파일에 액세스하세요</p>}
           </div>
 
           {/* 아이디 입력 필드 */}
@@ -145,9 +149,9 @@ const Login = () => {
               {/* <span className={s.checkboxCustom}></span> */}
               {/* <span className={s.checkboxLabel}>로그인 상태 유지</span> */}
             </label>
-            {/* <button type="button" className={s.forgotPassword}> */}
-              {/* 비밀번호를 잊으셨나요? */}
-            {/* </button> */}
+            <button onClick={handleForgotPassword} type="button" className={s.forgotPassword}>
+              비밀번호를 잊으셨나요?
+            </button>
           </div>
 
           {/* 로그인 버튼 */}

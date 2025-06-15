@@ -170,7 +170,7 @@ const Join = () => {
     // 회원가입 처리
     const handleSignup = () => {
         setIsLoading(true);
-        api.post(`/join`, { id: signupData.username, password: signupData.password });
+        api.post(`/join`, { id: signupData.username, password: signupData.password, nickname: signupData.nickname });
         setTimeout(() => {
             setIsLoading(false)
             nav(loginUrl);

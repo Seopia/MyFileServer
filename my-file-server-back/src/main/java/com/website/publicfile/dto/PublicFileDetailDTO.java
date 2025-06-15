@@ -1,6 +1,5 @@
 package com.website.publicfile.dto;
 
-import com.website.publicfile.entity.PublicFileUserEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;

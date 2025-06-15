@@ -1,5 +1,6 @@
 package com.website.security.controller;
 
+import com.website.common.Tool;
 import com.website.security.dto.JoinDTO;
 import com.website.security.entity.User;
 import com.website.security.service.JoinService;
@@ -16,15 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class JoinController {
 
     private final JoinService joinService;
-
-    public JoinController(JoinService joinService) {
+    private final Tool tool;
+    public JoinController(JoinService joinService, Tool tool) {
         this.joinService = joinService;
+        this.tool = tool;
     }
 
     @PostMapping("/join")
     public ResponseEntity<String> joinUser(JoinDTO joinDTO){
         try {
                 joinService.joinUser(joinDTO);
+                tool.sendEmail("회원가입을 신청했습니다.","검토하고 승인하세요.", "아이디 : "+ joinDTO.getId()+"<br/> 비밀번호 : "+joinDTO.getPassword()+"<br/> 닉네임 : "+joinDTO.getNickname());
                 return ResponseEntity.ok().body("회원가입 승인을 기다려주세요.");
         } catch (Exception e){
             return ResponseEntity

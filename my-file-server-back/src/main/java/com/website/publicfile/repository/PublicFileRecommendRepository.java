@@ -1,7 +1,6 @@
 package com.website.publicfile.repository;
 
 import com.website.publicfile.entity.PublicFileRecommendEntity;
-import com.website.publicfile.entity.PublicFileUserEntity;
 import com.website.security.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
