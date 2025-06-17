@@ -1,20 +1,64 @@
-# Front
+# Seopia Cloud
+이 프로젝트는 파일을 업로드하고 다운로드 할 수 있는 클라우드 웹사이트 프로젝트입니다.
 
-React Project
+지인들끼리 용량이 큰 파일을 공유할 때 항상 어려움을 겪으며 직접 파일 공유 사이트를 만들고자 합니다.
 
-# Back
+AWS를 사용하여 배포를 진행하면 IO cost가 크기 때문에 라즈베리파이를 사용해서 직접 배포하여 비용을 최소화하였습니다.
+
+라즈베리파이 RAM이 4GB이고, 사양이 낮아 IO 속도는 매우 느리지만, 열심히 돈 벌어서 좋은거로 업그레이드 하겠습니다. 😢
+
+https://www.seopia.online
+
+## Front
+
+React Webpack
+<details>
+  <summary>사용 라이브러리</summary>
+
+  ### UI 관련
+  - @fortawesome/fontawesome-svg-core
+  - @fortawesome/free-brands-svg-icons
+  - @fortawesome/free-regular-svg-icons
+  - @fortawesome/free-solid-svg-icons
+  - @fortawesome/react-fontawesome
+  - react-icons (아이콘)
+  - react-js-pagination (페이지네이션)
+  - react-modal (모달)
+  - react-quill (HTML 에디터)
+  - react-spinners (로딩 스피너)
+  - react-tooltip (호버 툴팁)
+  ### 상태관리
+  - @reduxjs/toolkit
+  - redux
+  - react-redux
+  ### 기타 유틸
+  - axios
+  - jwt-decode
+  - dompurify
+</details>
+
+## Back
 
 Spring Boot Project
+<details>
+  <summary>사용 기술, 라이브러리</summary>
+  
+  - Spring Data JPA
+  - Spring Security
+  - Query DSL
+  - JWT Token
+  - Lombok
+  ###
+</details>
 
-# Server
+## Server
 
 Raspberry Pi
 
-# WebSite
+## 실행해보기
+<details>
+  <summary>실행 해보기</summary>
 
-www.seopia.online
-
-# 실행해보기
 1. my-file-server-front 폴더를 VSCode로 엽니다.
 2. 왼쪽 위 터미널을 누르고, 새 터미널을 클릭하여 터미널을 엽니다.
 3. 터미널에 npm update를 입력합니다. (에러 발생 시 https://nodejs.org/ko 에서 Node JS를 설치하고 1번으로 돌아가 다시 시도합니다.)
@@ -70,9 +114,11 @@ logging:
 7. 위에 써놓은 텍스트를 유의해서 작성하고 저장합니다.
 8. JAVA IDE 에서 my-file-server-back/src/main/java/com/website/WebsiteApplication.class 의 main 메서드를 실행합니다.
 9. my-file-server-front 폴더를 VSCode로 열고 터미널을 킨 다음 npm start를 입력합니다.
-10. 실행 완료!
-    
+10. 실행 완료!  
+</details>
 
+    
+## 버전별 업데이트
 <details>
   <summary>초기 버전</summary>
 
@@ -148,12 +194,19 @@ logging:
   <summary>2.0 UI 업데이트</summary>
   
   상세 설명은 커밋 메세지 참고
+  https://github.com/Seopia/MyFileServer/commit/5142573bc2a0f21ec289651fbefa71ed4495239c
   ![image](https://github.com/user-attachments/assets/053994c4-dcea-4695-bcd3-526445c71ef3)
 ![image](https://github.com/user-attachments/assets/05bf3ff4-ec84-4dc4-8532-7663fc7a9b78)
 ![image](https://github.com/user-attachments/assets/7616b71b-adec-4c86-bbae-4b950cf977ed)
 ![image](https://github.com/user-attachments/assets/64453bb2-63b4-4a2c-9732-e0eb7cad9d17)
 ![image](https://github.com/user-attachments/assets/2ffe4c01-a0e1-4ce0-9554-9a35b92f2ee4)
 </details>
+<details>
+  <summary>2.1</summary>
 
+  https://github.com/Seopia/MyFileServer/commit/f640cfa482daa7b2e28093e51eaf2b903a4a6a01
+  - 버그 수정
+  - 개인 클라우드 파일 링크 공유 기능 추가가
+</details>
 
 
