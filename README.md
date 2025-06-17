@@ -72,18 +72,21 @@ logging:
 9. my-file-server-front 폴더를 VSCode로 열고 터미널을 킨 다음 npm start를 입력합니다.
 10. 실행 완료!
     
-### Ver 0.0.1
+
+<details>
+  <summary>초기 버전</summary>
+
 ![image](https://github.com/user-attachments/assets/2b515e3c-ad64-4da1-9040-14449326082f)
 - 배포!!
 - 파일 업로드 현
 - 파일 업로드 기능
 - 파일 다운로드 기능Add commentMore actions
 - 로그인, 로그아웃 기능
-
-### Ver 0.1.0
-
+</details>
+<details>
+  <summary>0.1.0</summary>
+  
 ![image](https://github.com/user-attachments/assets/33abaeae-e5b2-4b4f-bc71-d73a5e4ed358)
-
 - 다운로드 카운트 추가 => 실제 정상 작동 가능
 - 파일 날짜 기준 정렬 => 최신 순으로 정렬
 - 로그인 관련 로직 버그 수정 => 토큰이 만료되면 메세지 출력 무한 반복 버그
@@ -95,23 +98,32 @@ logging:
 - 파일 삭제 가능 => 영구적인 삭제
 - 업로드 날짜 디자인 개선
 - 모바일 페이지 개선
+</details>
 
-### Ver 0.1.1
+<details>
+  <summary>0.2.0</summary>
+  
 - 파일 이름 확장자도 같이 저장 => 파일이름.png
 - 삭제 아이콘 휴지통 모양으로 변경
 - 파일 용량 표시
 - 모바일 화면 UI 개선
+</details>
+
+<details>
+  <summary>0.3.0</summary>
   
-### Ver 0.1.2
-- 모바일 사진 이름 클릭시 사진 미리보기 가능
+  - 모바일 사진 이름 클릭시 사진 미리보기 가능
 - 개인, 공용 자료실 출시
 - 모바일 업로드 버튼 css 버그 수정
 - 최적화
 - https 인증서 발급
+</details>
 
-### Ver 0.5.0
-![image](https://github.com/user-attachments/assets/7f452218-af7e-4b10-ba84-9590ac92a633)
-- UI 개편
+<details>
+  <summary>정식 출시 : 1.0</summary>
+  
+  ![image](https://github.com/user-attachments/assets/7f452218-af7e-4b10-ba84-9590ac92a633)
+  - UI 개편
 - 모든 기능 모바일 환경 완벽 호환
 - 개인 클라우드 대 개편
 - 개인 클라우드에서 폴더를 사용하여 파일 관리 로직 출시
@@ -121,19 +133,27 @@ logging:
 - 다른 유저 마이페이지 활동 관찰 기능 출시
 - 회원 가입 요청 추가
 - 회원 가입 아이디, 비밀번호 검사 로직 추가
-### 프로젝트에 도움을 준 SongMinQQ, Yunha-Cha 감사합니다.
-### Ver 0.5.5
-- 사이트 소개 페이지 생성
+</details>
+
+<details>
+  <summary>1.1.0</summary>
+  
+  - 사이트 소개 페이지 생성
 - 개인 클라우드 대용량 파일 UI, 기능 업데이트
 - 마이페이지 자기소개 추가
-- 파일 업로드 현
+- 파일 업로드 진행 % 추가
+</details>
 
-### Ver 2.0
-UI 업데이트
-![image](https://github.com/user-attachments/assets/053994c4-dcea-4695-bcd3-526445c71ef3)
+<details>
+  <summary>2.0 UI 업데이트</summary>
+  
+  상세 설명은 커밋 메세지 참고
+  ![image](https://github.com/user-attachments/assets/053994c4-dcea-4695-bcd3-526445c71ef3)
 ![image](https://github.com/user-attachments/assets/05bf3ff4-ec84-4dc4-8532-7663fc7a9b78)
 ![image](https://github.com/user-attachments/assets/7616b71b-adec-4c86-bbae-4b950cf977ed)
 ![image](https://github.com/user-attachments/assets/64453bb2-63b4-4a2c-9732-e0eb7cad9d17)
 ![image](https://github.com/user-attachments/assets/2ffe4c01-a0e1-4ce0-9554-9a35b92f2ee4)
+</details>
+
 
 
