@@ -27,6 +27,9 @@ React Webpack
   - react-quill (HTML 에디터)
   - react-spinners (로딩 스피너)
   - react-tooltip (호버 툴팁)
+  - framer-motion (페이지 애니메이션 적용)
+  - iucide-react (아이콘)
+  - react-intersection-observer (DOM 옵저버)
   ### 상태관리
   - @reduxjs/toolkit
   - redux
