@@ -7,7 +7,7 @@ AWS를 사용하여 배포를 진행하면 IO cost가 크기 때문에 라즈베
 
 라즈베리파이 RAM이 4GB이고, 사양이 낮아 IO 속도는 매우 느리지만, 열심히 돈 벌어서 좋은거로 업그레이드 하겠습니다. 😢
 
-https://www.seopia.online
+https://cloud.seopia.co.kr
 
 ## Front
 
