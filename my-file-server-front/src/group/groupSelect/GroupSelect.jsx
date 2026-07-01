@@ -1,52 +1,107 @@
 import React, { useEffect, useState } from 'react';
 import { groupGetMyGroup } from '../apiGroupFunction';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import { loginUrl } from '../../common/url';
 import s from './GroupSelect.module.css';
-//사용자의 그룹을 가져오고, 만약 그룹이 없으면
-//그룹을 만들어보세요를 출력한다.
-//그룹이 있다면 그룹을 선택할 수 있게 하고,
-//그룹 만들기 버튼이 존재한다.
-//그룹 만들기 페이지가 존재하고, 그룹을 선택하면
-//그룹 클라우드로 이동한다.
-//그룹 클라우드에서는 상단 바에서 그룹을 선택하여 언제든 바꿀 수 있다.
-//그룹 클라우드는 폴더가 있다.
-//DB는 파일에 그룹 코드가 있다.
-//그룹 테이블이 있고, 그룹 멤버 테이블이 있다. 폴더도 그룹 코드가 있다.
-//그룹 테이블은 무슨 정보를 가져야 하나?
-//코드, 이름, 만들어진 날짜, 
 
 const GroupSelect = () => {
     const nav = useNavigate();
     const isMobile = useOutletContext();
     const [groups, setGroups] = useState([]);
-    useEffect(()=>{
-        groupGetMyGroup((r)=>{
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            nav(loginUrl);
+            return;
+        }
+        setIsLoading(true);
+        groupGetMyGroup((r) => {
             setGroups(r);
+            setIsLoading(false);
         });
-    },[])
+    }, [nav]);
+
+    const formatDate = (dateArr) => {
+        if (!dateArr) return '';
+        if (Array.isArray(dateArr)) {
+            const year = dateArr[0];
+            const month = String(dateArr[1]).padStart(2, '0');
+            const day = String(dateArr[2]).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        return dateArr.toString();
+    };
+
     return (
-        <>
         <div className={s.mainContainer}>
-            <div>
-                <div>
-                    {!isMobile&&<h1>그룹 클라우드</h1>}
-                    <h5>팀을 만들어 파일을 공유하세요.<br /></h5>
+            <div className={s.container}>
+                
+                {/* 헤더 섹션 */}
+                <div className={s.header}>
+                    <div className={s.titleSection}>
+                        <h1 className={s.pageTitle}>
+                            <span className={s.titleIcon}>👥</span>
+                            그룹 클라우드
+                        </h1>
+                        <p className={s.subtitle}>
+                            팀원들과 함께 공유 폴더를 생성하고 공동으로 파일을 관리하세요.
+                        </p>
+                    </div>
+                    <div className={s.actionButtons}>
+                        <button onClick={() => nav('/group/create')} className={s.createButton}>
+                            <span className={s.buttonIcon}>➕</span>그룹 만들기
+                        </button>
+                    </div>
                 </div>
-                <div className={s.buttonContainer}>
-                    <button onClick={()=>nav('/group/create')}>그룹 만들기</button>
-                </div>
-                <div className={s.hr}/>
-                <div className={s.content}>
-                    {groups.length>0?groups?.map(group=>(
-                        <div className={s.group} onClick={()=>nav(`/group/${group.groupCode}`)} key={group.groupCode}>
-                            <h3 className={s.groupName}>{group.name}</h3>
-                            <div className={s.groupDate}>{group.createAt[0]+'-'+group.createAt[1]+'/'+group.createAt[2]}</div>
+
+                <div className={s.divider}></div>
+
+                {/* 콘텐츠 영역 */}
+                <div className={s.contentSection}>
+                    {isLoading ? (
+                        <div className={s.loadingState}>
+                            <div className={s.spinner}></div>
+                            <p>그룹 목록을 불러오는 중...</p>
                         </div>
-                    )):<div className={s.makeGroupText}>팀을 만들어보세요.</div>}
+                    ) : groups.length > 0 ? (
+                        <div className={s.groupsGrid}>
+                            {groups.map((group) => (
+                                <div 
+                                    className={s.groupCard} 
+                                    onClick={() => nav(`/group/${group.groupCode}`)} 
+                                    key={group.groupCode}
+                                >
+                                    <div className={s.cardHeader}>
+                                        <span className={s.groupAvatar}>📁</span>
+                                        <span className={s.groupDate}>{formatDate(group.createAt)}</span>
+                                    </div>
+                                    <h3 className={s.groupName}>{group.name}</h3>
+                                    <p className={s.groupDesc}>
+                                        {group.description || '그룹 설명이 등록되지 않았습니다.'}
+                                    </p>
+                                    <div className={s.cardFooter}>
+                                        <span className={s.enterLink}>클라우드 입장 ➡️</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className={s.emptyState}>
+                            <div className={s.emptyIcon}>☁️</div>
+                            <h3 className={s.emptyTitle}>소속된 그룹이 없습니다</h3>
+                            <p className={s.emptyText}>
+                                새로운 그룹을 생성하거나 초대받아 동료들과 파일을 안전하게 공유해 보세요.
+                            </p>
+                            <button onClick={() => nav('/group/create')} className={s.emptyActionButton}>
+                                👥 그룹 생성하고 시작하기
+                            </button>
+                        </div>
+                    )}
                 </div>
+
             </div>
         </div>
-        </>
     );
 };
 

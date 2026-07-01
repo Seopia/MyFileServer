@@ -269,7 +269,7 @@ const PublicUpload = () => {
                         <QuillEditor
                             newForum={newPublicFilePost}
                             setNewForum={setNewPublicFilePost}
-                            placeholder="파일에 대한 사진과, 설명 등 사용법을 자유롭게 작성해주세요."
+                            placeholder="파일에 대한 설명 등 사용법을 자유롭게 작성해주세요. 사진은 드래그해서 넣을 수 있어요"
                             publicFile={true}
                         />
                     </div>

@@ -16,7 +16,7 @@ function Personal() {
         if (!localStorage.getItem('token')) {
             nav(loginUrl);
         }
-    }, [])
+    }, [nav])
     const [history, setHistory] = useState([]);
     const [folderCode, setFolderCode] = useState(null);
     const [isShowFileDetail, setIsShowFileDetail] = useState(false);
@@ -102,6 +102,7 @@ function Personal() {
         })
     }
     useEffect(() => {
+        if (!localStorage.getItem('token')) return;
         if (history.length !== 0) {
             getMyFileData(history[history.length - 1]);
         } else {
@@ -134,6 +135,7 @@ function Personal() {
     }
 
     useEffect(() => {
+        if (!localStorage.getItem('token')) return;
         getMyFileData();
     }, [getMyFileData]);
 

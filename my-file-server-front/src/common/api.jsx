@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const apiUrl = '/api';
-// export const apiUrl = 'http://localhost:8080';
+export const apiUrl = process.env.REACT_APP_IP || "https://cloud.seopia.co.kr";
 
 const api = axios.create({
     baseURL: apiUrl,
@@ -10,31 +9,43 @@ const api = axios.create({
 // 요청 인터셉터 설정
 api.interceptors.request.use(
     (config) => {
-        try{
+        try {
             const token = localStorage.getItem('token');
+
             if (token) {
-                // 토큰이 있으면 헤더에 추가
                 config.headers.Authorization = token;
             }
-            if(config.headers.ignoreTimeout){
-                config.timeout = 0;
-            }
-            config.credentials = 'include';
 
-            if (config.method === 'post' || config.method === 'put') {
-                // POST나 PUT 요청일 경우 FormData 사용
+            if (config.headers.ignoreTimeout) {
+                config.timeout = 0;
+                delete config.headers.ignoreTimeout;
+            }
+
+            config.withCredentials = true;
+
+            if (
+                (config.method === 'post' || config.method === 'put') &&
+                config.data &&
+                !(config.data instanceof FormData)
+            ) {
                 const formData = new FormData();
+
                 for (const key in config.data) {
                     formData.append(key, config.data[key]);
                 }
+
                 config.data = formData;
-                config.headers['Content-Type'] = 'multipart/form-data';
-                
             }
+
+            // FormData일 때 Content-Type은 브라우저/axios가 boundary 포함해서 자동 설정하게 두는 게 안전함
+            if (config.data instanceof FormData) {
+                delete config.headers['Content-Type'];
+            }
+
             return config;
-        } catch(e){
+        } catch (e) {
             console.log(e);
-            
+            return config;
         }
     },
     (error) => {
@@ -53,8 +64,8 @@ api.interceptors.response.use(
     (error) => {
         if (error.response) {
             if (error.response.status === 403) {
-                localStorage.removeItem('token');
-                window.location.href = '/';
+                // localStorage.removeItem('token');
+                // window.location.href = '/';
             } else if (error.response.status === 401) { // JWT 토큰이 없을 때
                 // alert('로그인이 만료되었습니다.');
                 localStorage.removeItem('token');

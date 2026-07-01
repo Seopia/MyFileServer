@@ -23,7 +23,7 @@ const Join = () => {
     const [validationErrors, setValidationErrors] = useState({})
     const [duplicateStatus, setDuplicateStatus] = useState({
         username: null, // null, 'checking', 'available', 'taken'
-        nickname: null,
+        nickname: 'available',
     })
     const [passwordStrength, setPasswordStrength] = useState(0)
     const [formProgress, setFormProgress] = useState(0)
@@ -85,11 +85,11 @@ const Join = () => {
 
             case "nickname":
                 if (!value) {
-                    errors.nickname = "닉네임을 입력해주세요"
+                    errors.nickname = "실명을 입력해주세요"
                 } else if (value.length < 2) {
-                    errors.nickname = "닉네임은 2자 이상이어야 합니다"
+                    errors.nickname = "실명은 2자 이상이어야 합니다"
                 } else if (value.length > 20) {
-                    errors.nickname = "닉네임은 20자 이하여야 합니다"
+                    errors.nickname = "실명은 20자 이하여야 합니다"
                 } else {
                     delete errors.nickname
                 }
@@ -193,7 +193,7 @@ const Join = () => {
         })
 
         // 중복 체크 확인
-        if (duplicateStatus.username !== "available" || duplicateStatus.nickname !== "available") {
+        if (duplicateStatus.username !== "available") {
             alert("아이디와 닉네임 중복 확인을 완료해주세요")
             return
         }
@@ -334,7 +334,7 @@ const Join = () => {
                     <div className={s.inputGroup}>
                         <label className={s.inputLabel} htmlFor="nickname">
                             <span className={s.labelIcon}>🏷️</span>
-                            닉네임
+                            이름
                             <span className={s.required}>*</span>
                         </label>
                         <div className={s.inputWithButton}>
@@ -346,7 +346,7 @@ const Join = () => {
                                     id="nickname"
                                     type="text"
                                     className={s.input}
-                                    placeholder="다른 사용자에게 보여질 이름 (2-20자)"
+                                    placeholder="반드시 실명을 입력해주세요 (2-20자)"
                                     value={signupData.nickname || ""}
                                     onChange={(e) => handleInputChange("nickname", e.target.value)}
                                     onFocus={() => setFocusedField("nickname")}
@@ -354,7 +354,7 @@ const Join = () => {
                                     required
                                 />
                             </div>
-                            <button
+                            {/* <button
                                 type="button"
                                 className={`${s.duplicateButton} ${duplicateStatus.nickname === "available" ? s.success : ""} ${duplicateStatus.nickname === "taken" ? s.error : ""}`}
                                 onClick={() => handleDuplicateCheck("nickname")}
@@ -375,7 +375,7 @@ const Join = () => {
                                 ) : (
                                     "중복확인"
                                 )}
-                            </button>
+                            </button> */}
                         </div>
                         {validationErrors.nickname && (
                             <div className={s.errorMessage}>

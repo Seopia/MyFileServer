@@ -87,36 +87,23 @@ export const deleteFile = async (fileCode, callBack) => {
 }
 /**
  * 개인 클라우드 전용 파일 분할 업로드 함수
- * @param {*} file 파일
- * @param {*} description 파일 이름
- * @param {*} folderCode 폴더 코드
- * @param {*} callBack 업로드 완료 후 실행 함수
- * @param {*} setPercent 퍼센트
+ * 내부적으로 공통 uploadChunk 모듈을 사용합니다.
+ * @param {File}     file          - 업로드할 파일
+ * @param {string}   description   - 파일 설명(이름)
+ * @param {number}   folderCode    - 저장할 폴더 코드
+ * @param {function} setPercent    - 퍼센트 상태 setter
+ * @param {function} setUploadState - 업로드 상태 setter
+ * @param {function} callBack      - 완료 콜백
  */
 export async function uploadChunk(file, description, folderCode, setPercent, setUploadState, callBack) {
-  console.log('진입');
-  
-  setUploadState(p=>({...p, loading:true}));
-  const chunkSize = 50 * 1024 * 1024; // 50MB
-  const totalChunks = Math.ceil(file.size / chunkSize);
-  
-  for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
-      const chunk = file.slice(chunkIndex * chunkSize, (chunkIndex + 1) * chunkSize);
-      const isMergeChunk = chunkIndex === totalChunks - 2;
-      const response = await api.post("/main/chunk", {chunk:chunk,chunkIndex:chunkIndex,totalChunks:totalChunks,originalFileName:file.name,description:description,fileSize:file.size,folderCode:folderCode}
-          ,{headers:{ignoreTimeout:isMergeChunk}}
-      );
-      if(response.data.fileCode){
-        //병합 완료 후
-          callBack(response.data);
-      } else if(isMergeChunk){
-        //병합 중
-          setPercent(`병합 작업 중..`);
-          setUploadState(p=>({...p, merging: true}));
-      } else {
-        //업로드 중
-          setUploadState(p=>({...p, uploading: true}));
-          setPercent(Math.floor((chunkIndex/totalChunks) * 100));
-      }
-  }
+    const { uploadChunk: _uploadChunk } = await import('../common/uploadChunk');
+    await _uploadChunk(
+        file,
+        description,
+        '/main/chunk',
+        { folderCode },
+        setPercent,
+        (state) => setUploadState((p) => ({ ...p, ...state })),
+        callBack
+    );
 }

@@ -1,215 +1,237 @@
 /* 메인 컨테이너 */
 .container {
-    min-height: 100vh;
-    width: 100vw;
-    background-color: #242424;
-    color: #ffffff;
-    padding: 2rem;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #242424;
+  color: #ffffff;
+  padding: 2rem;
 }
 
 /* 헤더 */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding: 2rem;
-    background-color: rgba(40, 40, 40, 0.9);
-    border: 1px solid #444;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.optionContainer {
+  display: flex;
+  gap: 20px;
 }
 
 .pageTitle {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.pageSubTitle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  font-weight: 550;
+  color: #ffffff;
+  margin: 0;
+}
+
+.subTitleIcon {
+  font-size: 1.5rem;
+  color: #7965c1;
 }
 
 .titleIcon {
-    font-size: 2.5rem;
-    color: #7965c1;
+  font-size: 2.5rem;
+  color: #7965c1;
 }
 
 .headerStats {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .statItem {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, rgba(121, 101, 193, 0.2), rgba(121, 101, 193, 0.1));
-    border: 1px solid rgba(121, 101, 193, 0.3);
-    border-radius: 12px;
-    padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(121, 101, 193, 0.2), rgba(121, 101, 193, 0.1));
+  border: 1px solid rgba(121, 101, 193, 0.3);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
 }
 
 .statIcon {
-    font-size: 1.25rem;
-    color: #7965c1;
+  font-size: 1.25rem;
+  color: #7965c1;
 }
 
 .statLabel {
-    font-size: 0.875rem;
-    color: #bbb;
+  font-size: 0.875rem;
+  color: #bbb;
 }
 
 .statValue {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #7965c1;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #7965c1;
 }
 
 /* 검색 섹션 */
 .searchSection {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .searchContainer {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    background-color: rgba(40, 40, 40, 0.9);
-    border: 1px solid #444;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .searchInputContainer {
-    position: relative;
-    flex: 1;
-    max-width: 400px;
+  position: relative;
+  flex: 1;
+  max-width: 400px;
 }
 
 .searchIcon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.125rem;
-    color: #7965c1;
-    pointer-events: none;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.125rem;
+  color: #7965c1;
+  pointer-events: none;
 }
 
 .searchInput {
-    width: calc(100% - 4rem);
-    padding: 0.875rem 1rem 0.875rem 3rem;
-    background-color: #333;
-    border: 2px solid #555;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+  width: calc(100% - 4rem);
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  background-color: #333;
+  border: 2px solid #555;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 .searchInput:focus {
-    outline: none;
-    border-color: #7965c1;
-    box-shadow: 0 0 0 3px rgba(121, 101, 193, 0.3);
-    background-color: #3a3a3a;
+  outline: none;
+  border-color: #7965c1;
+  box-shadow: 0 0 0 3px rgba(121, 101, 193, 0.3);
+  background-color: #3a3a3a;
 }
 
 .searchInput::placeholder {
-    color: #888;
+  color: #888;
 }
 
 .searchButton,
 .resetButton {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .searchButton {
-    box-shadow: 0 4px 12px rgba(121, 101, 193, 0.3);
+  box-shadow: 0 4px 12px rgba(121, 101, 193, 0.3);
 }
 
 .searchButton:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(121, 101, 193, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(121, 101, 193, 0.4);
 }
 
 .resetButton {
-    background-color: transparent;
-    color: #bbb;
-    border: 2px solid #555;
+  background-color: transparent;
+  color: #bbb;
+  border: 2px solid #555;
 }
 
 .resetButton:hover {
-    background-color: rgba(85, 85, 85, 0.3);
-    border-color: #777;
-    color: white;
+  background-color: rgba(85, 85, 85, 0.3);
+  border-color: #777;
+  color: white;
 }
 
 .buttonIcon {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 /* 테이블 섹션 */
 .tableSection {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .tableContainer {
-    background-color: rgba(40, 40, 40, 0.9);
-    border: 1px solid #444;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #444;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
 }
 
 .userTable {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .tableHeader {
-    background: linear-gradient(135deg, #7965c1, #6b5bb3);
+  background: linear-gradient(135deg, #7965c1, #6b5bb3);
 }
 
 .headerCell {
-    padding: 1rem;
-    text-align: left;
-    font-weight: 600;
-    color: white;
-    font-size: 0.875rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: white;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .headerCell:first-child {
-    border-top-left-radius: 16px;
+  border-top-left-radius: 16px;
 }
 
 .headerCell:last-child {
-    border-top-right-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .headerIcon {
-    margin-right: 0.5rem;
-    font-size: 1rem;
+  margin-right: 0.5rem;
+  font-size: 1rem;
 }
 
 .tableBody {
-    background-color: rgba(50, 50, 50, 0.5);
+  background-color: rgba(50, 50, 50, 0.5);
 }
+
 .pagination {
   display: flex;
   justify-content: center;

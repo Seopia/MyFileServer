@@ -1,0 +1,74 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+
+            echo "스크립트 실행"
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            cd /mnt/ssd/cicd/MyFileServer
+
+            echo "Git 최신화 시작"
+            git fetch origin
+            git reset --hard origin/main
+            git clean -fd
+            echo "Git 최신화 완료"
+
+            echo "프론트 배포 시작"
+            cd /mnt/ssd/cicd/MyFileServer/my-file-server-front
+
+            npm install
+            echo "패키지 설치 완료"
+
+            npm run build
+            echo "빌드 완료"
+
+            sudo mkdir -p /mnt/ssd/nginx/cloud
+            sudo rm -rf /mnt/ssd/nginx/cloud/*
+            sudo cp -r build/* /mnt/ssd/nginx/cloud/
+
+            sudo chown -R seopia:www-data /mnt/ssd/nginx/cloud
+            echo "폴더 소유자 변경 완료"
+
+            sudo nginx -t
+            sudo systemctl restart nginx
+            echo "프론트 배포 완료"
+
+            echo "백앤드 서버 배포 시작"
+
+            pkill -f "java -jar /mnt/ssd/server/app.jar" || true
+            sleep 3
+
+            cd /mnt/ssd/cicd/MyFileServer/my-file-server-back
+
+            chmod +x ./gradlew
+            ./gradlew clean build -x test
+            echo "백엔드 빌드 완료"
+
+            sudo mkdir -p /mnt/ssd/server
+            sudo cp build/libs/*.jar /mnt/ssd/server/app.jar
+            sudo chown seopia:seopia /mnt/ssd/server/app.jar
+
+            nohup java -jar /mnt/ssd/server/app.jar > /mnt/ssd/server/app.log 2>&1 &
+            echo "백엔드 서버 실행 명령 완료"
+
+            echo "백앤드 서버 배포 완료"

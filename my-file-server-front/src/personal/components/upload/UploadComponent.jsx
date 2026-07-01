@@ -22,10 +22,8 @@ export default function UploadComponent({ uploadState, uploadPercent, setFile, u
     setIsDragging(false)
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      const droppedFile = e.dataTransfer.files[0]
-      // 파일 객체를 이벤트로 변환하여 handleFileChange에 전달
-      const mockEvent = { target: { files: [droppedFile] } }
-      setFile(p=>({...p,file: mockEvent}))
+      const droppedFile = e.dataTransfer.files[0]      
+      setFile(p=>({...p,file: droppedFile}))
     }
   }
 

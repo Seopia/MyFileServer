@@ -1,15 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import s from './UserDataComponent.module.css';
 import { adminToggleUser } from '../../apiFunction';
+import { formattedDateTime } from '../../../main/function';
 const UserDataComponent = ({ user, setUsers }) => {
     const nav = useNavigate();
     const goToUserPage = () => {
         nav(`/user/${user.userCode}`)
     }
-    const showPassword = () => {
-        alert(`비밀번호: ${user.rpw}`)
-    }
-    const toggleUserActivate = (userCode) => {
+    const toggleUserActivate = (userCode) => {        
         adminToggleUser(userCode, res => {
             setUsers(users => users.map(user => user.userCode === userCode ? { ...user, enable: !user.enable } : user));
         })
@@ -17,7 +15,7 @@ const UserDataComponent = ({ user, setUsers }) => {
 
     return (
         <tr className={s.userRow}>
-            <td className={s.userCode}>{user.userCode}</td>
+            <td className={s.userCode}>{user.lastLoginTime!==null?formattedDateTime(user.lastLoginTime):'없음'}</td>
             <td className={user.userRole === "ROLE_ADMIN" ? s.adminId : s.userId} onClick={goToUserPage}>
                 <div className={s.userIdContainer}>
                     {user.userRole === "ROLE_ADMIN" && <span className={s.adminBadge}>👑</span>}
@@ -35,9 +33,9 @@ const UserDataComponent = ({ user, setUsers }) => {
                     {user.userRole === "ROLE_ADMIN" ? "관리자" : "유저"}
                 </span>
             </td>
-            <td className={s.passwordCell} onClick={showPassword}>
+            <td className={s.passwordCell}>
                 <div className={s.passwordContainer}>
-                    <span className={s.passwordIcon}>🔒</span>
+                    <span className={s.passwordIcon}>{user.nickname}</span>
                 </div>
             </td>
         </tr>

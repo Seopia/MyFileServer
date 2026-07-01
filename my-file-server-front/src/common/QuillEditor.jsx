@@ -1,109 +1,153 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css'; // 기본 테마
-import './QuillEditor.css';
-
+import "react-quill/dist/quill.snow.css";
+import "./QuillEditor.css";
 import api from "./api";
 
-const QuillEditor = ({ newForum, setNewForum, placeholder = '작성해보세요 아무렇게나', publicFile = false }) => {
+const downloadBaseUrl = process.env.REACT_APP_IP + "/download";
 
-
-  // const [content, setContent] = useState();
+const QuillEditor = ({
+  newForum,
+  setNewForum,
+  placeholder = "작성해보세요 아무렇게나",
+  publicFile = false,
+  readOnly = false,
+  editorHeight = 360,
+}) => {
   const quillRef = useRef(null);
 
+  const modules = useMemo(
+    () => ({
+      toolbar: [
+        [{ header: [1, 2, 3, 4, false] }],
+        ["bold", "italic", "underline", "strike"],
+        ["blockquote", "code-block"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image"],
+        [{ color: [] }, { align: [] }],
+        [{ size: ["small", false, "large", "huge"] }],
+      ],
+      clipboard: {
+        matchVisual: false,
+      },
+    }),
+    []
+  );
 
-
-
-  const modules = {
-    toolbar: [
-
-      [{ header: [1, 2, 3, 4, false] }],
-      ['bold', 'italic', 'underline'],
-      ['blockquote', 'code-block', 'image'],
-      [{ color: [] }, { align: [] }],
-      [{ size: ['small', false, 'large', 'huge'] }],
+  const formats = useMemo(
+    () => [
+      "header",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "blockquote",
+      "code-block",
+      "list",
+      "bullet",
+      "link",
+      "image",
+      "color",
+      "align",
+      "size",
     ],
-  }
-
-
+    []
+  );
 
   useEffect(() => {
+    const editor = quillRef.current?.getEditor();
+    if (!editor) return;
 
-    const handleImage = () => {
+    const uploadImageFile = async (file) => {
+      const range = editor.getSelection(true) || { index: editor.getLength(), length: 0 };
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
 
+        const url = publicFile ? "/public/image" : "/forum/image";
+        const response = await api.post(url, formData);
+        const savedFileName =
+          typeof response.data === "string"
+            ? response.data
+            : response.data?.filename || response.data?.fileName || "";
+
+        if (!savedFileName) {
+          throw new Error("이미지 업로드 응답이 올바르지 않습니다.");
+        }
+
+        const imageUrl = `${downloadBaseUrl.replace(/\/$/, "")}/${savedFileName}`;
+        editor.insertEmbed(range.index, "image", imageUrl);
+        editor.insertText(range.index + 1, "\n");
+        editor.setSelection(range.index + 2);
+      } catch (error) {
+        console.error("이미지 업로드 실패:", error);
+      }
+    };
+
+    const handleImageUpload = () => {
       const input = document.createElement("input");
       input.setAttribute("type", "file");
       input.setAttribute("accept", "image/*");
       input.click();
+
       input.onchange = async () => {
-
-        const file = input.files[0];
-        // const {getEditor} = quillRef.current;
-        const range = quillRef.current.getEditor().getSelection(true);
-
-        try {
-          if (publicFile) {
-            const { data } = await api.post(`/public/image`, { file: file });
-            // const url = `http://localhost:8080/download/${data}`;
-            const url = `https://www.seopia.online/download/${data}`;
-            quillRef.current.getEditor().insertEmbed(range.index, "image", url);
-          } else {
-            const { data } = await api.post('/forum/image', { file: file });
-            const url = `https://www.seopia.online/download/${data}`;
-            // const url = `http://localhost:8080/download/${data}`;
-            quillRef.current.getEditor().insertEmbed(range.index, "image", url);
-
-          }
-          quillRef.current.insertText(range.index + 1, "\n");
-          quillRef.current.setSelection(range.index + 2);
-        } catch (e) {
-          console.log(e);
-
-        }
+        const file = input.files?.[0];
+        if (!file) return;
+        await uploadImageFile(file);
       };
+    };
+
+    const toolbar = editor.getModule("toolbar");
+    toolbar.addHandler("image", handleImageUpload);
+
+    const handleDrop = async (event) => {
+      event.preventDefault();
+      const dataTransfer = event.dataTransfer;
+      if (!dataTransfer) return;
+
+      const file = dataTransfer.files?.[0] || Array.from(dataTransfer.items || [])
+        .map((item) => (item.kind === "file" ? item.getAsFile() : null))
+        .find(Boolean);
+      if (!file || !file.type.startsWith("image/")) return;
+
+      await uploadImageFile(file);
+    };
+
+    const editorContainer = quillRef.current?.editor?.root?.parentNode;
+    if (editorContainer) {
+      editorContainer.addEventListener("dragover", (e) => e.preventDefault());
+      editorContainer.addEventListener("drop", handleDrop);
     }
 
-    if (quillRef.current) {
-
-      const toolbar = quillRef.current.getEditor().getModule("toolbar");
-      toolbar.addHandler("image", handleImage);
-
-    }
-  }, [])
+    return () => {
+      if (editorContainer) {
+        editorContainer.removeEventListener("drop", handleDrop);
+      }
+    };
+  }, [publicFile]);
 
   const handleChange = (value) => {
-    const editor = quillRef.current?.getEditor();
-    if (!editor) return;
-    const length = editor.getLength();
-    setTimeout(() => {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth',
-      });
-    }, 0);
+    const content = value === "<p><br></p>" ? "" : value;
     setNewForum((prev) => ({
       ...prev,
-      content: value
+      content,
     }));
-
-  }
-
-
-
+  };
 
   return (
-    <div style={{ cursor: 'text' }} onClick={() => { quillRef.current.focus() }}>
+    <div className="quill-editor-wrapper" style={{ minHeight: editorHeight }}>
       <ReactQuill
-        style={{ overflowY: "unset" }}
-        modules={modules}
         ref={quillRef}
+        theme="snow"
+        modules={modules}
+        formats={formats}
+        value={newForum?.content ?? ""}
         onChange={handleChange}
-        value={newForum.content}
         placeholder={placeholder}
+        readOnly={readOnly}
       />
     </div>
   );
-
-}
+};
 
 export default QuillEditor;

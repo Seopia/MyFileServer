@@ -47,7 +47,7 @@ const SideBar = () => {
                     <ul className={s.list}>
                         <li onClick={() => { nav(`/personal`) }}>개인 클라우드</li>
                         <li onClick={() => { nav(mainUrl) }}>공용 클라우드</li>
-                        <li onClick={() => nav('group/select')}>그룹 클라우드 (임시 제거)</li>
+                        <li onClick={() => nav('group/select')}>그룹 클라우드 (베타)</li>
                         {/* <li onClick={() => nav('/forum')}>자유 게시판</li> */}
                         {data && data.userRole === 'ROLE_ADMIN' && <li onClick={() => nav('/admin/user')}>관리자 페이지</li>}
                         {/* {data && data.userRole === 'ROLE_ADMIN'&&<li onClick={()=>nav('/t')}>테스트 페이지</li>} */}

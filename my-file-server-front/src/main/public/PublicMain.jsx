@@ -96,7 +96,7 @@ const PublicMain = () => {
         </div>
 
         <div className={s.categoryContainer}>
-          {categories.map((c, index) => (
+          {categories?.map((c, index) => (
             <div
               key={c.eng}
               className={`${s.categoryItem} ${category === c.eng ? s.active : ''}`}
@@ -126,7 +126,7 @@ const PublicMain = () => {
             </div>
           ) : (
             <div className={s.fileGrid}>
-              {files.map((file, index) => (
+              {files?.map((file, index) => (
                 <div
                   key={file.fileCode}
                   className={s.fileCard}
