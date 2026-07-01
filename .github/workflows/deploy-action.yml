@@ -24,7 +24,9 @@ jobs:
 
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
+            export JAVA_HOME="/home/seopia/.sdkman/candidates/java/17.0.1-librca"
+            export PATH="$JAVA_HOME/bin:$PATH"
+            
             cd /mnt/ssd/cicd/MyFileServer
 
             echo "Git 최신화 시작"
