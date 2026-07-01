@@ -55,8 +55,15 @@ jobs:
 
             echo "백앤드 서버 배포 시작"
 
-            pkill -f "java -jar /mnt/ssd/server/app.jar" || true
-            sleep 3
+            PIDS=$(pgrep -f "[j]ava -jar /mnt/ssd/server/app.jar" || true)
+
+            if [ -n "$PIDS" ]; then
+              echo "기존 백엔드 프로세스 종료: $PIDS"
+              kill $PIDS
+              sleep 3
+            else
+              echo "기존 백엔드 프로세스 없음"
+            fi
 
             cd /mnt/ssd/cicd/MyFileServer/my-file-server-back
 
