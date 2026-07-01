@@ -26,7 +26,7 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
             export JAVA_HOME="/home/seopia/.sdkman/candidates/java/17.0.1-librca"
             export PATH="$JAVA_HOME/bin:$PATH"
-            
+
             cd /mnt/ssd/cicd/MyFileServer
 
             echo "Git 최신화 시작"
@@ -64,7 +64,7 @@ jobs:
             echo "백엔드 빌드 완료"
 
             sudo mkdir -p /mnt/ssd/server
-            sudo cp build/libs/*.jar /mnt/ssd/server/app.jar
+            sudo cp build/libs/bu200-0.0.1-SNAPSHOT.jar /mnt/ssd/server/app.jar
             sudo chown seopia:seopia /mnt/ssd/server/app.jar
 
             sudo systemctl restart cloud-backend
