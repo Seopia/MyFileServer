@@ -9,15 +9,13 @@ import com.website.publicfile.entity.*;
 import com.website.publicfile.repository.*;
 import com.website.security.dto.CustomUserDetails;
 import com.website.security.entity.User;
-import com.website.security.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.website.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

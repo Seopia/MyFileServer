@@ -8,7 +8,7 @@ import com.website.mainpage.repository.FileRepository;
 import com.website.mainpage.repository.FolderRepository;
 import com.website.security.dto.CustomUserDetails;
 import com.website.security.entity.User;
-import com.website.security.repository.UserRepository;
+import com.website.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -24,6 +24,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.website.mainpage.entity.MainUserEntity;
+import com.website.mainpage.repository.MainUserRepository;
+
 @Service
 public class MainPageService {
     @Value("${file.download-url}")
@@ -32,11 +35,15 @@ public class MainPageService {
     private final UserRepository userRepository;
     private final FileRepository fileRepository;
     private final FolderRepository folderRepository;
-    public MainPageService(Tool tool, UserRepository userRepository, FileRepository fileRepository, FolderRepository folderRepository) {
+    private final MainUserRepository mainUserRepository;
+
+    public MainPageService(Tool tool, UserRepository userRepository, FileRepository fileRepository,
+                           FolderRepository folderRepository, MainUserRepository mainUserRepository) {
         this.tool = tool;
         this.userRepository = userRepository;
         this.fileRepository = fileRepository;
         this.folderRepository = folderRepository;
+        this.mainUserRepository = mainUserRepository;
     }
 
     private FileEntity uploadFile(MultipartFile file, String description, CustomUserDetails user, boolean isPrivate){
@@ -96,6 +103,7 @@ public class MainPageService {
     }
     @Transactional
     public void increaseDownloadCount(Long fileCode) {
+        System.out.println("??");
         FileEntity fileEntity = fileRepository.findById(fileCode).orElseThrow();
         fileEntity.setDownload_count(fileEntity.getDownload_count() + 1);
     }
@@ -206,5 +214,14 @@ public class MainPageService {
                     e.getSize()
             );
         }
+    }
+
+    /**
+     * id(아이디)로 유저 검색 — 그룹 멤버 초대 시 사용
+     * @param id 검색할 아이디 키워드
+     * @return 매칭된 유저 목록
+     */
+    public List<MainUserEntity> searchUsers(String id) {
+        return mainUserRepository.findAllByUserId("%" + id + "%");
     }
 }

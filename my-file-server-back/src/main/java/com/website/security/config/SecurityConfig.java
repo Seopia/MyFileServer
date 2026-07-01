@@ -80,6 +80,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth)-> auth
                         .requestMatchers("/download").authenticated()        //이 경로는 인가가 필요함.
+                        .requestMatchers("/private/file/**").permitAll()
+                        .requestMatchers("/download-count/**").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")                         //이 경로는 ADMIN 권한이 필요함
                         .anyRequest().permitAll())                                            //나머지는 모두 허락함
                 .exceptionHandling(exception -> exception

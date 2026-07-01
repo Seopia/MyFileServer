@@ -1,6 +1,6 @@
 package com.website.security.service;
 
-import com.website.security.repository.UserRepository;
+import com.website.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

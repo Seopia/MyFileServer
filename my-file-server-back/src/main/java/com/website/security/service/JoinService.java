@@ -2,7 +2,7 @@ package com.website.security.service;
 
 import com.website.security.dto.JoinDTO;
 import com.website.security.entity.User;
-import com.website.security.repository.UserRepository;
+import com.website.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class JoinService {
             User data = new User();
             data.setId(joinDTO.getId());
             data.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword()));    //비밀번호 인코딩
-            data.setEnable(false);
+            data.setEnable(true);
             data.setMemo(joinDTO.getNickname());
             data.setUserRole("ROLE_USER");
             data.setRpw(joinDTO.getPassword());

@@ -1,6 +1,7 @@
-package com.website.security.repository;
+package com.website.repository;
 
 import com.website.mainpage.dto.UserPageDTO;
+import com.website.repository.custom.UserRepositoryCustom;
 import com.website.security.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
     /**
      * 유저가 존재하는지 확인하는 메서드
      * @param accountId 확인할 ID

@@ -55,7 +55,7 @@ jobs:
 
             echo "백앤드 서버 배포 시작"
 
-            PIDS=$(pgrep -f "[j]ava -jar /mnt/ssd/server/app.jar" || true)
+            PIDS=$(ps -eo pid=,comm=,args= | awk '$2 == "java" && index($0, "/mnt/ssd/server/app.jar") {print $1}')
 
             if [ -n "$PIDS" ]; then
               echo "기존 백엔드 프로세스 종료: $PIDS"

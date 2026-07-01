@@ -21,6 +21,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:"+publicFileImageUploadDir+"/")
                 .setCachePeriod(0)
                 .resourceChain(true);
+        registry.addResourceHandler("/private/file/**")
+                .addResourceLocations("file:"+uploadDir+"/")
+                .setCachePeriod(0)
+                .resourceChain(true);
     }
 }
 

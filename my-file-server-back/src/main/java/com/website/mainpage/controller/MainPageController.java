@@ -32,9 +32,11 @@ public class MainPageController {
     @Value("${file.upload-dir}")
     private String uploadDir;
     private final MainPageService mainService;
+    private final com.website.common.Tool tool;
 
-    public MainPageController(MainPageService mainService) {
+    public MainPageController(MainPageService mainService, com.website.common.Tool tool) {
         this.mainService = mainService;
+        this.tool = tool;
     }
 
     @GetMapping("/file/public")
@@ -51,6 +53,15 @@ public class MainPageController {
     public ResponseEntity<UserDto> getUser(@AuthenticationPrincipal CustomUserDetails user){
         return ResponseEntity.ok().body(mainService.getUser(user));
     }
+
+    /**
+     * 아이디 키워드로 유저 검색 — 그룹 멤버 초대 시 사용
+     */
+    @GetMapping("/users")
+    public ResponseEntity<?> searchUsers(@RequestParam String id) {
+        return ResponseEntity.ok().body(mainService.searchUsers(id));
+    }
+
     @GetMapping("/other-user/{userCode}")
     public ResponseEntity<?> getUser(@PathVariable Long userCode){
         try{
@@ -156,8 +167,8 @@ public class MainPageController {
                 String finalFileName = UUID.randomUUID() + "-" + originalFileName;
                 String finalFilePath = uploadDir+ "/" + finalFileName;
                 System.out.println("청크 병합 중..");
-                // 청크 병합
-                mergeChunks(totalChunks, tempFileDir, finalFilePath);
+                // Tool 공통 메서드 사용
+                tool.mergeChunks(totalChunks, tempFileDir, finalFilePath);
                 System.out.println("청크 병합 완료");
                 System.out.println(finalFilePath+"에 저장했습니다.");
                 UserUploadFileDTO r = mainService.uploadChunk(originalFileName, finalFileName, description, fileSize, user,folderCode);
@@ -170,18 +181,6 @@ public class MainPageController {
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Chunk upload failed");
         }
-    }
-    private void mergeChunks(int totalChunks, String tempFileDir, String finalFilePath) throws IOException {
-        try (OutputStream outputStream = new FileOutputStream(finalFilePath)) {
-            for (int i = 0; i < totalChunks; i++) {
-                Path chunkPath = Paths.get(tempFileDir, "chunk-" + i);
-                Files.copy(chunkPath, outputStream);
-                Files.delete(chunkPath); // 청크 삭제
-                System.out.println("청크 "+i+" 작업 완료, 청크 삭제 완료");
-            }
-        }
-        System.out.println("임시 디렉토리 삭제 = " + tempFileDir);
-        Files.delete(Paths.get(tempFileDir)); // 임시 디렉토리 삭제
     }
     @PostMapping("/folder-name")
     public ResponseEntity<?> modifyFolderName(@RequestParam("folderCode") Long folderCode,@RequestParam("description") String description){

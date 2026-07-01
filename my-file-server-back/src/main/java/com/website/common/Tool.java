@@ -13,9 +13,14 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -92,6 +97,26 @@ public class Tool {
      * @param fileName 삭제할 파일 이름
      * @return 파일 삭제 성공 여부
      */
+    /**
+     * 청크 파일들을 하나의 파일로 병합하고 임시 디렉토리를 삭제합니다.
+     * 개인 클라우드 및 그룹 클라우드 공용으로 사용합니다.
+     * @param totalChunks 전체 청크 수
+     * @param tempFileDir 청크가 저장된 임시 디렉토리 경로
+     * @param finalFilePath 병합 완료 파일 저장 경로
+     */
+    public void mergeChunks(int totalChunks, String tempFileDir, String finalFilePath) throws IOException {
+        try (OutputStream outputStream = new FileOutputStream(finalFilePath)) {
+            for (int i = 0; i < totalChunks; i++) {
+                Path chunkPath = Paths.get(tempFileDir, "chunk-" + i);
+                Files.copy(chunkPath, outputStream);
+                Files.delete(chunkPath);
+                System.out.println("청크 " + i + " 병합 완료 및 삭제");
+            }
+        }
+        Files.delete(Paths.get(tempFileDir));
+        System.out.println("임시 디렉토리 삭제 완료: " + tempFileDir);
+    }
+
     public boolean deleteFile(String fileName) {
         if (fileName != null && !fileName.isEmpty()) {
             String filePath = uploadDir + File.separator + fileName;
