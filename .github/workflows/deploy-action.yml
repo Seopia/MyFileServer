@@ -55,16 +55,6 @@ jobs:
 
             echo "백앤드 서버 배포 시작"
 
-            PIDS=$(ps -eo pid=,comm=,args= | awk '$2 == "java" && index($0, "/mnt/ssd/server/app.jar") {print $1}')
-
-            if [ -n "$PIDS" ]; then
-              echo "기존 백엔드 프로세스 종료: $PIDS"
-              kill $PIDS
-              sleep 3
-            else
-              echo "기존 백엔드 프로세스 없음"
-            fi
-
             cd /mnt/ssd/cicd/MyFileServer/my-file-server-back
 
             chmod +x ./gradlew
@@ -75,7 +65,7 @@ jobs:
             sudo cp build/libs/*.jar /mnt/ssd/server/app.jar
             sudo chown seopia:seopia /mnt/ssd/server/app.jar
 
-            nohup java -jar /mnt/ssd/server/app.jar > /mnt/ssd/server/app.log 2>&1 &
+            sudo systemctl restart cloud-backend
             echo "백엔드 서버 실행 명령 완료"
 
             echo "백앤드 서버 배포 완료"
